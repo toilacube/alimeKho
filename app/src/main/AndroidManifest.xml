@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        tools:targetApi="31">
+        <activity
+            android:name=".Activity.CTPNKActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.QLPNKActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".Activity.CTPXKActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.QLPXKActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".Activity.CreatePXK3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CreatePXK2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CreatePXK1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CreatePNK3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CreatePNK2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AreaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DetailAreaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DetailEmployeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.EmployeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.HomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.CreatePNK1Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Activity.DetailSanPham"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".Activity.SanPhamActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

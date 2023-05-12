@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/tv_id"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="A13-43" />
+    <TextView
+        android:id="@+id/tv_area"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="A" />
+    <TextView
+        android:id="@+id/tv_shelf"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="13" />
+    <TextView
+        android:id="@+id/tv_bin"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="43" />
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Còn trống" />
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/img_xoa" />
+    <ImageView
+        android:id="@+id/img_update"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/img_cap_nhat" />
+
+</LinearLayout>

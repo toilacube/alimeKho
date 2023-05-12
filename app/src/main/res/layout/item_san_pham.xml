@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_gravity="center"
+    android:weightSum="31"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="center"
+        android:weightSum="27"
+        android:layout_weight="27"
+        >
+
+    <TextView
+        android:id="@+id/txvID"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Mã sản phẩm"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_weight="4"
+        />
+    <TextView
+        android:id="@+id/txvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Tên sản phẩm"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_weight="8"
+        />
+    <TextView
+        android:id="@+id/txvSoLuong"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Số lượng"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_weight="3"/>
+    <TextView
+        android:id="@+id/txvDonGia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Đơn giá"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_weight="4"/>
+    <TextView
+        android:id="@+id/txvNSX"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="NSX"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_weight="4"/>
+    <TextView
+        android:id="@+id/txvHSD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="HSD"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_weight="4"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+    <ImageView
+        android:id="@+id/img_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/ic_trash" />
+    <ImageView
+        android:id="@+id/img_update"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/ic_update" />
+
+    </LinearLayout>
+</LinearLayout>
