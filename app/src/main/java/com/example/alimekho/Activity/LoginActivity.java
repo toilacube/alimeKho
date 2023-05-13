@@ -40,24 +40,22 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui long nhap ten va mat khau", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    SQLServerConnection db = new SQLServerConnection();
-                    Connection conn = db.getConnection();
-                    try {
-                        Statement stm = conn.createStatement();
-                        String checkLoginQuery = "select * from account where user_name='" + userName + "' and password=" + pass;
-                        ResultSet rs = stm.executeQuery(checkLoginQuery);
-                        if(rs.next()){
-                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Sai ten dang nhap hoac mat khau", Toast.LENGTH_LONG).show();
-                        }
+                        SQLServerConnection db = new SQLServerConnection();
+                        Connection conn = db.getConnection();
+                        try {
+                            Statement stm = conn.createStatement();
+                            String checkLoginQuery = "select * from account where user_name='" + userName + "' and password= '" + pass + "'";
+                            ResultSet rs = stm.executeQuery(checkLoginQuery);
+                            if (rs.next()) {
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Sai ten dang nhap hoac mat khau", Toast.LENGTH_LONG).show();
+                            }
 
-                    }
-                    catch (SQLException e){
-                        e.printStackTrace();
-                    }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                 }
 
             }
