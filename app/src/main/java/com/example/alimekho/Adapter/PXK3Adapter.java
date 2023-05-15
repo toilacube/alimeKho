@@ -27,7 +27,7 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
     @NonNull
     @Override
     public PXK3ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_pxk1, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_pxk3, parent, false);
         return new PXK3ViewHolder(view);
     }
     @Override
@@ -36,7 +36,7 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
         holder.txtmaSP.setText(ctpxk.getSanPham().getMaSP().toString().trim());
         holder.txttenSP.setText(ctpxk.getSanPham().getTenSP().toString().trim());
         holder.txtdonGia.setText(Double.toString(ctpxk.getSanPham().getDonGia()));
-        holder.txtsoLuong.setText(Double.toString(ctpxk.getSanPham().getSoLuong()));
+        holder.txtsoLuong.setText(Integer.toString(ctpxk.getSoLuong()));
         holder.txtthanhTien.setText(Double.toString(ctpxk.getThanhTien()));
         holder.txtNSX.setText(ctpxk.getSanPham().getNSX().toString().trim());
         holder.txtHSD.setText(ctpxk.getSanPham().getHSD().toString().trim());
@@ -54,7 +54,7 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
             super(itemView);
             txtmaSP = itemView.findViewById(R.id.custompnk1_txtmaSP);
             txttenSP = itemView.findViewById(R.id.custompnk1_txttenSP);
-            txtdonGia = itemView.findViewById(R.id.custompnk1_txtdonGia);
+            txtdonGia = itemView.findViewById(R.id.txtdonGia);
             txtsoLuong = itemView.findViewById(R.id.custompnk1_txtsoLuong);
             txtNSX = itemView.findViewById(R.id.custompnk1_txtNSX);
             txtHSD = itemView.findViewById(R.id.custompnk1_txtHSD);

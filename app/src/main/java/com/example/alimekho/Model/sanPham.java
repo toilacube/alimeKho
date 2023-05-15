@@ -43,6 +43,13 @@ public class sanPham implements Serializable {
         this.phanLoai = phanLoai;
         this.donViTinh = donViTInh;
     }
+    public sanPham(String maSP, String tenSP, double donGia, String NSX, String HSD) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.donGia = donGia;
+        this.NSX = NSX;
+        this.HSD = HSD;
+    }
 
 
     public String getMaSP() {

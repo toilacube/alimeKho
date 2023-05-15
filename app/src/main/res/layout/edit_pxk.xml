@@ -60,6 +60,7 @@
                         tools:ignore="RtlCompat" />
 
                     <Spinner
+                        android:id="@+id/maPhieu"
                         android:layout_width="290dp"
                         android:layout_height="35dp"
                         android:background="@drawable/spinnerform"
@@ -85,11 +86,13 @@
                         android:textColor="@color/black"
                         tools:ignore="RtlCompat" />
 
-                    <EditText
+                    <Spinner
+                        android:id="@+id/NPT"
                         android:layout_width="290dp"
                         android:layout_height="35dp"
-                        android:background="@color/gray_img"
+                        android:background="@drawable/spinnerform"
                         android:paddingLeft="10dp"
+                        android:text="xxxxxxxxx "
                         android:textColor="@color/black"
                         android:textSize="13dp" />
 
@@ -112,6 +115,7 @@
                         tools:ignore="RtlCompat" />
 
                     <Spinner
+                        android:id="@+id/CHX"
                         android:layout_width="290dp"
                         android:layout_height="35dp"
                         android:background="@drawable/spinnerform"
@@ -139,6 +143,7 @@
                         tools:ignore="RtlCompat" />
 
                     <EditText
+                        android:id="@+id/day"
                         android:layout_width="290dp"
                         android:layout_height="35dp"
                         android:background="@color/gray_img"

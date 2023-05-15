@@ -3,12 +3,36 @@ package com.example.alimekho.Model;
 public class CTPXK {
     private String maPXK;
     private sanPham sanPham;
-    private int thanhTien;
+    private double thanhTien;
+    private int soLuong;
 
-    public CTPXK(String maPXK, com.example.alimekho.Model.sanPham sanPham, int thanhTien) {
+    public CTPXK(String maPXK, com.example.alimekho.Model.sanPham sanPham, int soLuong) {
         this.maPXK = maPXK;
         this.sanPham = sanPham;
+        this.soLuong = soLuong;
+        this.thanhTien = sanPham.getDonGia()*soLuong;
+    }
+
+    public CTPXK(com.example.alimekho.Model.sanPham sanPham, int soLuong) {
+        this.sanPham = sanPham;
+        this.soLuong = soLuong;
+        this.thanhTien = sanPham.getDonGia()*soLuong;
+    }
+
+    public String getMaPXK() {
+        return maPXK;
+    }
+
+    public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
     }
 
     public String getMaPNX() {
@@ -27,7 +51,7 @@ public class CTPXK {
         this.sanPham = sanPham;
     }
 
-    public int getThanhTien() {
+    public double getThanhTien() {
         return thanhTien;
     }
 

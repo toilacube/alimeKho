@@ -13,9 +13,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.R;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,11 +76,11 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
 
         holder.maSP.setText(item.getSanPham().getMaSP());
         holder.tenSP.setText(item.getSanPham().getTenSP());
-        holder.SL.setText(String.valueOf(item.getSanPham().getSoLuong()));
+        holder.SL.setText(String.valueOf(item.getSoLuong()));
         holder.DG.setText(String.valueOf(item.getSanPham().getDonGia()));
         holder.NSX.setText(item.getSanPham().getNSX());
         holder.HSD.setText(item.getSanPham().getHSD());
-        holder.TT.setText(String.valueOf(item.getSanPham().getSoLuong() * item.getSanPham().getDonGia()));
+        holder.TT.setText(String.valueOf(item.getSoLuong() * item.getSanPham().getDonGia()));
         holder.cb.setChecked(false);
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -94,6 +99,25 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
     public void deleteCheckedItems() {
         for (CTPXK ctpxk : listChecked) {
             listCTPXK.remove(ctpxk);
+
+            SQLServerConnection db = new SQLServerConnection();
+            Connection conn = db.getConnection();
+            try {
+                Statement stm = conn.createStatement();
+                stm.executeUpdate( "delete from detail_output where product_id = " + ctpxk.getSanPham().getMaSP());
+                String Query = "UPDATE output_form\n" +
+                        "SET total = \n" +
+                        "(\n" +
+                        "\tSELECT SUM(p.quantity * pr.unit_price) \n" +
+                        "\tFROM detail_output p INNER JOIN product pr ON p.product_id = pr.id \n" +
+                        "\tWHERE p.form_id = output_form.id\t\n" +
+                        ")";
+                stm.executeUpdate(Query);
+                stm.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         listChecked.clear();
         notifyDataSetChanged();

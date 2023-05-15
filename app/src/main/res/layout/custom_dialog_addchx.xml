@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/main"
     android:orientation="vertical"
-    >
+    android:layout_marginHorizontal="50dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:gravity="center"
@@ -17,54 +17,31 @@
         android:text="THÊM CỬA HÀNG XUẤT"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="12"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#fff">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="10dp"
             android:id="@+id/k1">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textStyle="bold"
-                    android:text="Mã cửa hàng xuất:    "
-                    android:textSize="14dp"/>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:id="@+id/txtmaCHX"
-                    android:textSize="14dp"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="Tên cửa hàng xuất: "
                     android:textSize="14dp"/>
                 <EditText
                     android:layout_width="0dp"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-
                     android:id="@+id/txttenCHX"
                     android:textSize="14dp"
                     />
@@ -78,15 +55,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-
                     android:textStyle="bold"
                     android:text="Địa chỉ: "
                     android:textSize="14dp"/>
                 <EditText
                     android:layout_width="0dp"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
-
                     android:id="@+id/txtdiaChi"
                     android:textSize="14dp"
                     />
@@ -106,14 +81,13 @@
                     android:textSize="14dp"/>
                 <EditText
                     android:layout_width="0dp"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
                     android:layout_height="wrap_content"
 
                     android:id="@+id/txtSDT"
                     android:textSize="14dp"
                     />
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

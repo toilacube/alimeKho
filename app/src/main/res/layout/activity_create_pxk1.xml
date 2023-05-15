@@ -116,94 +116,113 @@
         android:layout_marginTop="20dp"
         android:layout_below="@id/gdcreatePXK1_ln3"
         android:orientation="horizontal"
-        android:weightSum="17.5">
+        android:weightSum="16.5">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="2.5">
-
             <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã sản phẩm"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                android:textStyle="bold" />
+                android:layout_centerHorizontal="true"
+                android:id="@+id/customPXK1_txtmaSP"
+                />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:layout_weight="3">
+            android:layout_weight="2.5">
             <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tên sản phẩm"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:id="@+id/customPXK1_txttenSP"
+                />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5">
             <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Số lượng"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"/>
+                android:textSize="13dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/customPXK1_txtsoLuong"
+                />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2">
             <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="Đơn giá"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"/>
+                android:id="@+id/customPXK1_txtdonGia"
+                />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3">
             <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:text="Ngày sản xuất"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"/>
+                android:id="@+id/customPXK1_txtNSX"
+                />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3">
             <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hạn sử dụng"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true"
+                android:id="@+id/customPXK1_txtHSD"
+                />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2">
             <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="Thành tiền"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"/>
+                android:id="@+id/customPXK1_txtThanhTien"
+                />
         </RelativeLayout>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/customPXK1_checkbox"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -213,7 +232,7 @@
         android:layout_above="@id/gdcreatePXK1_btnContinue"
         android:layout_below="@id/gdcreatePXK1_ln2"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp" />
     <Button

@@ -15,20 +15,32 @@ import android.widget.TextView;
 
 import com.example.alimekho.Adapter.PNK1Adapter;
 import com.example.alimekho.Adapter.PXK1Adapter;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.CTPNK;
 import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.nhaCungCap;
+import com.example.alimekho.Model.phieuXuatKho;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class CreatePXK1Activity extends AppCompatActivity {
-
+    SQLServerConnection db = new SQLServerConnection();
+    Connection conn = db.getConnection();
     private Button btnBackHome, btnContinue, btnBack;
     private RecyclerView recyclerView;
     private SearchView searchView;
-    private ArrayList<sanPham> sanPhams, sanPhamDuocChon;
+    private ArrayList<sanPham> sanPhams;
+    private static ArrayList<sanPham> sanPhamDuocChon;
+    public static ArrayList<sanPham> spSelected(){
+        return sanPhamDuocChon;
+    }
     private PXK1Adapter pxk1Adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,23 +51,13 @@ public class CreatePXK1Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         pxk1Adapter = new PXK1Adapter(this, sanPhams);
         recyclerView.setAdapter(pxk1Adapter);
-        btnBackHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        btnBackHome.setOnClickListener(v -> onBackPressed());
+        btnBack.setOnClickListener(v -> onBackPressed());
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sanPhamDuocChon = pxk1Adapter.getSanPhamVV();
-                startActivity(new Intent(CreatePXK1Activity.this, CreatePXK2Activity.class));
+                startActivity( new Intent(CreatePXK1Activity.this, CreatePXK2Activity.class));
             }
         });
         searchView.clearFocus();
@@ -72,6 +74,32 @@ public class CreatePXK1Activity extends AppCompatActivity {
             }
         });
     }
+    public void Init(){
+        btnBackHome = findViewById(R.id.btn_back_createPXK1);
+        btnContinue = findViewById(R.id.gdcreatePXK1_btnContinue);
+        btnBack = findViewById(R.id.gdcreatePXK1_btnBack);
+        recyclerView = findViewById(R.id.gdcreatePXK1_rcv);
+        searchView = findViewById(R.id.gdcreatePXK1_sv);
+        sanPhams = new ArrayList<>();
+        try {
+            Statement stm = conn.createStatement();
+            String Query = "select * from product";
+            ResultSet rs = stm.executeQuery(Query);
+            while (rs.next()) {
+                sanPhams.add(new sanPham(
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getDouble("unit_price"),
+                        rs.getInt("quantity"),
+                        new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NSX")),
+                        new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("HSD"))));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        sanPhamDuocChon = new ArrayList<>();
+    }
+
     private void filterList(String newText) {
         ArrayList<sanPham> filteredList = new ArrayList<>();
         for (sanPham sanPham : sanPhams) {
@@ -80,20 +108,11 @@ public class CreatePXK1Activity extends AppCompatActivity {
                 filteredList.add(sanPham);
             }
         }
-        pxk1Adapter.setFilteredList(filteredList);
-    }
-    public void Init(){
-        btnBackHome = findViewById(R.id.btn_back_createPXK1);
-        btnContinue = findViewById(R.id.gdcreatePXK1_btnContinue);
-        btnBack = findViewById(R.id.gdcreatePXK1_btnBack);
-        recyclerView = findViewById(R.id.gdcreatePXK1_rcv);
-        searchView = findViewById(R.id.gdcreatePXK1_sv);
-        sanPham sanPham = new sanPham("A1", "2", 3, 4, "5", "6");
-        sanPham sanPham1 = new sanPham("1", "2", 3, 4, "5", "6");
-        sanPhams = new ArrayList<>();
-        sanPhams.add(sanPham);
-        sanPhams.add(sanPham1);
-        sanPhamDuocChon = new ArrayList<>();
+
+        if (!filteredList.isEmpty()){
+            pxk1Adapter.setFilteredList(filteredList);
+        }
+
     }
 
 }

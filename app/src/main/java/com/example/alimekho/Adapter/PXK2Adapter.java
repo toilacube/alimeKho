@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.alimekho.Activity.CreatePXK2Activity;
 import com.example.alimekho.Model.cuaHangXuat;
 import com.example.alimekho.Model.nhaCungCap;
 import com.example.alimekho.R;
@@ -17,6 +18,11 @@ import com.example.alimekho.R;
 import java.util.ArrayList;
 
 public class PXK2Adapter extends RecyclerView.Adapter<PXK2Adapter.PXK2ViewHolder>{
+    private OnItemClickListener itemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
     private Context context;
     private ArrayList<cuaHangXuat> cuaHangXuats;
     private cuaHangXuat cuaHangXuatVV;
@@ -42,9 +48,10 @@ public class PXK2Adapter extends RecyclerView.Adapter<PXK2Adapter.PXK2ViewHolder
         holder.txtSDT.setText(cuaHangXuat.getSDT().toString().trim());
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                cuaHangXuatVV = (new cuaHangXuat(cuaHangXuat.getMaCHX().toString().trim(), cuaHangXuat.getTenCHX().toString().trim(),
-                        cuaHangXuat.getDiaChi().toString().trim(), cuaHangXuat.getSDT().toString()));
+            public void onClick(View view) {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(cuaHangXuat);
+                }
             }
         });
     }
@@ -69,5 +76,8 @@ public class PXK2Adapter extends RecyclerView.Adapter<PXK2Adapter.PXK2ViewHolder
     public void setFilteredList(ArrayList<cuaHangXuat> filteredList) {
         this.cuaHangXuats = filteredList;
         notifyDataSetChanged();
+    }
+    public interface OnItemClickListener {
+        void onItemClick(cuaHangXuat data);
     }
 }

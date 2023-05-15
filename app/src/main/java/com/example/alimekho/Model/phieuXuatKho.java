@@ -4,14 +4,14 @@ public class phieuXuatKho {
     private String maPhieu;
     private String ngayXuatKho;
     private String tenCuaHangXuat;
-    private String maNV;
-    private int totalMoney;
+    private String TenNV;
+    private Double totalMoney;
 
-    public phieuXuatKho(String maPhieu, String ngayXuatKho, String tenCuaHangXuat, String maNV, int totalMoney) {
+    public phieuXuatKho(String maPhieu, String ngayXuatKho, String tenCuaHangXuat, String TenNV, Double totalMoney) {
         this.maPhieu = maPhieu;
         this.ngayXuatKho = ngayXuatKho;
         this.tenCuaHangXuat = tenCuaHangXuat;
-        this.maNV = maNV;
+        this.TenNV = TenNV;
         this.totalMoney = totalMoney;
     }
 
@@ -39,19 +39,19 @@ public class phieuXuatKho {
         this.tenCuaHangXuat = tenCuaHangXuat;
     }
 
-    public String getMaNV() {
-        return maNV;
+    public String getTenNV() {
+        return TenNV;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+    public void setTenNV(String TenNV) {
+        this.TenNV = TenNV;
     }
 
-    public int getTotalMoney() {
+    public Double getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(int totalMoney) {
+    public void setTotalMoney(Double totalMoney) {
         this.totalMoney = totalMoney;
     }
 }

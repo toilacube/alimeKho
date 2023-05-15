@@ -42,23 +42,19 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
         holder.txtmaSP.setText(sanPham.getMaSP().toString().trim());
         holder.txttenSP.setText(sanPham.getTenSP().toString().trim());
         holder.txtdonGia.setText(Double.toString(sanPham.getDonGia()));
-        holder.txtsoLuong.setText(Double.toString(sanPham.getSoLuong()));
+        holder.txtsoLuong.setText(Integer.toString(sanPham.getSoLuong()));
         holder.txtthanhTien.setText(Double.toString(sanPham.getSoLuong()*sanPham.getDonGia()));
         holder.txtsoLuong.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
-                if(!holder.txtsoLuong.getText().toString().trim().isEmpty())
-                    holder.txtthanhTien.setText(Double.toString(Double.valueOf(holder.txtsoLuong.getText().toString().trim())*sanPham.getDonGia()));
+                if(!holder.txtsoLuong.getText().toString().trim().isEmpty()) {
+                    holder.txtthanhTien.setText(Double.toString(Double.valueOf(holder.txtsoLuong.getText().toString().trim()) * sanPham.getDonGia()));
+                    sanPham.setSoLuong(Integer.parseInt(holder.txtsoLuong.getText().toString().trim()));
+                }
             }
         });
         holder.txtNSX.setText(sanPham.getNSX().toString().trim());
@@ -67,6 +63,7 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
             @Override
             public void onClick(View v) {
                 boolean isChecked = holder.checkBox.isChecked();
+                sanPham.setSoLuong(Integer.parseInt(holder.txtsoLuong.getText().toString().trim()));
                 if(isChecked)
                     sanPhamVV.add(sanPham);
                 else

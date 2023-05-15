@@ -1,6 +1,7 @@
 package com.example.alimekho.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.alimekho.Activity.CTPNKActivity;
+import com.example.alimekho.Activity.CTPXKActivity;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.phieuXuatKho;
+import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,10 +71,14 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         phieuXuatKho pxk = listPXK.get(position);
         if(position % 2 == 0) holder.linearLayout.setBackgroundColor(Color.WHITE);
-
+        holder.linearLayout.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, CTPXKActivity.class);
+            intent.putExtra("maPhieuXuat", pxk.getMaPhieu());
+            mContext.startActivity(intent);
+        });
         holder.tvMaPhieu.setText(pxk.getMaPhieu());
         holder.tvCHX.setText(pxk.getTenCuaHangXuat());
-        holder.tvNPT.setText(pxk.getMaNV());
+        holder.tvNPT.setText(pxk.getTenNV());
         holder.tvNgXK.setText(pxk.getNgayXuatKho());
         holder.cb.setChecked(false);
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -84,6 +98,18 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
     public void deleteCheckedItems() {
         for (phieuXuatKho pxk : listChecked) {
             listPXK.remove(pxk);
+
+            SQLServerConnection db = new SQLServerConnection();
+            Connection conn = db.getConnection();
+            try {
+                Statement stm = conn.createStatement();
+                stm.executeUpdate( "delete from [detail_output] where [form_id] = " + pxk.getMaPhieu() + "\n"
+                        +"delete from [output_form] where id = " + pxk.getMaPhieu());
+                stm.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         listChecked.clear();
         notifyDataSetChanged();

@@ -137,11 +137,12 @@
                 android:id="@+id/gdcreatePXK2_txt1"
                 android:layout_centerHorizontal="true"/>
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gdcreatePXK2_txt1"
                 android:text="NH122"
-                android:textColor="@color/black"
+                android:textColor="@color/main"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/gdcreatePXK2_txtmaCH"/>
         </RelativeLayout>
@@ -158,11 +159,12 @@
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"/>
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gdcreatePXK2_txt2"
                 android:text="PM Milk.Co"
-                android:textColor="@color/black"
+                android:textColor="@color/main"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/gdcreatePXK2_txttenCH"/>
         </RelativeLayout>
@@ -179,11 +181,12 @@
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"/>
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gdcreatePXK2_txt3"
                 android:text="Ho Chi Minh city"
-                android:textColor="@color/black"
+                android:textColor="@color/main"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/gdcreatePXK2_txtdiaChi"/>
         </RelativeLayout>
@@ -200,11 +203,13 @@
                 android:textColor="@color/black"
                 android:layout_centerHorizontal="true"/>
             <TextView
+                android:textStyle="bold"
+                android:paddingTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/gdcreatePXK2_txt4"
                 android:text="0963618637"
-                android:textColor="@color/black"
+                android:textColor="@color/main"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/gdcreatePXK2_txtSDT"/>
         </RelativeLayout>

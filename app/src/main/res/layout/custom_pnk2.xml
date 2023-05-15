@@ -5,7 +5,8 @@
     android:id="@+id/custompnk_ln"
     android:layout_marginBottom="7dp"
     android:orientation="horizontal"
-    android:weightSum="17">
+    android:weightSum="17"
+    android:paddingVertical="3dp">
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

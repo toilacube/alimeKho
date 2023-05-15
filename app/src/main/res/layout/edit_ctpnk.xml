@@ -60,6 +60,7 @@
                         tools:ignore="RtlCompat" />
 
                     <Spinner
+                        android:id="@+id/maSP"
                         android:layout_width="290dp"
                         android:layout_height="35dp"
                         android:background="@drawable/spinnerform"
@@ -87,6 +88,7 @@
                         tools:ignore="RtlCompat" />
 
                     <EditText
+                        android:id="@+id/sl"
                         android:inputType="number"
                         android:layout_width="290dp"
                         android:layout_height="35dp"
