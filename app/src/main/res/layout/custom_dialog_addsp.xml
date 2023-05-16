@@ -53,36 +53,13 @@
                         android:layout_height="wrap_content"
 
                         android:textStyle="bold"
-                        android:text="Mã sản phẩm: "
+                        android:text="Sản phẩm: "
                         android:textSize="14dp"/>
                     <Spinner
                         android:layout_width="0dp"
                         android:layout_weight="4"
                         android:layout_height="wrap_content"
                         android:id="@+id/spinnermaSP"
-                        android:textSize="14dp"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-
-                        android:textStyle="bold"
-                        android:text="Tên sản phẩm: "
-                        android:textSize="14dp"/>
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_weight="4"
-                        android:layout_height="30dp"
-                        android:paddingLeft="10dp"
-                        android:background="@color/gray_img"
-                        android:id="@+id/txttenSP"
                         android:textSize="14dp"
                         />
                 </LinearLayout>
@@ -129,6 +106,8 @@
                         android:background="@color/gray_img"
                         android:layout_weight="4"
                         android:text="0"
+                        android:focusable="false"
+                        android:clickable="false"
                         android:id="@+id/txtdonGia"
                         android:textSize="14dp"
                         />

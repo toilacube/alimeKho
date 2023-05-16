@@ -94,6 +94,7 @@
                         android:background="@color/gray_img"
                         android:paddingLeft="10dp"
                         android:paddingRight="20dp"
+                        android:id="@+id/sl"
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="13dp" />

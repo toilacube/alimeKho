@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -46,7 +47,7 @@ public class CreatePNK3Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         pnk3Adapter = new PNK1Adapter(this, getListCTPNK(maPhieu));
         recyclerView.setAdapter(pnk3Adapter);
-        //setData();
+        setData();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +58,7 @@ public class CreatePNK3Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(CreatePNK3Activity.this, "Hoàn thành", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             }
         });
         btnBackHome.setOnClickListener(new View.OnClickListener() {
@@ -66,13 +68,13 @@ public class CreatePNK3Activity extends AppCompatActivity {
             }
         });
     }
-//    public void setData(){
-//        txtmaPhieu.setText("Mã phiếu: " + phieuNhapKho.getMaPhieu().toString().trim());
-//        txtnhanVien.setText("Người phụ trách: " + phieuNhapKho.getTenNV().toString().trim());
-//        txttenNCC.setText("Nhà cung cấp: " + phieuNhapKho.getTenNCC().toString().trim());
-//        txttoTal.setText("Thành tiền: " + Integer.toString(phieuNhapKho.getTotalMoney()));
-//        txtngayNhap.setText("Ngày nhập kho: " + phieuNhapKho.getNgayNhapKho().toString().trim());
-//    }
+    public void setData(){
+        txtmaPhieu.setText("Mã phiếu: " + phieuNhapKho.getMaPhieu().toString().trim());
+        txtnhanVien.setText("Người phụ trách: " + phieuNhapKho.getTenNV().toString().trim());
+        txttenNCC.setText("Nhà cung cấp: " + phieuNhapKho.getTenNCC().toString().trim());
+        txttoTal.setText("Thành tiền: " + Double.toString(phieuNhapKho.getTotalMoney()));
+        txtngayNhap.setText("Ngày nhập kho: " + phieuNhapKho.getNgayNhapKho().toString().trim());
+    }
     public void Init(){
         btnBackHome = findViewById(R.id.btn_back_createPNK3);
         btnComplete = findViewById(R.id.gdcreatePNK3_btnComplete);
@@ -92,7 +94,7 @@ public class CreatePNK3Activity extends AppCompatActivity {
                     "WHERE input_form.id = " + String.valueOf(maPhieu);
             ResultSet rs = stm.executeQuery(getInputform);
             while (rs.next()) {
-                String pattern = "MM/dd/yyyy";
+                String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 String todayAsString = df.format(rs.getDate(2));
                 phieuNhapKho = new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, rs.getString(3), rs.getString(4), rs.getInt(5));
@@ -105,18 +107,17 @@ public class CreatePNK3Activity extends AppCompatActivity {
         ArrayList<CTPNK> l = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String getDTInput = "select product_id, name, detail_input.quantity, unit_price, unit, type_id, supplier_id from detail_input \n" +
+            String getDTInput = "select product_id, name, detail_input.quantity, unit_price, NSX, HSD from detail_input \n" +
                     "JOIN product ON detail_input.product_id = product.id\n" +
                     "WHERE detail_input.form_id = " + phieuNhapKho.getMaPhieu();
             ResultSet rs = stm.executeQuery(getDTInput);
             while (rs.next()) {
-                String pattern = "MM/dd/yyyy";
+                String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 String NSX = df.format(rs.getDate("NSX"));
                 String HSD = df.format(rs.getDate("HSD"));
                 sanPham sanPham = new sanPham(String.valueOf(rs.getInt(1)), rs.getString(2),
-                        Double.parseDouble(rs.getString(4)), rs.getString("type_id"), rs.getString("type_id"),
-                        String.valueOf(rs.getInt("supplier_id")));
+                        Double.parseDouble(rs.getString(4)));
                 CTPNK ctpnk = new CTPNK(phieuNhapKho.getMaPhieu(), sanPham, rs.getInt("quantity"), NSX, HSD);
                 l.add(ctpnk);
             }

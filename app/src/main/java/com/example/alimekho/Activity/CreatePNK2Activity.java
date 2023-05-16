@@ -151,8 +151,7 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
         if (window == null) return;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView txtmaNCC, txttenNCC, txtdiaChi, txtSDT;
-        txtmaNCC = dialog.findViewById(R.id.txtmaNCC);
+        TextView txttenNCC, txtdiaChi, txtSDT;
         txttenNCC = dialog.findViewById(R.id.txttenNCC);
         txtdiaChi = dialog.findViewById(R.id.txtdiaChi);
         txtSDT = dialog.findViewById(R.id.txtSDT);

@@ -54,6 +54,13 @@ public class QLPNKActivity extends AppCompatActivity {
         PNKAdapter adapter = new PNKAdapter(this, getListPNK());
         rcv.setLayoutManager(new LinearLayoutManager(this));
         rcv.setAdapter(adapter);
+        Button btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         //them
         CardView addPNK = findViewById(R.id.add_button);
         addPNK.setOnClickListener(new View.OnClickListener() {
@@ -85,12 +92,11 @@ public class QLPNKActivity extends AppCompatActivity {
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 Spinner spinner = dialog.findViewById(R.id.spinnerpcs);
-                ArrayList<String> pcss = getPNK();
-                ArrayList<String> pcsss = getmaPNK();
+                ArrayList<String> pcss = getmaPNK();
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        pcs = pcsss.get(position);
+                        pcs = pcss.get(position);
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -161,19 +167,18 @@ public class QLPNKActivity extends AppCompatActivity {
                         try {
                             Statement stm = conn.createStatement();
                             String Query = "set dateformat dmy\nupdate [input_form]" +
-                                    "\nset emp_id = " + spinner2.getSelectedItem() +
-                                    ", supplier_id = " + spinner1.getSelectedItem() +
+                                    "\nset emp_id = " + npt +
+                                    ", supplier_id = " + ncc +
                                     ", input_day = " + "'" + ngaynhapkho.getText() + "'" +
-                                    "\n where id = " + spinner.getSelectedItem();
+                                    "\n where id = " + pcs;
                             stm.executeUpdate(Query);
-                            stm.close();
-                            conn.close();
                             Toast.makeText(QLPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            recreate();
                         } catch (SQLException e) {
                             e.printStackTrace();
                             Toast.makeText(QLPNKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
                         }
-                        recreate();
                     }
                 });
                 dialog.show();
@@ -190,29 +195,11 @@ public class QLPNKActivity extends AppCompatActivity {
                     "LEFT JOIN employee ON input_form.emp_id = employee.id";
             ResultSet rs = stm.executeQuery(getInputform);
             while (rs.next()) {
-                String pattern = "MM/dd/yyyy";
+                String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 String todayAsString = df.format(rs.getDate(2));
                 l.add(new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, rs.getString(3), rs.getString(4), rs.getDouble(5)));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return l;
-    }
-    private ArrayList<String> getPNK() {
-        ArrayList<String> l = new ArrayList<>();
-        try {
-            Statement stm = conn.createStatement();
-            String getInputform = "select id, input_day from input_form";
-            ResultSet rs = stm.executeQuery(getInputform);
-            while (rs.next()) {
-                String pattern = "MM/dd/yyy";
-                DateFormat df = new SimpleDateFormat(pattern);
-                String todayAsString = df.format(rs.getDate(2));
-                String temp =  String.valueOf(rs.getInt(1)) + " - " + todayAsString;
-                l.add(temp);
-              }
         } catch (SQLException e) {
             e.printStackTrace();
         }

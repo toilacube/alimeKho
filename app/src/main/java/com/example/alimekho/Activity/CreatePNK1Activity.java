@@ -44,7 +44,7 @@ import java.util.Calendar;
 public class CreatePNK1Activity extends AppCompatActivity {
     private Button btnBackHome, btnContinue, btnAdd, btnBack;
     private RecyclerView recyclerView;
-    private String product;
+    private String product_id, name;
     final Calendar myCalendar= Calendar.getInstance();
     private ArrayList<CTPNK> ctpnks;
     private PNK1Adapter pnk1Adapter;
@@ -64,6 +64,18 @@ public class CreatePNK1Activity extends AppCompatActivity {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    String delete = "DELETE FROM detail_input WHERE form_id = ?";
+                    String delete1 = "DELETE FROM input_form WHERE id = ?";
+                    PreparedStatement stm = conn.prepareStatement(delete);
+                    PreparedStatement stm1 = conn.prepareStatement(delete1);
+                    stm.setInt(1, maPhieu);
+                    stm1.setInt(1, maPhieu);
+                    int rs = stm.executeUpdate();
+                    int rs1 = stm1.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 onBackPressed();
             }
         });
@@ -76,6 +88,18 @@ public class CreatePNK1Activity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    String delete = "DELETE FROM detail_input WHERE form_id = ?";
+                    String delete1 = "DELETE FROM input_form WHERE id = ?";
+                    PreparedStatement stm = conn.prepareStatement(delete);
+                    PreparedStatement stm1 = conn.prepareStatement(delete1);
+                    stm.setInt(1, maPhieu);
+                    stm1.setInt(1, maPhieu);
+                    int rs = stm.executeUpdate();
+                    int rs1 = stm1.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 onBackPressed();
             }
         });
@@ -142,6 +166,36 @@ public class CreatePNK1Activity extends AppCompatActivity {
         }
         return l;
     }
+    public ArrayList<String> getTenSP(){
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT name FROM product";
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = rs.getString(1);
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+    public ArrayList<Double> getdongiaSP(){
+        ArrayList<Double> l = new ArrayList<>();
+        try {
+            String select = "SELECT unit_price FROM product";
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                Double temp = rs.getDouble(1);
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
     public void showDialog(){
         Dialog dialog = new Dialog(CreatePNK1Activity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -150,14 +204,18 @@ public class CreatePNK1Activity extends AppCompatActivity {
         if (window == null) return;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView txtdonGia, txttenSP, txtsoLuong, txtNSX, txtHSD;
+        TextView txtdonGia, txtsoLuong, txtNSX, txtHSD;
         Spinner spinner = dialog.findViewById(R.id.spinnermaSP);
         ArrayList<String> products = getListSP();
-        ArrayList<String> productss = getMaSP();
+        ArrayList<String> products_id = getMaSP();
+        ArrayList<String> products_name = getTenSP();
+        txtdonGia = dialog.findViewById(R.id.txtdonGia);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                product = productss.get(position);
+                product_id = products_id.get(position);
+                name = products_name.get(position);
+                txtdonGia.setText(String.valueOf(getdongiaSP().get(position)));
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -167,8 +225,6 @@ public class CreatePNK1Activity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(CreatePNK1Activity.this, android.R.layout.simple_spinner_dropdown_item, products);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        txttenSP = dialog.findViewById(R.id.txttenSP);
-        txtdonGia = dialog.findViewById(R.id.txtdonGia);
         txtsoLuong = dialog.findViewById(R.id.txtsoLuong);
         txtNSX = dialog.findViewById(R.id.txtNSX);
         txtHSD = dialog.findViewById(R.id.txtHSD);
@@ -207,28 +263,25 @@ public class CreatePNK1Activity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sanPham sanPham = new sanPham(product, txttenSP.getText().toString().trim(),
-                        Double.valueOf(txtdonGia.getText().toString().trim()));
+                sanPham sanPham = new sanPham(product_id, name, Double.valueOf(txtdonGia.getText().toString().trim()));
                 CTPNK ctpnk = new CTPNK(String.valueOf(maPhieu), sanPham, Integer.parseInt(txtsoLuong.getText().toString().trim()),txtNSX.getText().toString().trim(), txtHSD.getText().toString().trim());
                 ctpnks.add(ctpnk);
                 pnk1Adapter.notifyDataSetChanged();
-
                 try {
-                    String insert = "INSERT INTO detail_input VALUES(?,?,?,?,?,?)";
+                    String insert = "SET DATEFORMAT DMY\n INSERT INTO detail_input VALUES(?,?,?,?,?,?,?)";
                     PreparedStatement stm = conn.prepareStatement(insert);
-                    stm.setInt(1, Integer.parseInt(ctpnk.getMaPNK()));
-                    stm.setInt(2, Integer.parseInt(ctpnk.getSanPham().getMaSP()));
+                    stm.setInt(2, Integer.parseInt(ctpnk.getMaPNK()));
+                    stm.setInt(1, Integer.parseInt(ctpnk.getSanPham().getMaSP()));
                     stm.setInt(3, ctpnk.getSoLuong());
-                    String pattern = "MM/dd/yyyy";
+                    String pattern = "dd/MM/yyyy";
                     DateFormat df = new SimpleDateFormat(pattern);
-                    stm.setDate(4, (Date) df.parse(ctpnk.getNSX().toString().trim()));
-                    stm.setDate(5, (Date) df.parse(ctpnk.getHSD().toString().trim()) );
+                    stm.setString(4, ctpnk.getNSX());
+                    stm.setString(5, ctpnk.getHSD());
                     stm.setInt(6, 0);
+                    stm.setDouble(7, ctpnk.getThanhTien());
                     int rs = stm.executeUpdate();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
                 }
                 dialog.dismiss();
             }

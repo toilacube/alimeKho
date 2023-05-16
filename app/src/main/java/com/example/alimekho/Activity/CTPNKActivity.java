@@ -10,8 +10,10 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -88,6 +90,7 @@ public class CTPNKActivity extends AppCompatActivity {
                 window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 Spinner spinner = dialog.findViewById(R.id.spinnersp);
+                EditText sl = dialog.findViewById(R.id.sl);
                 ArrayList<String> products = getListSP(phieuNhapKho);
                 ArrayList<String> productss = getmaSP(phieuNhapKho);
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -109,6 +112,26 @@ public class CTPNKActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
+                    }
+                });
+                CardView confirm = dialog.findViewById(R.id.xacnhan);
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Statement stm = conn.createStatement();
+                            String Query = "update detail_input" +
+                                    "\nset quantity = " + sl.getText()
+                                    +"\nwhere form_id = " + phieuNhapKho.getMaPhieu()
+                                    +"and product_id = " + product;
+                            stm.executeUpdate(Query);
+                            Toast.makeText(CTPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            recreate();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            Toast.makeText(CTPNKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -162,18 +185,17 @@ public class CTPNKActivity extends AppCompatActivity {
         List<CTPNK> l = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String getDTInput = "select product_id, name, detail_input.quantity, unit_price, unit, type_id, supplier_id from detail_input \n" +
+            String getDTInput = "select product_id, name, quantity, unit_price, NSX, HSD from detail_input \n" +
                     "JOIN product ON detail_input.product_id = product.id\n" +
                     "WHERE detail_input.form_id = " + phieuNhapKho.getMaPhieu();
             ResultSet rs = stm.executeQuery(getDTInput);
             while (rs.next()) {
-                String pattern = "MM/dd/yyyy";
+                String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 String NSX = df.format(rs.getDate("NSX"));
                 String HSD = df.format(rs.getDate("HSD"));
                 sanPham sanPham = new sanPham(String.valueOf(rs.getInt(1)), rs.getString(2),
-                        Double.parseDouble(rs.getString(4)), rs.getString("type_id"), rs.getString("type_id"),
-                        String.valueOf(rs.getInt("supplier_id")));
+                        Double.parseDouble(rs.getString(4)));
                 CTPNK ctpnk = new CTPNK(phieuNhapKho.getMaPhieu(), sanPham, rs.getInt("quantity"), NSX, HSD);
                 l.add(ctpnk);
              }

@@ -1,6 +1,7 @@
 package com.example.alimekho.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
@@ -58,6 +60,42 @@ public class PNK2Adapter extends Adapter<PNK2Adapter.PNK2ViewHolder>{
                 nhaCungCapVV = (new nhaCungCap(nhaCungCap.getMaNCC().toString().trim(), nhaCungCap.getTenCC().toString().trim(),
                         nhaCungCap.getDiaChi().toString().trim(), nhaCungCap.getSDT().toString()));
                 setData.setNhaCungCap(nhaCungCapVV);
+            }
+        });
+        holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Xóa sản phẩm");
+                builder.setMessage("Bạn có đồng ý xóa không?");
+                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        nhaCungCaps.remove(nhaCungCap);
+                        notifyDataSetChanged();
+                        SQLServerConnection db = new SQLServerConnection();
+                        Connection conn = db.getConnection();
+                        try {
+                            String delete = "DELETE FROM supplier_id WHERE id = ?";
+                            PreparedStatement stm = conn.prepareStatement(delete);
+                            stm.setInt(1, Integer.parseInt(nhaCungCap.getMaNCC()));
+                            int rs = stm.executeUpdate();
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        dialog.cancel();
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                return true;
             }
         });
     }
