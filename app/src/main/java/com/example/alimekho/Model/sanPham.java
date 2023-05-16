@@ -19,7 +19,7 @@ public class sanPham implements Serializable {
     public sanPham(String maSP, String tenSP, double donGia, String phanLoai, String donViTinh, String supplier_id) {
         this.maSP = maSP;
         this.tenSP = tenSP;
-        this.donGia = donGia;
+        this.donGia = donGia;//
         this.phanLoai = phanLoai;
         this.donViTinh = donViTinh;
         this.supplier_id = supplier_id;
