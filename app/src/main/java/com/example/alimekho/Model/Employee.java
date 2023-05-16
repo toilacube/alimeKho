@@ -10,6 +10,9 @@ public class Employee implements Serializable {
     private String identify;
     private String phoneNumber;
 
+    public Employee() {
+    }
+
     public Employee(String id, String name, String title, String dayOfBirth, String identify, String phoneNumber) {
         this.id = id;
         this.name = name;
