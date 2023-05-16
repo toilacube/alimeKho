@@ -81,7 +81,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             if(rsType.next())
                 holder.loaiSP.setText(rsType.getString(1));
 
-
             String supplier = sanPham.getSupplier_id();
             String getSupplierQuery = "select name from supplier where id = " + supplier;
             ResultSet rsSupplier = stm1.executeQuery(getSupplierQuery);
@@ -91,6 +90,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,21 +112,13 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 AlertDialog dialog = builder.create();
 
                 EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
-                       // edtDonGia = dialogView.findViewById(R.id.edtDonGia),
-                     //   edtSoLuong = dialogView.findViewById(R.id.edtSoLuong),
-                      //  edtNSX = dialogView.findViewById(R.id.edtNSX),
-                     //   edtHSD = dialogView.findViewById(R.id.edtHSD),
-                     //   edtLoaiSP = dialogView.findViewById(R.id.edtLoaiSP),
-                        edtDonViTinh = dialogView.findViewById(R.id.edtDonVi);
+                         edtDonGia = dialogView.findViewById(R.id.edtDonGia),
+                         edtLoaiSP = dialogView.findViewById(R.id.edtLoaiSP),
+                         edtDonViTinh = dialogView.findViewById(R.id.edtDonVi);
 
                 edtTenSP.setText(sanPham.getTenSP());
-             //   edtDonGia.setText(Double.toString(sanPham.getDonGia()));
-              //  edtHSD.setText(sanPham.getHSD());
-             //   edtNSX.setText(sanPham.getNSX());
-            //    edtSoLuong.setText(Integer.toString(sanPham.getSoLuong()));
-            //    edtLoaiSP.setText(sanPham.getPhanLoai());
+                edtLoaiSP.setText(sanPham.getPhanLoai());
                 edtDonViTinh.setText(sanPham.getDonViTinh());
-
                 Button btnUpdate = dialogView.findViewById(R.id.btnUpdate),
                         btnCancel = dialogView.findViewById(R.id.btnCancel);
 
@@ -135,7 +127,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     @Override
                     public void onClick(View view) {
                         sanPham.setTenSP(edtTenSP.getText().toString().trim());
-//                        sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
+
+                        sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
+
 //                        sanPham.setHSD(edtHSD.getText().toString().trim());
 //                        sanPham.setNSX(edtNSX.getText().toString().trim());
 //                        sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));

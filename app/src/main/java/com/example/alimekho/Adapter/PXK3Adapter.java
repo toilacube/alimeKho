@@ -36,10 +36,10 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
         holder.txtmaSP.setText(ctpxk.getSanPham().getMaSP().toString().trim());
         holder.txttenSP.setText(ctpxk.getSanPham().getTenSP().toString().trim());
         holder.txtdonGia.setText(Double.toString(ctpxk.getSanPham().getDonGia()));
-        holder.txtsoLuong.setText(Double.toString(ctpxk.getSanPham().getSoLuong()));
+//        holder.txtsoLuong.setText(Double.toString(ctpxk.getSanPham().getSoLuong()));
         holder.txtthanhTien.setText(Double.toString(ctpxk.getThanhTien()));
-        holder.txtNSX.setText(ctpxk.getSanPham().getNSX().toString().trim());
-        holder.txtHSD.setText(ctpxk.getSanPham().getHSD().toString().trim());
+      //  holder.txtNSX.setText(ctpxk.getSanPham().getNSX().toString().trim());
+     //   holder.txtHSD.setText(ctpxk.getSanPham().getHSD().toString().trim());
     }
 
     @Override

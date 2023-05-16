@@ -1,6 +1,7 @@
 package com.example.alimekho.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,24 +9,35 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.alimekho.Activity.CreatePNK2Activity;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.nhaCungCap;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class PNK2Adapter extends Adapter<PNK2Adapter.PNK2ViewHolder>{
     private Context context;
     private ArrayList<nhaCungCap> nhaCungCaps;
+    private setData setData;
     private nhaCungCap nhaCungCapVV;
     private CreatePNK2Activity createPNK2Activity;
     public PNK2Adapter(Context context, ArrayList<nhaCungCap> nhaCungCaps) {
         this.context = context;
         this.nhaCungCaps = nhaCungCaps;
+        this.setData = (PNK2Adapter.setData) context;
+    }
+
+    public interface setData {
+        void setNhaCungCap(nhaCungCap nhaCungCap);
     }
 
     @NonNull
@@ -47,6 +59,43 @@ public class PNK2Adapter extends Adapter<PNK2Adapter.PNK2ViewHolder>{
             public void onClick(View v) {
                 nhaCungCapVV = (new nhaCungCap(nhaCungCap.getMaNCC().toString().trim(), nhaCungCap.getTenCC().toString().trim(),
                         nhaCungCap.getDiaChi().toString().trim(), nhaCungCap.getSDT().toString()));
+                setData.setNhaCungCap(nhaCungCapVV);
+            }
+        });
+        holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Xóa sản phẩm");
+                builder.setMessage("Bạn có đồng ý xóa không?");
+                builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        nhaCungCaps.remove(nhaCungCap);
+                        notifyDataSetChanged();
+                        SQLServerConnection db = new SQLServerConnection();
+                        Connection conn = db.getConnection();
+                        try {
+                            String delete = "DELETE FROM supplier_id WHERE id = ?";
+                            PreparedStatement stm = conn.prepareStatement(delete);
+                            stm.setInt(1, Integer.parseInt(nhaCungCap.getMaNCC()));
+                            int rs = stm.executeUpdate();
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        dialog.cancel();
+                    }
+                });
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                return true;
             }
         });
     }

@@ -52,7 +52,7 @@
                     android:background="#F5F5F5">
 
                     <TextView
-                        android:id="@+id/gdcreatePNK3_txt1"
+                        android:id="@+id/gdCTPNK_txt1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -64,12 +64,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/gdcreatePNK3_txt1"
+                        android:layout_below="@id/gdCTPNK_txt1"
                         android:background="@color/white"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/gdcreatePNK3_txtmaPhieu"
+                            android:id="@+id/gdCTPNK_txtmaPhieu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="25dp"
@@ -78,7 +78,7 @@
                             android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/gdcreatePNK3_txtngayNhap"
+                            android:id="@+id/gdCTPNK_txtngayNhap"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="25dp"
@@ -87,16 +87,16 @@
                             android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/gdcreatePNK3_txtCHX"
+                            android:id="@+id/gdCTPNK_txtNCC"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="25dp"
                             android:paddingTop="10dp"
-                            android:text="Cửa hàng nhập: PM Milk.Co"
+                            android:text="Nhà cung cấp: PM Milk.Co"
                             android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/gdcreatePNK3_txtnguoiPT"
+                            android:id="@+id/gdCTPNK_txtnguoiPT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="25dp"
@@ -105,7 +105,7 @@
                             android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/gdcreatePNK3_txtthanhTien"
+                            android:id="@+id/gdCTPNK_txtthanhTien"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="25dp"
@@ -157,7 +157,7 @@
             android:background="#CEEDE9EB"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
-            android:id="@+id/gdcreatePNK3_ln2"
+            android:id="@+id/gdCTPNK_ln2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -280,5 +280,5 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gdcreatePNK3_ln2" />
+        app:layout_constraintTop_toBottomOf="@+id/gdCTPNK_ln2" />
 </LinearLayout>

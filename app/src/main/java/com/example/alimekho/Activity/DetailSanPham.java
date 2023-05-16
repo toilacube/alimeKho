@@ -31,10 +31,10 @@ public class DetailSanPham extends AppCompatActivity {
 
         id.setText(sp.getMaSP());
         name.setText(sp.getTenSP());
-        soLuong.setText(Integer.toString(sp.getSoLuong()));
-        donGia.setText(Double.toString(sp.getDonGia()));
-        NSX.setText(sp.getNSX());
-        HSD.setText(sp.getHSD());
+//        soLuong.setText(Integer.toString(sp.getSoLuong()));
+//        donGia.setText(Double.toString(sp.getDonGia()));
+//        NSX.setText(sp.getNSX());
+//        HSD.setText(sp.getHSD());
         phanLoai.setText(sp.getPhanLoai());
         donViTinh.setText(sp.getDonViTinh());
 

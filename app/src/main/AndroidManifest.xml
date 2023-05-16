@@ -16,7 +16,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".Activity.QLPNKActivity"
+            android:name=".Activity.HomeActivity"
             android:exported="true" >
         </activity>
         <activity
@@ -59,7 +59,7 @@
             android:name=".Activity.EmployeeActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.HomeActivity"
+            android:name=".Activity.QLPNKActivity"
             android:exported="true" />
         <activity
             android:name=".Activity.CreatePNK1Activity"

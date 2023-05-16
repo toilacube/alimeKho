@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         cvNhapKho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CreatePNK1Activity.class);
+                Intent intent = new Intent(getApplicationContext(), QLPNKActivity.class);
                 startActivity(intent);
             }
         });

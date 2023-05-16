@@ -88,11 +88,11 @@ public class CreatePXK1Activity extends AppCompatActivity {
         btnBack = findViewById(R.id.gdcreatePXK1_btnBack);
         recyclerView = findViewById(R.id.gdcreatePXK1_rcv);
         searchView = findViewById(R.id.gdcreatePXK1_sv);
-        sanPham sanPham = new sanPham("A1", "2", 3, 4, "5", "6");
-        sanPham sanPham1 = new sanPham("1", "2", 3, 4, "5", "6");
+//        sanPham sanPham = new sanPham("A1", "2", 3, 4, "5", "6");
+   //     sanPham sanPham1 = new sanPham("1", "2", 3, 4, "5", "6");
         sanPhams = new ArrayList<>();
-        sanPhams.add(sanPham);
-        sanPhams.add(sanPham1);
+     //   sanPhams.add(sanPham);
+     //   sanPhams.add(sanPham1);
         sanPhamDuocChon = new ArrayList<>();
     }
 

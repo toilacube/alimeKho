@@ -63,6 +63,7 @@
                         android:layout_width="290dp"
                         android:layout_height="35dp"
                         android:background="@drawable/spinnerform"
+                        android:id="@+id/spinnersp"
                         android:paddingLeft="10dp"
                         android:text="xxxxxxxxx "
                         android:textColor="@color/black"
@@ -93,6 +94,7 @@
                         android:background="@color/gray_img"
                         android:paddingLeft="10dp"
                         android:paddingRight="20dp"
+                        android:id="@+id/sl"
                         android:text=""
                         android:textColor="@color/black"
                         android:textSize="13dp" />

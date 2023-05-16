@@ -1,17 +1,19 @@
 package com.example.alimekho.Model;
 
-public class phieuNhapKho {
+import java.io.Serializable;
+
+public class phieuNhapKho implements Serializable {
     private String maPhieu;
     private String ngayNhapKho;
     private String tenNCC;
-    private String maNV;
-    private int totalMoney;
+    private String tenNV;
+    private double totalMoney;
 
-    public phieuNhapKho(String maPhieu, String ngayNhapKho, String tenNCC, String maNV, int totalMoney) {
+    public phieuNhapKho(String maPhieu, String ngayNhapKho, String tenNCC, String tenNV, double totalMoney) {
         this.maPhieu = maPhieu;
         this.ngayNhapKho = ngayNhapKho;
         this.tenNCC = tenNCC;
-        this.maNV = maNV;
+        this.tenNV = tenNV;
         this.totalMoney = totalMoney;
     }
 
@@ -39,19 +41,19 @@ public class phieuNhapKho {
         this.tenNCC = tenNCC;
     }
 
-    public String getMaNV() {
-        return maNV;
+    public String getTenNV() {
+        return tenNV;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
     }
 
-    public int getTotalMoney() {
+    public double getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(int totalMoney) {
+    public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
     }
 }
