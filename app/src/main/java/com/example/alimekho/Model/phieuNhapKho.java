@@ -7,7 +7,7 @@ public class phieuNhapKho implements Serializable {
     private String ngayNhapKho;
     private String tenNCC;
     private String tenNV;
-    private double totalMoney;//
+    private double totalMoney;
 
     public phieuNhapKho(String maPhieu, String ngayNhapKho, String tenNCC, String tenNV, double totalMoney) {
         this.maPhieu = maPhieu;
