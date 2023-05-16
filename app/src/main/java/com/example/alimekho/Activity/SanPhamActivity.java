@@ -1,16 +1,20 @@
 package com.example.alimekho.Activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -77,12 +81,26 @@ public class SanPhamActivity extends AppCompatActivity {
 
         EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
                 edtDonGia = dialogView.findViewById(R.id.edtDonGia),
-                edtNhaCC = dialogView.findViewById(R.id.edtNhaCC),
-                edtLoaiSP = dialogView.findViewById(R.id.edtLoaiSP),
                 edtDonViTinh = dialogView.findViewById(R.id.edtDonViTinh);
+        Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP),
+                spNhaCC = dialogView.findViewById(R.id.spNhaCC);
 
         Button btnAdd = dialogView.findViewById(R.id.btnAdd),
                 btnCancel = dialogView.findViewById(R.id.btnCancel);
+
+
+        ArrayList<String> listLoaiSP = new ArrayList<>();
+        listLoaiSP = getLoaiSP();
+        ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
+        adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spLoaiSP.setAdapter(adapterLoaiSP);
+
+        ArrayList<String> listNhaCC = new ArrayList<>();
+        listNhaCC = getNhaCC();
+        ArrayAdapter<String> adapterNhaCC = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listNhaCC);
+        adapterNhaCC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spNhaCC.setAdapter(adapterNhaCC);
+
 
         // Da them thong tin, an nut Them de them SP vao database
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -90,18 +108,52 @@ public class SanPhamActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sanPham.setTenSP(edtTenSP.getText().toString().trim());
                 sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-                sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
                 sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
-                sanPham.setSupplier_id(edtNhaCC.getText().toString().trim());
+                ArrayList <String> listIDLoaiSP = getIDLoaiSP();
+                ArrayList <String> listIDNhaCC = getIDNhaCC();
+                spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        sanPham.setPhanLoai(listIDLoaiSP.get(i));
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        sanPham.setSupplier_id(listIDNhaCC.get(i));
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
                 try {
                     Statement stm = db.getConnection().createStatement();
-                    String query = "INSERT INTO product ([name], [unit_price], [unit])\n" +
-                            "VALUES\n" +
-                            "  ('" +  sanPham.getTenSP() + "', '"
-                            + sanPham.getDonGia() + "', '"
-                            + sanPham.getDonViTinh() + "');";
+                    String query = "INSERT INTO product ([name], [unit_price]," +
+                            " [unit], [type_id], [supplier_id])\n" +
+                            "VALUES\n" + "  ('"
+                            + sanPham.getTenSP() + "', "
+                            + sanPham.getDonGia() + ", '"
+                            + sanPham.getDonViTinh() + "', "
+                            + sanPham.getPhanLoai() + ", "
+                            + sanPham.getSupplier_id() + ");";
                     stm.executeUpdate(query);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                String select = "SELECT IDENT_CURRENT('product')";
+                Statement stm1 = null;
+                try {
+                    stm1 = db.getConnection().createStatement();
+                    ResultSet rs1 = stm1.executeQuery(select);
+                    while(rs1.next()) {
+                        sanPham.setMaSP(String.valueOf(rs1.getInt(1)));
+                    }
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -109,6 +161,7 @@ public class SanPhamActivity extends AppCompatActivity {
                 list.add(sanPham);
                 sanPhamAdapter.setList(list);
                 sanPhamAdapter.notifyDataSetChanged();
+                dialogView.dismiss();
             }
         });
 
@@ -122,8 +175,102 @@ public class SanPhamActivity extends AppCompatActivity {
         dialogView.show();
     }
 
+    private ArrayList<String> getLoaiSP() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id, name FROM product_type";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1)) + " - " + rs.getString(2);
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+    private ArrayList<String> getIDLoaiSP() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id FROM product_type";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1));
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
 
-    private List<sanPham> getListSanPham() {
+    public ArrayList<String> getTenLoaiSP() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT name FROM product_type";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1));
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+    public ArrayList<String> getNhaCC() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id, name FROM supplier";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1)) + " - " + rs.getString(2);
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+    public ArrayList<String> getIDNhaCC() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id FROM supplier";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1));
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+    public ArrayList<String> getTenNhaCC() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT name FROM supplier";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1));
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+
+    public List<sanPham> getListSanPham() {
         List <sanPham> list = new ArrayList<>();
 
         SQLServerConnection db = new SQLServerConnection();
@@ -140,7 +287,6 @@ public class SanPhamActivity extends AppCompatActivity {
                 sp.setDonViTinh(resultSet.getString("unit"));
                 sp.setPhanLoai(Integer.toString(resultSet.getInt("type_id")));
                 sp.setSupplier_id(Integer.toString(resultSet.getInt("supplier_id")));
-
                 list.add(sp);
             }
             

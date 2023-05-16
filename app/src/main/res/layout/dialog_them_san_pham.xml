@@ -90,8 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
-                android:layout_margin="5dp"
-                android:inputType="number"/>
+                android:layout_margin="5dp"/>
             <EditText
                 android:id="@+id/edtDonGia"
                 android:layout_width="match_parent"

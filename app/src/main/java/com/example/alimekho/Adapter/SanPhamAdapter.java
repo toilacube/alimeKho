@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,11 +26,14 @@ import com.example.alimekho.R;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
     private List<sanPham> sanPhamList;
     private Context context;
+
+    private SQLServerConnection db = new SQLServerConnection();
 
     public SanPhamAdapter(Context context, List<sanPham> sanPhamList) {
         this.sanPhamList = sanPhamList;
@@ -113,11 +119,24 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
                 EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
                          edtDonGia = dialogView.findViewById(R.id.edtDonGia),
-                         edtLoaiSP = dialogView.findViewById(R.id.edtLoaiSP),
                          edtDonViTinh = dialogView.findViewById(R.id.edtDonVi);
+                Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP),
+                        spNhaCC = dialogView.findViewById(R.id.spNhaCC);
+
+                ArrayList<String> listLoaiSP = new ArrayList<>();
+                listLoaiSP = getLoaiSP();
+                ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
+                adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spLoaiSP.setAdapter(adapterLoaiSP);
+
+                ArrayList<String> listNhaCC = new ArrayList<>();
+                listNhaCC = getNhaCC();
+                ArrayAdapter<String> adapterNhaCC = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listNhaCC);
+                adapterNhaCC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spNhaCC.setAdapter(adapterNhaCC);
 
                 edtTenSP.setText(sanPham.getTenSP());
-                edtLoaiSP.setText(sanPham.getPhanLoai());
+                edtDonGia.setText(Double.toString(sanPham.getDonGia()));
                 edtDonViTinh.setText(sanPham.getDonViTinh());
                 Button btnUpdate = dialogView.findViewById(R.id.btnUpdate),
                         btnCancel = dialogView.findViewById(R.id.btnCancel);
@@ -127,20 +146,41 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     @Override
                     public void onClick(View view) {
                         sanPham.setTenSP(edtTenSP.getText().toString().trim());
-
                         sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-                        //sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
                         sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
+                        spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                sanPham.setPhanLoai(String.valueOf(getIDLoaiSP().get(i)));
+                            }
 
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                        spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                sanPham.setSupplier_id(String.valueOf(getIDNhaCC().get(i)));
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
                         try {
                             Statement stm = db.getConnection().createStatement();
                             String updateSP = "UPDATE PRODUCT " +
                                     "SET NAME = '" +  edtTenSP.getText().toString().trim() +
                                     "', UNIT = '" + edtDonViTinh.getText().toString().trim() +
-                                    "' WHERE ID = " + sanPham.getMaSP();
+                                    "', UNIT_PRICE  = " + Double.valueOf(edtDonGia.getText().toString().trim()) +
+                                    ", type_id = " + sanPham.getPhanLoai() +
+                                    ", supplier_id = " + sanPham.getSupplier_id() +
+                                    " WHERE ID = " + sanPham.getMaSP();
 
                             stm.executeUpdate(updateSP);
-
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -180,6 +220,70 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 builder.show();
             }
         });
+    }
+
+    private ArrayList<String> getLoaiSP() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id, name FROM product_type";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1)) + " - " + rs.getString(2);
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+    private ArrayList<String> getNhaCC() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id, name FROM supplier";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1)) + " - " + rs.getString(2);
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+    private ArrayList<String> getIDLoaiSP() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id FROM product_type";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1));
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+    private ArrayList<String> getIDNhaCC() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id FROM supplier";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1));
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
     }
 
     public void setList(List<sanPham> sanPhamList) {
