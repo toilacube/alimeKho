@@ -11,9 +11,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.alimekho.Adapter.EmployeeAdapter;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.Employee;
 import com.example.alimekho.R;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +55,27 @@ public class EmployeeActivity extends AppCompatActivity {
     private List<Employee> getListEmployee()
     {
         List<Employee> list = new ArrayList<>();
-        list.add(new Employee("NV01", "Nguyễn Văn An", "Nhân viên xếp hàng", "30/4/2001", "07598839923", "098756732"));
-        list.add(new Employee("NV02", "Trần Nguyễn Văn Bê", "Nhân viên kế toán", "3/8/1994", "02598832323", "0487544732"));
+        SQLServerConnection db = new SQLServerConnection();
+        try {
+            Statement stm = db.getConnection().createStatement();
+            String query = "select * from employee";
+            ResultSet rs = stm.executeQuery(query);
+            while(rs.next()){
+                Employee emp = new Employee();
+                emp.setId(Integer.toString(rs.getInt("id")));
+                emp.setName(rs.getString("name"));
+
+                String pattern = "dd/MM/yyyy";
+                DateFormat df = new SimpleDateFormat(pattern);
+                emp.setDayOfBirth(df.format(rs.getDate("birthday")));
+                emp.setIdentify(rs.getString("indentify"));
+                emp.setPhoneNumber(rs.getString("phone"));
+                emp.setTitle(Integer.toString(rs.getInt("role")));
+                list.add(emp);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         return list;
     }

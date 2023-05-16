@@ -6,27 +6,41 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alimekho.Adapter.PNK2Adapter;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.nhaCungCap;
 import com.example.alimekho.R;
 import com.example.alimekho.Model.sanPham;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CreatePNK2Activity extends AppCompatActivity {
+public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter.setData{
     private Button btnBackHome, btnContinue, btnAdd, btnBack;
     private RecyclerView recyclerView;
     private TextView txtmaNCC, txtTenNCC, txtdiaChi, txtSDT;
     private SearchView searchView;
     private ArrayList<nhaCungCap> nhaCungCaps;
     private PNK2Adapter pnk2Adapter;
+    private SQLServerConnection db = new SQLServerConnection();
+    private Connection conn = db.getConnection();
+    private int maPhieu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +71,22 @@ public class CreatePNK2Activity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreatePNK2Activity.this, CreatePNK3Activity.class));
+                if(TextUtils.isEmpty(txtmaNCC.getText().toString().trim())){
+                    Toast.makeText(CreatePNK2Activity.this, "Vui lòng chọn nhà cung cấp!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                try {
+                    String update = "UPDATE input_form SET supplier_id = ? WHERE id = ?";
+                    PreparedStatement stm = conn.prepareStatement(update);
+                    stm.setInt(1, Integer.parseInt(txtmaNCC.getText().toString().trim()));
+                    stm.setInt(2, maPhieu);
+                    int rs = stm.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(CreatePNK2Activity.this, CreatePNK3Activity.class);
+                intent.putExtra("maPhieu", maPhieu);
+                startActivity(intent);
             }
         });
         searchView.clearFocus();
@@ -97,18 +126,32 @@ public class CreatePNK2Activity extends AppCompatActivity {
         btnBack = findViewById(R.id.gdcreatePNK2_btnBack);
         recyclerView = findViewById(R.id.gdcreatePNK2_rcv);
         searchView = findViewById(R.id.gdcreatePNK2_sv);
-        txtmaNCC = findViewById(R.id.gdcreatePNK2_txt1);
-        txtTenNCC = findViewById(R.id.gdcreatePNK2_txt2);
-        txtdiaChi = findViewById(R.id.gdcreatePNK2_txt3);
-        txtSDT = findViewById(R.id.gdcreatePNK2_txt4);
+        txtmaNCC = findViewById(R.id.maNCC);
+        txtTenNCC = findViewById(R.id.tenNCC);
+        txtdiaChi = findViewById(R.id.diaChi);
+        txtSDT = findViewById(R.id.sdt);
+        maPhieu = getIntent().getIntExtra("maPhieu", -1);
         nhaCungCaps = new ArrayList<>();
+        try {
+            Statement stm = conn.createStatement();
+            String getSupplier = "select * from supplier";
+            ResultSet rs = stm.executeQuery(getSupplier);
+            while (rs.next()) {
+                nhaCungCaps.add(new nhaCungCap(String.valueOf(rs.getInt(1)), rs.getString(2), rs.getString(3), rs.getString(4)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public void showDialog(){
-        Dialog dialog = new Dialog(this, android.R.style.Theme_Material_Light_Dialog_Presentation);
+        Dialog dialog = new Dialog(CreatePNK2Activity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog_addncc);
-        TextView txtmaNCC, txttenNCC, txtdiaChi, txtSDT;
-        txtmaNCC = dialog.findViewById(R.id.txtmaNCC);
+        Window window = dialog.getWindow();
+        if (window == null) return;
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView txttenNCC, txtdiaChi, txtSDT;
         txttenNCC = dialog.findViewById(R.id.txttenNCC);
         txtdiaChi = dialog.findViewById(R.id.txtdiaChi);
         txtSDT = dialog.findViewById(R.id.txtSDT);
@@ -123,7 +166,24 @@ public class CreatePNK2Activity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nhaCungCap nhaCungCap = new nhaCungCap(txtmaNCC.getText().toString().trim(), txttenNCC.getText().toString().trim(),
+                String maNCC = "";
+                try {
+                    String insert = "INSERT INTO [supplier] ([name], [address], [phone]) VALUES(?,?,?)";
+                    PreparedStatement stm = conn.prepareStatement(insert);
+                    stm.setString(1, txttenNCC.getText().toString().trim());
+                    stm.setString(2, txtdiaChi.getText().toString().trim());
+                    stm.setString(3, txtSDT.getText().toString().trim());
+                    int rs = stm.executeUpdate();
+                    String select = "SELECT IDENT_CURRENT('supplier')";
+                    Statement stm1 = conn.createStatement();
+                    ResultSet rs1 = stm1.executeQuery(select);
+                    while(rs1.next()){
+                        maNCC = String.valueOf(rs1.getInt(1));
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                nhaCungCap nhaCungCap = new nhaCungCap(maNCC, txttenNCC.getText().toString().trim(),
                         txtdiaChi.getText().toString().trim(), txtSDT.getText().toString().trim());
                 nhaCungCaps.add(nhaCungCap);
                 pnk2Adapter.notifyDataSetChanged();
@@ -131,5 +191,13 @@ public class CreatePNK2Activity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void setNhaCungCap(nhaCungCap nhaCungCap) {
+        txtmaNCC.setText(nhaCungCap.getMaNCC().toString().trim());
+        txtTenNCC.setText(nhaCungCap.getTenCC().toString().trim());
+        txtdiaChi.setText(nhaCungCap.getDiaChi().toString().trim());
+        txtSDT.setText(nhaCungCap.getSDT().toString().trim());
     }
 }

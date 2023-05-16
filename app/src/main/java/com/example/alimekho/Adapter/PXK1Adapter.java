@@ -40,6 +40,7 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PXK1ViewHolder holder, int position) {
+
         CTPXK sanPham = sanPhams.get(position);
         holder.txtmaSP.setText(sanPham.getSanPham().getMaSP().toString().trim());
         holder.txttenSP.setText(sanPham.getSanPham().getTenSP().toString().trim());
@@ -59,8 +60,8 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
                 }
             }
         });
-        holder.txtNSX.setText(sanPham.getNSX().toString().trim());
-        holder.txtHSD.setText(sanPham.getHSD().toString().trim());
+       // holder.txtNSX.setText(sanPham.getNSX().toString().trim());
+        //holder.txtHSD.setText(sanPham.getHSD().toString().trim());
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

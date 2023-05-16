@@ -10,6 +10,9 @@ public class sanPham implements Serializable {
     private String donViTinh;
     private String supplier_id;
 
+    public sanPham() {
+    }
+
     public sanPham(String maSP, String tenSP, double donGia) {
         this.maSP = maSP;
         this.tenSP = tenSP;
@@ -24,7 +27,6 @@ public class sanPham implements Serializable {
         this.donViTinh = donViTinh;
         this.supplier_id = supplier_id;
     }
-
     public String getMaSP() {
         return maSP;
     }

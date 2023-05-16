@@ -2,9 +2,12 @@ package com.example.alimekho.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -135,10 +138,16 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
         }
     }
     public void showDialog(){
-        Dialog dialog = new Dialog(this, android.R.style.Theme_Material_Light_Dialog_Presentation);
+        Dialog dialog = new Dialog(CreatePXK2Activity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog_addchx);
-        TextView txttenNCC, txtdiaChi, txtSDT;
+
+        Window window = dialog.getWindow();
+        if (window == null) return;
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView txtmaNCC, txttenNCC, txtdiaChi, txtSDT;
+
         txtTenCHX = dialog.findViewById(R.id.txttenCHX);
         txtdiaChi = dialog.findViewById(R.id.txtdiaChi);
         txtSDT = dialog.findViewById(R.id.txtSDT);

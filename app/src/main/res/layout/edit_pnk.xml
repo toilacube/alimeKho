@@ -64,6 +64,7 @@
                         android:layout_height="35dp"
                         android:background="@drawable/spinnerform"
                         android:paddingLeft="10dp"
+                        android:id="@+id/spinnerpcs"
                         android:text="xxxxxxxxx "
                         android:textColor="@color/black"
                         android:textSize="13dp" />
@@ -85,11 +86,13 @@
                         android:textColor="@color/black"
                         tools:ignore="RtlCompat" />
 
-                    <EditText
+                    <Spinner
                         android:layout_width="290dp"
                         android:layout_height="35dp"
-                        android:background="@color/gray_img"
+                        android:background="@drawable/spinnerform"
                         android:paddingLeft="10dp"
+                        android:id="@+id/spinnernpt"
+                        android:text="xxxxxxxxx "
                         android:textColor="@color/black"
                         android:textSize="13dp" />
 
@@ -117,6 +120,7 @@
                         android:background="@drawable/spinnerform"
                         android:paddingLeft="10dp"
                         android:text="xxxxxxxxx "
+                        android:id="@+id/spinnerncc"
                         android:textColor="@color/black"
                         android:textSize="13dp" />
 
@@ -144,9 +148,11 @@
                         android:background="@color/gray_img"
                         android:drawableEnd="@drawable/baseline_edit_calendar_24"
                         android:paddingLeft="10dp"
+                        android:id="@+id/ngaynhapkho"
+                        android:focusable="false"
                         android:paddingRight="20dp"
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                        android:textSize="14dp" />
 
                 </LinearLayout>
             </LinearLayout>

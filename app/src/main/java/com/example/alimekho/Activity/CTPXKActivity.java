@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +19,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.alimekho.Adapter.CTPNKAdapter;
 import com.example.alimekho.Adapter.CTPXKAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
-import com.example.alimekho.Model.CTPNK;
 import com.example.alimekho.Model.CTPXK;
-import com.example.alimekho.Model.phieuNhapKho;
 import com.example.alimekho.Model.phieuXuatKho;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
@@ -37,7 +33,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CTPXKActivity extends AppCompatActivity {
     private String maPhieu;
@@ -53,7 +48,6 @@ public class CTPXKActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ctpxk);
         maPhieu = getIntent().getExtras().getString("maPhieuXuat");
         phieuXuatKho PXK = null;
-
 
         //back btn
         Button backBtn = findViewById(R.id.btn_back);
@@ -95,6 +89,12 @@ public class CTPXKActivity extends AppCompatActivity {
         ListCTPXK = getListCTPXK();
         adapter = new CTPXKAdapter(this, ListCTPXK);
         rcv.setAdapter(adapter);
+
+        //test
+        RecyclerView rcv = findViewById(R.id.rcv);
+//        CTPXKAdapter adapter = new CTPXKAdapter(this, getListCTPXK());
+      //  rcv.setAdapter(adapter);
+
         rcv.setLayoutManager(new LinearLayoutManager(this));
 
         //del btn
@@ -120,7 +120,7 @@ public class CTPXKActivity extends AppCompatActivity {
                 window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                Spinner spnMaSP = dialog.findViewById(R.id.maSP);
+                Spinner spnMaSP = dialog.findViewById(R.id.spinnersp);
                 spnMaSP.setAdapter(new ArrayAdapter<>(CTPXKActivity.this, R.layout.style_spinner_form, listSP));
                 EditText sl = dialog.findViewById(R.id.sl);
 
@@ -188,4 +188,27 @@ public class CTPXKActivity extends AppCompatActivity {
         }
         return list;
     }
+//    private List<CTPXK> getListCTPXK() {
+//        List<CTPXK> l = new ArrayList<>();
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 1", 12000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 2", 12000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 3", 12000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 4", 13000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 5", 14000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 6", 15000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        return l;
+//    }
+
 }

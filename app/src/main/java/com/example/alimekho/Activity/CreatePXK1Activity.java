@@ -80,6 +80,7 @@ public class CreatePXK1Activity extends AppCompatActivity {
         btnBack = findViewById(R.id.gdcreatePXK1_btnBack);
         recyclerView = findViewById(R.id.gdcreatePXK1_rcv);
         searchView = findViewById(R.id.gdcreatePXK1_sv);
+
         sanPhams = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
@@ -102,6 +103,7 @@ public class CreatePXK1Activity extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         sanPhamDuocChon = new ArrayList<>();
     }
 

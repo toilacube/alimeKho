@@ -40,6 +40,7 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
         holder.txtthanhTien.setText(Double.toString(ctpxk.getThanhTien()));
         holder.txtNSX.setText(ctpxk.getNSX().toString().trim());
         holder.txtHSD.setText(ctpxk.getHSD().toString().trim());
+
     }
 
     @Override
