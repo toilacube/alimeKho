@@ -39,6 +39,11 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
         this.listPXK = listPXK;
     }
 
+    public void setFilteredList(ArrayList<phieuXuatKho> filteredList) {
+        this.listPXK = filteredList;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvMaPhieu;
         private TextView tvNgXK;

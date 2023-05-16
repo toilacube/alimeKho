@@ -63,7 +63,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/icon_noti"
             app:layout_constraintTop_toTopOf="@+id/icon_noti" />
 
-        <androidx.appcompat.widget.SearchView
+        <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -78,8 +78,8 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
         holder.tenSP.setText(item.getSanPham().getTenSP());
         holder.SL.setText(String.valueOf(item.getSoLuong()));
         holder.DG.setText(String.valueOf(item.getSanPham().getDonGia()));
-        holder.NSX.setText(item.getSanPham().getNSX());
-        holder.HSD.setText(item.getSanPham().getHSD());
+        holder.NSX.setText(item.getNSX());
+        holder.HSD.setText(item.getHSD());
         holder.TT.setText(String.valueOf(item.getSoLuong() * item.getSanPham().getDonGia()));
         holder.cb.setChecked(false);
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

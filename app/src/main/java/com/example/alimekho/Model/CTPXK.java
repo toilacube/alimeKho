@@ -5,18 +5,37 @@ public class CTPXK {
     private sanPham sanPham;
     private double thanhTien;
     private int soLuong;
+    private String NSX;
+    private String HSD;
 
-    public CTPXK(String maPXK, com.example.alimekho.Model.sanPham sanPham, int soLuong) {
+    public CTPXK(String maPXK, com.example.alimekho.Model.sanPham sanPham, int soLuong, String NSX, String HSD) {
         this.maPXK = maPXK;
         this.sanPham = sanPham;
         this.soLuong = soLuong;
         this.thanhTien = sanPham.getDonGia()*soLuong;
+        this.HSD = HSD;
+        this.NSX = NSX;
+    }
+    public CTPXK(com.example.alimekho.Model.sanPham sanPham, int soLuong, String NSX, String HSD) {
+        this.sanPham = sanPham;
+        this.soLuong = soLuong;
+        this.thanhTien = sanPham.getDonGia()*soLuong;
+        this.HSD = HSD;
+        this.NSX = NSX;
     }
 
     public CTPXK(com.example.alimekho.Model.sanPham sanPham, int soLuong) {
         this.sanPham = sanPham;
         this.soLuong = soLuong;
         this.thanhTien = sanPham.getDonGia()*soLuong;
+    }
+
+    public String getNSX() {
+        return NSX;
+    }
+
+    public String getHSD() {
+        return HSD;
     }
 
     public String getMaPXK() {
@@ -29,6 +48,7 @@ public class CTPXK {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
+        this.thanhTien = this.soLuong * this.sanPham.getDonGia();
     }
 
     public int getSoLuong() {

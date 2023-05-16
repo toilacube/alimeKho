@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.alimekho.Adapter.PNKAdapter;
 import com.example.alimekho.Adapter.PXKAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
+import com.example.alimekho.Model.cuaHangXuat;
 import com.example.alimekho.Model.phieuNhapKho;
 import com.example.alimekho.Model.phieuXuatKho;
 import com.example.alimekho.R;
@@ -74,7 +76,21 @@ public class QLPXKActivity extends AppCompatActivity {
             }
         });
 
-        //
+        //search
+        SearchView searchView = findViewById(R.id.search_bar);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         //sua
         ImageView editBtn = findViewById(R.id.icon_edit);
@@ -155,12 +171,18 @@ public class QLPXKActivity extends AppCompatActivity {
 
         try {
             Statement stm = conn.createStatement();
-            String Query = "select output_form.id, output_form.output_day, store.address, employee.name, output_form.total\n" +
+            String Query = "select output_form.id, output_form.output_day, store.name, employee.name, output_form.total\n" +
                     "from output_form, store, employee\n" +
                     "where output_form.emp_id = employee.id and output_form.store_id = store.id";
             ResultSet rs = stm.executeQuery(Query);
             while (rs.next()) {
-                list.add(new phieuXuatKho(rs.getString("id"), new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("output_day")), rs.getString("address"), rs.getString("name"), rs.getDouble(5)));
+                list.add(new phieuXuatKho(
+                        rs.getString(1),
+                        new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(2)),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5))
+                );
             }
 
             rs = stm.executeQuery("select id from store");
@@ -180,5 +202,18 @@ public class QLPXKActivity extends AppCompatActivity {
         }
 
         return list;
+    }
+    private void filterList(String newText) {
+        ArrayList<phieuXuatKho> filteredList = new ArrayList<>();
+        for (phieuXuatKho pxk : listPXK) {
+            if (pxk.getMaPhieu().toLowerCase().contains(newText.toLowerCase())
+                    || pxk.getNgayXuatKho().toLowerCase().contains(newText.toLowerCase())
+                    || pxk.getTenCuaHangXuat().toLowerCase().contains(newText.toLowerCase())
+                    || pxk.getTenNV().toLowerCase().contains(newText.toLowerCase())
+            ){
+                filteredList.add(pxk);
+            }
+        }
+        adapter.setFilteredList(filteredList);
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:textSize="15dp"
+    android:paddingLeft="12dp"
+    android:paddingTop="6dp"
+    android:lineSpacingExtra="10dp">
+
+</TextView>

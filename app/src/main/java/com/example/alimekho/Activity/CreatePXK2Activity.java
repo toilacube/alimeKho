@@ -126,8 +126,8 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
             while (rs.next()) {
                 cuaHangXuats.add(new cuaHangXuat(
                         rs.getString("id"),
-                        "Tên nháp, đợi db " + rs.getString("id"),
-                        "SĐT nháp, đợi db",
+                        rs.getString("name"),
+                        rs.getString("phone"),
                         rs.getString("address")));
             }
         } catch (SQLException e) {

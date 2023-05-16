@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class CTPXKActivity extends AppCompatActivity {
         maPhieu = getIntent().getExtras().getString("maPhieuXuat");
         phieuXuatKho PXK = null;
 
+
         //back btn
         Button backBtn = findViewById(R.id.btn_back);
         backBtn.setOnClickListener(view -> onBackPressed());
@@ -60,12 +62,17 @@ public class CTPXKActivity extends AppCompatActivity {
         // panel
         try {
             Statement stm = conn.createStatement();
-            String Query = "select output_form.id, output_form.output_day, store.address, employee.name, output_form.total\n" +
+            String Query = "select output_form.id, output_form.output_day, store.name as s_name, employee.name, output_form.total\n" +
                     "from output_form, store, employee\n" +
                     "where output_form.emp_id = employee.id and output_form.store_id = store.id and output_form.id = " + maPhieu;
             ResultSet rs = stm.executeQuery(Query);
             if (rs.next()) {
-                PXK = new phieuXuatKho(rs.getString("id"), new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("output_day")), rs.getString("address"), rs.getString("name"), rs.getDouble(5));
+                PXK = new phieuXuatKho(
+                        rs.getString("id"),
+                        new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("output_day")),
+                        rs.getString("s_name"),
+                        rs.getString("name"),
+                        rs.getDouble(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,15 +145,6 @@ public class CTPXKActivity extends AppCompatActivity {
                                     +"\nwhere form_id = " + maPhieu
                                     +"and product_id = " + spnMaSP.getSelectedItem();
                             stm.executeUpdate(Query);
-
-                            Query = "UPDATE output_form\n" +
-                                    "SET total = \n" +
-                                    "(\n" +
-                                    "\tSELECT SUM(p.quantity * pr.unit_price) \n" +
-                                    "\tFROM detail_output p INNER JOIN product pr ON p.product_id = pr.id \n" +
-                                    "\tWHERE p.form_id = output_form.id\t\n" +
-                                    ")";
-                            stm.executeUpdate(Query);
                             stm.close();
                             conn.close();
                             Toast.makeText(CTPXKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
@@ -167,7 +165,7 @@ public class CTPXKActivity extends AppCompatActivity {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Statement stm = conn.createStatement();
-            String Query = "select detail_output.product_id, product.name, product.unit_price, detail_output.quantity, product.NSX, product.HSD\n" +
+            String Query = "select detail_output.product_id, product.name, product.unit_price, detail_output.quantity, detail_output.NSX, detail_output.HSD\n" +
                     "from detail_output, product\n" +
                     "where detail_output.product_id = product.id and form_id = " + maPhieu;
             ResultSet rs = stm.executeQuery(Query);
@@ -175,10 +173,11 @@ public class CTPXKActivity extends AppCompatActivity {
                 list.add(new CTPXK(maPhieu,
                         new sanPham(rs.getString("product_id"),
                                 rs.getString("name"),
-                                rs.getDouble("unit_price"),
-                                dateFormat.format(rs.getDate("NSX")),
-                                dateFormat.format(rs.getDate("HSD"))),
-                        rs.getInt("quantity")));
+                                rs.getDouble("unit_price")
+                                ),
+                        rs.getInt("quantity"),
+                        dateFormat.format(rs.getDate("NSX")),
+                        dateFormat.format(rs.getDate("HSD"))));
                 listSP.add(rs.getString("product_id"));
             }
             rs.close();

@@ -21,45 +21,7 @@ public class DetailSanPham extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_san_pham);
 
-        sanPham sp = (sanPham) getIntent().getSerializableExtra("SP");
-        id = findViewById(R.id.tv_id);
-        name = findViewById(R.id.tv_name);
-        soLuong = findViewById(R.id.tv_soLuong);
-        donGia = findViewById(R.id.tv_donGia);
-        NSX = findViewById(R.id.tv_NSX);
-        HSD = findViewById(R.id.tv_HSD);
-        phanLoai = findViewById(R.id.tv_loaiSP);
-        donViTinh = findViewById(R.id.tv_donViTinh);
-        btnBack = findViewById(R.id.btn_back_san_pham);
-        btnDelete = findViewById(R.id.btn_delete);
-
-        id.setText(sp.getMaSP());
-        name.setText(sp.getTenSP());
-        soLuong.setText(Integer.toString(sp.getSoLuong()));
-        donGia.setText(Double.toString(sp.getDonGia()));
-        NSX.setText(sp.getNSX());
-        HSD.setText(sp.getHSD());
-        phanLoai.setText(sp.getPhanLoai());
-        donViTinh.setText(sp.getDonViTinh());
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SanPhamActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
-                builder.setView(dialogView);
-                builder.show();
-            }
-        });
-
+        // Toi khong phan su
 
     }
 }

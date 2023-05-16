@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.alimekho.Model.CTPNK;
+import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.nhaCungCap;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
@@ -20,10 +22,10 @@ import java.util.ArrayList;
 
 public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder>{
     private Context context;
-    private ArrayList<sanPham> sanPhams;
-    private ArrayList<sanPham> sanPhamVV;
+    private ArrayList<CTPXK> sanPhams;
+    private ArrayList<CTPXK> sanPhamVV;
 
-    public PXK1Adapter(Context context, ArrayList<sanPham> sanPhams) {
+    public PXK1Adapter(Context context, ArrayList<CTPXK> sanPhams) {
         this.context = context;
         this.sanPhams = sanPhams;
         sanPhamVV = new ArrayList<>();
@@ -38,12 +40,12 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PXK1ViewHolder holder, int position) {
-        sanPham sanPham = sanPhams.get(position);
-        holder.txtmaSP.setText(sanPham.getMaSP().toString().trim());
-        holder.txttenSP.setText(sanPham.getTenSP().toString().trim());
-        holder.txtdonGia.setText(Double.toString(sanPham.getDonGia()));
+        CTPXK sanPham = sanPhams.get(position);
+        holder.txtmaSP.setText(sanPham.getSanPham().getMaSP().toString().trim());
+        holder.txttenSP.setText(sanPham.getSanPham().getTenSP().toString().trim());
+        holder.txtdonGia.setText(Double.toString(sanPham.getSanPham().getDonGia()));
         holder.txtsoLuong.setText(Integer.toString(sanPham.getSoLuong()));
-        holder.txtthanhTien.setText(Double.toString(sanPham.getSoLuong()*sanPham.getDonGia()));
+        holder.txtthanhTien.setText(Double.toString(sanPham.getSoLuong()*sanPham.getSanPham().getDonGia()));
         holder.txtsoLuong.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -52,7 +54,7 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
             @Override
             public void afterTextChanged(Editable s) {
                 if(!holder.txtsoLuong.getText().toString().trim().isEmpty()) {
-                    holder.txtthanhTien.setText(Double.toString(Double.valueOf(holder.txtsoLuong.getText().toString().trim()) * sanPham.getDonGia()));
+                    holder.txtthanhTien.setText(Double.toString(Double.valueOf(holder.txtsoLuong.getText().toString().trim()) * sanPham.getSanPham().getDonGia()));
                     sanPham.setSoLuong(Integer.parseInt(holder.txtsoLuong.getText().toString().trim()));
                 }
             }
@@ -63,7 +65,9 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
             @Override
             public void onClick(View v) {
                 boolean isChecked = holder.checkBox.isChecked();
-                sanPham.setSoLuong(Integer.parseInt(holder.txtsoLuong.getText().toString().trim()));
+                String sl = holder.txtsoLuong.getText().toString().trim();
+                if (sl.isEmpty()) sl = "0";
+                sanPham.setSoLuong(Integer.parseInt(sl));
                 if(isChecked)
                     sanPhamVV.add(sanPham);
                 else
@@ -76,7 +80,7 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
     public int getItemCount() {
         return sanPhams == null ? 0 : sanPhams.size();
     }
-    public ArrayList<sanPham> getSanPhamVV(){
+    public ArrayList<CTPXK> getSanPhamVV(){
         return sanPhamVV;
     }
     public class PXK1ViewHolder extends RecyclerView.ViewHolder{
@@ -95,7 +99,7 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
             checkBox = itemView.findViewById(R.id.customPXK1_checkbox);
         }
     }
-    public void setFilteredList(ArrayList<sanPham> filteredList) {
+    public void setFilteredList(ArrayList<CTPXK> filteredList) {
         this.sanPhams = filteredList;
         notifyDataSetChanged();
     }

@@ -70,14 +70,15 @@ public class CreatePXK3Activity extends AppCompatActivity {
                                     "'" + today +"'" +
                                     " , " + sharedPref.getString("id", "") +
                                     " , "+ getIntent().getExtras().getString("maCHX") +
-                                    " ,"+String.valueOf(total)+")";
+                                    " , "+String.valueOf(total)+")";
                     stm.executeUpdate(Query);
 
                     for (CTPXK ct : ctpxks){
                         String insertQuery = "DECLARE @formID int;\n" +
                                 "SELECT @formID = IDENT_CURRENT('[output_form]');\n" +
-                                "INSERT INTO [detail_output] ([product_id], [form_id], [quantity]) "+
-                                "VALUES ( " + ct.getSanPham().getMaSP() + ", @formID, "+ ct.getSoLuong() + ")";
+                                "INSERT INTO [detail_output] ([product_id], [form_id], [quantity], [NSX], [HSD], [total]) "+
+                                "VALUES ( " + ct.getSanPham().getMaSP() + ", @formID, "+ ct.getSoLuong() + "," + ct.getNSX() +", "+
+                                        ct.getHSD() +", " + ct.getThanhTien() + ")";
                         stm.executeUpdate(insertQuery);
                     }
                     stm.close();
@@ -129,10 +130,10 @@ public class CreatePXK3Activity extends AppCompatActivity {
         txtnhanVien = findViewById(R.id.gdcreatePXK3_txtnguoiPT);
         txttoTal = findViewById(R.id.gdcreatePXK3_txtthanhTien);
         ctpxks = new ArrayList<>();
-        List<sanPham> listSP = CreatePXK1Activity.spSelected();
-        for (sanPham i : listSP){
-            ctpxks.add(new CTPXK(i,i.getSoLuong()));
-            total += i.getSoLuong() * i.getDonGia();
+        List<CTPXK> listSP = CreatePXK1Activity.spSelected();
+        for (CTPXK i : listSP){
+            ctpxks.add(i);
+            total += i.getThanhTien();
         }
         phieuXuatKho = new phieuXuatKho("NH122", "23/09/2022", "PM Milk. Co", "Nguyễn Văn A", 12000000.0);
     }

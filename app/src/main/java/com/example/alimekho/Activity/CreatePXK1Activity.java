@@ -36,9 +36,9 @@ public class CreatePXK1Activity extends AppCompatActivity {
     private Button btnBackHome, btnContinue, btnBack;
     private RecyclerView recyclerView;
     private SearchView searchView;
-    private ArrayList<sanPham> sanPhams;
-    private static ArrayList<sanPham> sanPhamDuocChon;
-    public static ArrayList<sanPham> spSelected(){
+    private ArrayList<CTPXK> sanPhams;
+    private static ArrayList<CTPXK> sanPhamDuocChon;
+    public static ArrayList<CTPXK> spSelected(){
         return sanPhamDuocChon;
     }
     private PXK1Adapter pxk1Adapter;
@@ -83,13 +83,18 @@ public class CreatePXK1Activity extends AppCompatActivity {
         sanPhams = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String Query = "select * from product";
+            String Query = "select d.product_id, p.name, sum(d.quantity) as quantity, p.unit_price, d.NSX, d.HSD\n" +
+                    "from detail_input d, product p\n" +
+                    "where d.product_id = p.id\n" +
+                    "group by d.product_id, p.name, p.unit_price, d.NSX, d.HSD";
             ResultSet rs = stm.executeQuery(Query);
             while (rs.next()) {
-                sanPhams.add(new sanPham(
-                        rs.getString("id"),
-                        rs.getString("name"),
-                        rs.getDouble("unit_price"),
+                sanPhams.add(new CTPXK(
+                        new sanPham(
+                                rs.getString("product_id"),
+                                rs.getString("name"),
+                                rs.getDouble("unit_price")
+                                ),
                         rs.getInt("quantity"),
                         new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NSX")),
                         new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("HSD"))));
@@ -101,10 +106,10 @@ public class CreatePXK1Activity extends AppCompatActivity {
     }
 
     private void filterList(String newText) {
-        ArrayList<sanPham> filteredList = new ArrayList<>();
-        for (sanPham sanPham : sanPhams) {
-            if (sanPham.getMaSP().toLowerCase().contains(newText.toLowerCase())
-                    || sanPham.getTenSP().toLowerCase().contains(newText.toLowerCase())){
+        ArrayList<CTPXK> filteredList = new ArrayList<>();
+        for (CTPXK sanPham : sanPhams) {
+            if (sanPham.getSanPham().getMaSP().toLowerCase().contains(newText.toLowerCase())
+                    || sanPham.getSanPham().getTenSP().toLowerCase().contains(newText.toLowerCase())){
                 filteredList.add(sanPham);
             }
         }
