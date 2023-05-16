@@ -129,11 +129,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                         sanPham.setTenSP(edtTenSP.getText().toString().trim());
 
                         sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-
-//                        sanPham.setHSD(edtHSD.getText().toString().trim());
-//                        sanPham.setNSX(edtNSX.getText().toString().trim());
-//                        sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
-//                        sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
+                        //sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
                         sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
 
                         try {

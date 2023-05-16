@@ -48,7 +48,7 @@ public class SanPhamActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rcvSanPham.addItemDecoration(itemDecoration);
 
-        //list = getListSanPham();
+        list = getListSanPham();
         sanPhamAdapter = new SanPhamAdapter(getApplicationContext(), list);
         rcvSanPham.setAdapter(sanPhamAdapter);
 
@@ -108,17 +108,6 @@ public class SanPhamActivity extends AppCompatActivity {
 
                 list.add(sanPham);
                 sanPhamAdapter.setList(list);
-
-//                sanPham.setTenSP(edtTenSP.getText().toString().trim());
-//                sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-//                sanPham.setHSD(edtHSD.getText().toString().trim());
-//                sanPham.setNSX(edtNSX.getText().toString().trim());
-//                sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
-//                sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
-//                sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
-//                list.add(sanPham);
-//                sanPhamAdapter.setList(list);
-
                 sanPhamAdapter.notifyDataSetChanged();
             }
         });

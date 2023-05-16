@@ -99,14 +99,14 @@
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"
                 android:inputType="number"/>
-            <EditText
-                android:id="@+id/edtNhaCC"
+            <Spinner
+                android:id="@+id/spNhaCC"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
-            <EditText
-                android:id="@+id/edtLoaiSP"
+            <Spinner
+                android:id="@+id/spLoaiSP"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
