@@ -145,7 +145,7 @@ public class SanPhamActivity extends AppCompatActivity {
                             + sanPham.getSupplier_id() + ");";
                     stm.executeUpdate(query);
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
                 String select = "SELECT IDENT_CURRENT('product')";
                 Statement stm1 = null;
@@ -156,7 +156,7 @@ public class SanPhamActivity extends AppCompatActivity {
                         sanPham.setMaSP(String.valueOf(rs1.getInt(1)));
                     }
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
 
                 list.add(sanPham);
