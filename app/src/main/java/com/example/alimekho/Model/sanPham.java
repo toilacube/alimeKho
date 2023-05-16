@@ -7,7 +7,7 @@ public class sanPham implements Serializable {
     private String tenSP;
     private double donGia;
     private String phanLoai;
-    private String donViTinh; //
+    private String donViTinh;
     private String supplier_id;
 
     public sanPham(String maSP, String tenSP, double donGia) {

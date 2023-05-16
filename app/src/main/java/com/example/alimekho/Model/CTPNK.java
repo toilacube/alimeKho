@@ -16,7 +16,7 @@ public class CTPNK {
         this.soLuong = soLuong;
         this.NSX = NSX;
         this.HSD = HSD;
-        status = 0; //tinhtrang
+        status = 0;
     }
 
     public String getMaPNK() {
