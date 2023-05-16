@@ -6,45 +6,27 @@ public class sanPham implements Serializable {
     private String maSP;
     private String tenSP;
     private double donGia;
-    private String NSX;
-    private String HSD;
-    private int soLuong;
     private String phanLoai;
     private String donViTinh;
-
-
-    public void setPhanLoai(String phanLoai) {
-        this.phanLoai = phanLoai;
-    }
-
-    public void setDonViTinh(String donViTinh) {
-        this.donViTinh = donViTinh;
-    }
+    private String supplier_id;
 
     public sanPham() {
     }
 
-    public sanPham(String maSP, String tenSP, double donGia, int soLuong, String NSX, String HSD) {
+    public sanPham(String maSP, String tenSP, double donGia) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.donGia = donGia;
-        this.NSX = NSX;
-        this.HSD = HSD;
-        this.soLuong = soLuong;
     }
 
-    public sanPham(String maSP, String tenSP, double donGia, String NSX, String HSD, int soLuong, String phanLoai, String donViTInh) {
+    public sanPham(String maSP, String tenSP, double donGia, String phanLoai, String donViTinh, String supplier_id) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.donGia = donGia;
-        this.NSX = NSX;
-        this.HSD = HSD;
-        this.soLuong = soLuong;
         this.phanLoai = phanLoai;
-        this.donViTinh = donViTInh;
+        this.donViTinh = donViTinh;
+        this.supplier_id = supplier_id;
     }
-
-
     public String getMaSP() {
         return maSP;
     }
@@ -69,35 +51,27 @@ public class sanPham implements Serializable {
         this.donGia = donGia;
     }
 
-    public String getNSX() {
-        return NSX;
+    public String getPhanLoai() {
+        return phanLoai;
     }
 
-    public void setNSX(String NSX) {
-        this.NSX = NSX;
-    }
-
-    public String getHSD() {
-        return HSD;
-    }
-
-    public void setHSD(String HSD) {
-        this.HSD = HSD;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    public void setPhanLoai(String phanLoai) {
+        this.phanLoai = phanLoai;
     }
 
     public String getDonViTinh() {
         return donViTinh;
     }
 
-    public String getPhanLoai() {
-        return phanLoai;
+    public void setDonViTinh(String donViTinh) {
+        this.donViTinh = donViTinh;
+    }
+
+    public String getSupplier_id() {
+        return supplier_id;
+    }
+
+    public void setSupplier_id(String supplier_id) {
+        this.supplier_id = supplier_id;
     }
 }

@@ -16,9 +16,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Activity.DetailSanPham;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
@@ -31,17 +35,17 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     }
 
     public class SanPhamViewHolder extends RecyclerView.ViewHolder {
-        private TextView id, name, soLuong, ngayNhap, NSX, HSD, donGia;
+        private TextView id, name, donViTinh, donGia, loaiSP, nhaCC;
         private ImageView delete, update;
         private LinearLayout linearLayout;
         public SanPhamViewHolder(@NonNull View view){
             super(view);
             id = view.findViewById(R.id.txvID);
             name = view.findViewById(R.id.txvName);
-            soLuong = view.findViewById(R.id.txvSoLuong);
+            donViTinh = view.findViewById(R.id.txvDonViTinh);
             donGia = view.findViewById(R.id.txvDonGia);
-            NSX = view.findViewById(R.id.txvNSX);
-            HSD = view.findViewById(R.id.txvHSD);
+            loaiSP = view.findViewById(R.id.txvLoaiSP);
+            nhaCC = view.findViewById(R.id.txvNhaCC);
             linearLayout = view.findViewById(R.id.linear);
             update = view.findViewById(R.id.img_update);
             delete = view.findViewById(R.id.img_delete);
@@ -60,13 +64,33 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     @Override
     public void onBindViewHolder(@NonNull SanPhamViewHolder holder, int position) {
         sanPham sanPham = sanPhamList.get(position);
+        SQLServerConnection db = new SQLServerConnection();
 
         holder.id.setText(sanPham.getMaSP());
         holder.name.setText(sanPham.getTenSP());
-        holder.soLuong.setText(Integer.toString(sanPham.getSoLuong()));
+        holder.donViTinh.setText(sanPham.getDonViTinh());
         holder.donGia.setText(Double.toString(sanPham.getDonGia()));
-        holder.NSX.setText(sanPham.getNSX());
-        holder.HSD.setText(sanPham.getHSD());
+
+        try {
+            Statement stm1 = db.getConnection().createStatement();
+
+            String type = sanPham.getPhanLoai();
+            String getTypeQuery = "SELECT name FROM product_type where id = " + type;
+            ResultSet rsType = stm1.executeQuery(getTypeQuery);
+
+            if(rsType.next())
+                holder.loaiSP.setText(rsType.getString(1));
+
+
+            String supplier = sanPham.getSupplier_id();
+            String getSupplierQuery = "select name from supplier where id = " + supplier;
+            ResultSet rsSupplier = stm1.executeQuery(getSupplierQuery);
+            if(rsSupplier.next())
+                holder.nhaCC.setText(rsSupplier.getString(1));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,40 +112,53 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 AlertDialog dialog = builder.create();
 
                 EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
-                        edtDonGia = dialogView.findViewById(R.id.edtDonGia),
-                        edtSoLuong = dialogView.findViewById(R.id.edtSoLuong),
-                        edtNSX = dialogView.findViewById(R.id.edtNSX),
-                        edtHSD = dialogView.findViewById(R.id.edtHSD),
-                        edtLoaiSP = dialogView.findViewById(R.id.edtLoaiSP),
+                       // edtDonGia = dialogView.findViewById(R.id.edtDonGia),
+                     //   edtSoLuong = dialogView.findViewById(R.id.edtSoLuong),
+                      //  edtNSX = dialogView.findViewById(R.id.edtNSX),
+                     //   edtHSD = dialogView.findViewById(R.id.edtHSD),
+                     //   edtLoaiSP = dialogView.findViewById(R.id.edtLoaiSP),
                         edtDonViTinh = dialogView.findViewById(R.id.edtDonVi);
 
                 edtTenSP.setText(sanPham.getTenSP());
-                edtDonGia.setText(Double.toString(sanPham.getDonGia()));
-                edtHSD.setText(sanPham.getHSD());
-                edtNSX.setText(sanPham.getNSX());
-                edtSoLuong.setText(Integer.toString(sanPham.getSoLuong()));
-                edtLoaiSP.setText(sanPham.getPhanLoai());
+             //   edtDonGia.setText(Double.toString(sanPham.getDonGia()));
+              //  edtHSD.setText(sanPham.getHSD());
+             //   edtNSX.setText(sanPham.getNSX());
+            //    edtSoLuong.setText(Integer.toString(sanPham.getSoLuong()));
+            //    edtLoaiSP.setText(sanPham.getPhanLoai());
                 edtDonViTinh.setText(sanPham.getDonViTinh());
 
                 Button btnUpdate = dialogView.findViewById(R.id.btnUpdate),
                         btnCancel = dialogView.findViewById(R.id.btnCancel);
 
-
-
+                // Thay doi thong tin san pham
                 btnUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         sanPham.setTenSP(edtTenSP.getText().toString().trim());
-                        sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-                        sanPham.setHSD(edtHSD.getText().toString().trim());
-                        sanPham.setNSX(edtNSX.getText().toString().trim());
-                        sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
-                        sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
+//                        sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
+//                        sanPham.setHSD(edtHSD.getText().toString().trim());
+//                        sanPham.setNSX(edtNSX.getText().toString().trim());
+//                        sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
+//                        sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
                         sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
+
+                        try {
+                            Statement stm = db.getConnection().createStatement();
+                            String updateSP = "UPDATE PRODUCT " +
+                                    "SET NAME = '" +  edtTenSP.getText().toString().trim() +
+                                    "', UNIT = '" + edtDonViTinh.getText().toString().trim() +
+                                    "' WHERE ID = " + sanPham.getMaSP();
+
+                            stm.executeUpdate(updateSP);
+
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         sanPhamList.set(holder.getAdapterPosition(), sanPham);
                         setList(sanPhamList);
                         notifyDataSetChanged();
+                        dialog.dismiss();
 
                     }
                 });

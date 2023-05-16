@@ -17,9 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Adapter.SanPhamAdapter;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +33,8 @@ public class SanPhamActivity extends AppCompatActivity {
     SanPhamAdapter sanPhamAdapter;
     Button btnAdd, btnBack;
     List<sanPham> list = new ArrayList<>();
+
+    SQLServerConnection db = new SQLServerConnection();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,29 +77,38 @@ public class SanPhamActivity extends AppCompatActivity {
 
         EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
                 edtDonGia = dialogView.findViewById(R.id.edtDonGia),
-                edtSoLuong = dialogView.findViewById(R.id.edtSoLuong),
-                edtNSX = dialogView.findViewById(R.id.edtNSX),
-                edtHSD = dialogView.findViewById(R.id.edtHSD),
+                edtNhaCC = dialogView.findViewById(R.id.edtNhaCC),
                 edtLoaiSP = dialogView.findViewById(R.id.edtLoaiSP),
-                edtDonViTinh = dialogView.findViewById(R.id.edtDonVi);
+                edtDonViTinh = dialogView.findViewById(R.id.edtDonViTinh);
 
-        Button btnUpdate = dialogView.findViewById(R.id.btnUpdate),
+        Button btnAdd = dialogView.findViewById(R.id.btnAdd),
                 btnCancel = dialogView.findViewById(R.id.btnCancel);
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        // Da them thong tin, an nut Them de them SP vao database
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sanPham.setTenSP(edtTenSP.getText().toString().trim());
                 sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-                sanPham.setHSD(edtHSD.getText().toString().trim());
-                sanPham.setNSX(edtNSX.getText().toString().trim());
-                sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
                 sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
                 sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
+                sanPham.setSupplier_id(edtNhaCC.getText().toString().trim());
+
+                try {
+                    Statement stm = db.getConnection().createStatement();
+                    String query = "INSERT INTO product ([name], [unit_price], [unit])\n" +
+                            "VALUES\n" +
+                            "  ('" +  sanPham.getTenSP() + "', '"
+                            + sanPham.getDonGia() + "', '"
+                            + sanPham.getDonViTinh() + "');";
+                    stm.executeUpdate(query);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
                 list.add(sanPham);
                 sanPhamAdapter.setList(list);
                 sanPhamAdapter.notifyDataSetChanged();
-
             }
         });
 
@@ -110,18 +126,28 @@ public class SanPhamActivity extends AppCompatActivity {
     private List<sanPham> getListSanPham() {
         List <sanPham> list = new ArrayList<>();
 
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
+        SQLServerConnection db = new SQLServerConnection();
+        Connection con = db.getConnection();
+        try {
+            Statement stm = con.createStatement();
+            String query = "select * from product";
+            ResultSet resultSet = stm.executeQuery(query);
+            while (resultSet.next()){
+                sanPham sp = new sanPham();
+                sp.setMaSP(resultSet.getString("id"));
+                sp.setTenSP(resultSet.getString("name"));
+                sp.setDonGia(resultSet.getDouble("unit_price"));
+                sp.setDonViTinh(resultSet.getString("unit"));
+                sp.setPhanLoai(Integer.toString(resultSet.getInt("type_id")));
+                sp.setSupplier_id(Integer.toString(resultSet.getInt("supplier_id")));
+
+                list.add(sp);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return list;
     }
 }

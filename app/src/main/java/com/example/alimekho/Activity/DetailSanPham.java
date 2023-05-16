@@ -22,16 +22,12 @@ public class DetailSanPham extends AppCompatActivity {
         setContentView(R.layout.activity_detail_san_pham);
 
         sanPham sp = (sanPham) getIntent().getSerializableExtra("SP");
-        id = findViewById(R.id.tv_id);
+        id = findViewById(R.id.txvMaSP);
         name = findViewById(R.id.tv_name);
-        soLuong = findViewById(R.id.tv_soLuong);
-        donGia = findViewById(R.id.tv_donGia);
-        NSX = findViewById(R.id.tv_NSX);
-        HSD = findViewById(R.id.tv_HSD);
-        phanLoai = findViewById(R.id.tv_loaiSP);
-        donViTinh = findViewById(R.id.tv_donViTinh);
+        donGia = findViewById(R.id.txvDonGia);
+        phanLoai = findViewById(R.id.txvLoaiSP);
+        donViTinh = findViewById(R.id.txvDonViTinh);
         btnBack = findViewById(R.id.btn_back_san_pham);
-        btnDelete = findViewById(R.id.btn_delete);
 
         id.setText(sp.getMaSP());
         name.setText(sp.getTenSP());
