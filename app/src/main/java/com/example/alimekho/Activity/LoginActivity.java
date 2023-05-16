@@ -1,7 +1,9 @@
 package com.example.alimekho.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +50,11 @@ public class LoginActivity extends AppCompatActivity {
                             ResultSet rs = stm.executeQuery(checkLoginQuery);
                             if (rs.next()) {
                                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                SharedPreferences sharedPref = getSharedPreferences("user info", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("id", rs.getString("emp_id"));
+                                ///more...
+                                editor.apply();
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(getApplicationContext(), "Sai ten dang nhap hoac mat khau", Toast.LENGTH_LONG).show();

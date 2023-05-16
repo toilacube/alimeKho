@@ -63,10 +63,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
         holder.id.setText(sanPham.getMaSP());
         holder.name.setText(sanPham.getTenSP());
-        holder.soLuong.setText(Integer.toString(sanPham.getSoLuong()));
-        holder.donGia.setText(Double.toString(sanPham.getDonGia()));
-        holder.NSX.setText(sanPham.getNSX());
-        holder.HSD.setText(sanPham.getHSD());
+//        holder.soLuong.setText(Integer.toString(sanPham.getSoLuong()));
+//        holder.donGia.setText(Double.toString(sanPham.getDonGia()));
+//        holder.NSX.setText(sanPham.getNSX());
+//        holder.HSD.setText(sanPham.getHSD());
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +97,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
                 edtTenSP.setText(sanPham.getTenSP());
                 edtDonGia.setText(Double.toString(sanPham.getDonGia()));
-                edtHSD.setText(sanPham.getHSD());
-                edtNSX.setText(sanPham.getNSX());
-                edtSoLuong.setText(Integer.toString(sanPham.getSoLuong()));
+//                edtHSD.setText(sanPham.getHSD());
+//                edtNSX.setText(sanPham.getNSX());
+ //               edtSoLuong.setText(Integer.toString(sanPham.getSoLuong()));
                 edtLoaiSP.setText(sanPham.getPhanLoai());
                 edtDonViTinh.setText(sanPham.getDonViTinh());
 
@@ -113,10 +113,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     public void onClick(View view) {
                         sanPham.setTenSP(edtTenSP.getText().toString().trim());
                         sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-                        sanPham.setHSD(edtHSD.getText().toString().trim());
-                        sanPham.setNSX(edtNSX.getText().toString().trim());
-                        sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
-                        sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
+//                        sanPham.setHSD(edtHSD.getText().toString().trim());
+//                        sanPham.setNSX(edtNSX.getText().toString().trim());
+//                        sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
+//                        sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
                         sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
 
                         sanPhamList.set(holder.getAdapterPosition(), sanPham);

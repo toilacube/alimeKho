@@ -13,21 +13,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.CTPNK;
 import com.example.alimekho.R;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CTPNKAdapter extends RecyclerView.Adapter<CTPNKAdapter.ViewHolder> {
     private Context mContext;
-    private List<CTPNK> listCTPXK;
+    private List<CTPNK> listCTPNK;
     private List<CTPNK> listChecked = new ArrayList<>();
 
 
-    public CTPNKAdapter(Context mContext, List<CTPNK> listCTPXK) {
+    public CTPNKAdapter(Context mContext, List<CTPNK> listCTPNK) {
         this.mContext = mContext;
-        this.listCTPXK = listCTPXK;
+        this.listCTPNK = listCTPNK;
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView maSP;
@@ -66,16 +70,16 @@ public class CTPNKAdapter extends RecyclerView.Adapter<CTPNKAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CTPNK item = listCTPXK.get(position);
+        CTPNK item = listCTPNK.get(position);
         if(position % 2 == 0) holder.linearLayout.setBackgroundColor(Color.WHITE);
 
         holder.maSP.setText(item.getSanPham().getMaSP());
         holder.tenSP.setText(item.getSanPham().getTenSP());
-        holder.SL.setText(String.valueOf(item.getSanPham().getSoLuong()));
+        holder.SL.setText(String.valueOf(item.getSoLuong()));
         holder.DG.setText(String.valueOf(item.getSanPham().getDonGia()));
-        holder.NSX.setText(item.getSanPham().getNSX());
-        holder.HSD.setText(item.getSanPham().getHSD());
-        holder.TT.setText(String.valueOf(item.getSanPham().getSoLuong() * item.getSanPham().getDonGia()));
+        holder.NSX.setText(item.getNSX());
+        holder.HSD.setText(item.getHSD());
+        holder.TT.setText(String.valueOf(item.getSoLuong() * item.getSanPham().getDonGia()));
         holder.cb.setChecked(false);
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -88,12 +92,23 @@ public class CTPNKAdapter extends RecyclerView.Adapter<CTPNKAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return listCTPXK.size();
+        return listCTPNK.size();
     }
 
     public void deleteCheckedItems() {
+        SQLServerConnection db = new SQLServerConnection();
+        Connection conn = db.getConnection();
         for (CTPNK ctpnk : listChecked) {
-            listCTPXK.remove(ctpnk);
+            listCTPNK.remove(ctpnk);
+            try {
+                String delete = "DELETE FROM detail_input WHERE form_id = ? AND product_id = ?";
+                PreparedStatement stm = conn.prepareStatement(delete);
+                stm.setInt(1, Integer.parseInt(ctpnk.getMaPNK()));
+                stm.setInt(2, Integer.parseInt(ctpnk.getSanPham().getMaSP()));
+                int rs = stm.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         listChecked.clear();
         notifyDataSetChanged();

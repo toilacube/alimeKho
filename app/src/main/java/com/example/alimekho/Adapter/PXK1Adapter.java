@@ -42,8 +42,8 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
         holder.txtmaSP.setText(sanPham.getMaSP().toString().trim());
         holder.txttenSP.setText(sanPham.getTenSP().toString().trim());
         holder.txtdonGia.setText(Double.toString(sanPham.getDonGia()));
-        holder.txtsoLuong.setText(Double.toString(sanPham.getSoLuong()));
-        holder.txtthanhTien.setText(Double.toString(sanPham.getSoLuong()*sanPham.getDonGia()));
+        //holder.txtsoLuong.setText(Double.toString(sanPham.getSoLuong()));
+        //holder.txtthanhTien.setText(Double.toString(sanPham.getSoLuong()*sanPham.getDonGia()));
         holder.txtsoLuong.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -61,8 +61,8 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
                     holder.txtthanhTien.setText(Double.toString(Double.valueOf(holder.txtsoLuong.getText().toString().trim())*sanPham.getDonGia()));
             }
         });
-        holder.txtNSX.setText(sanPham.getNSX().toString().trim());
-        holder.txtHSD.setText(sanPham.getHSD().toString().trim());
+       // holder.txtNSX.setText(sanPham.getNSX().toString().trim());
+        //holder.txtHSD.setText(sanPham.getHSD().toString().trim());
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

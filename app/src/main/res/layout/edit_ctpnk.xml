@@ -63,6 +63,7 @@
                         android:layout_width="290dp"
                         android:layout_height="35dp"
                         android:background="@drawable/spinnerform"
+                        android:id="@+id/spinnersp"
                         android:paddingLeft="10dp"
                         android:text="xxxxxxxxx "
                         android:textColor="@color/black"

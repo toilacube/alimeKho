@@ -31,8 +31,8 @@ public class CTPXKActivity extends AppCompatActivity {
 
         //test
         RecyclerView rcv = findViewById(R.id.rcv);
-        CTPXKAdapter adapter = new CTPXKAdapter(this, getListCTPXK());
-        rcv.setAdapter(adapter);
+//        CTPXKAdapter adapter = new CTPXKAdapter(this, getListCTPXK());
+      //  rcv.setAdapter(adapter);
         rcv.setLayoutManager(new LinearLayoutManager(this));
 
         //del btn
@@ -40,7 +40,7 @@ public class CTPXKActivity extends AppCompatActivity {
         delbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.deleteCheckedItems();
+//                adapter.deleteCheckedItems();
             }
         });
 
@@ -71,26 +71,26 @@ public class CTPXKActivity extends AppCompatActivity {
         });
     }
 
-    private List<CTPXK> getListCTPXK() {
-        List<CTPXK> l = new ArrayList<>();
-        l.add(new CTPXK("123",
-                new sanPham("1234", "Sản phẩm 1", 12000, 5, "22/02/2003", "22/02/2103"),
-                0));
-        l.add(new CTPXK("123",
-                new sanPham("1234", "Sản phẩm 2", 12000, 5, "22/02/2003", "22/02/2103"),
-                0));
-        l.add(new CTPXK("123",
-                new sanPham("1234", "Sản phẩm 3", 12000, 5, "22/02/2003", "22/02/2103"),
-                0));
-        l.add(new CTPXK("123",
-                new sanPham("1234", "Sản phẩm 4", 13000, 5, "22/02/2003", "22/02/2103"),
-                0));
-        l.add(new CTPXK("123",
-                new sanPham("1234", "Sản phẩm 5", 14000, 5, "22/02/2003", "22/02/2103"),
-                0));
-        l.add(new CTPXK("123",
-                new sanPham("1234", "Sản phẩm 6", 15000, 5, "22/02/2003", "22/02/2103"),
-                0));
-        return l;
-    }
+//    private List<CTPXK> getListCTPXK() {
+//        List<CTPXK> l = new ArrayList<>();
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 1", 12000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 2", 12000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 3", 12000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 4", 13000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 5", 14000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        l.add(new CTPXK("123",
+//                new sanPham("1234", "Sản phẩm 6", 15000, 5, "22/02/2003", "22/02/2103"),
+//                0));
+//        return l;
+//    }
 }

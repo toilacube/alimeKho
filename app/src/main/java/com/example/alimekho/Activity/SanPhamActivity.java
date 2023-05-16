@@ -41,7 +41,7 @@ public class SanPhamActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rcvSanPham.addItemDecoration(itemDecoration);
 
-        list = getListSanPham();
+        //list = getListSanPham();
         sanPhamAdapter = new SanPhamAdapter(getApplicationContext(), list);
         rcvSanPham.setAdapter(sanPhamAdapter);
 
@@ -62,7 +62,7 @@ public class SanPhamActivity extends AppCompatActivity {
     }
 
     private void showDialogThemSP() {
-        sanPham sanPham = new sanPham();
+//        sanPham sanPham = new sanPham();
 
         Dialog dialogView = new Dialog(this, android.R.style.Theme_Material_Light_Dialog_Presentation);
         dialogView.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -82,15 +82,15 @@ public class SanPhamActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sanPham.setTenSP(edtTenSP.getText().toString().trim());
-                sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-                sanPham.setHSD(edtHSD.getText().toString().trim());
-                sanPham.setNSX(edtNSX.getText().toString().trim());
-                sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
-                sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
-                sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
-                list.add(sanPham);
-                sanPhamAdapter.setList(list);
+//                sanPham.setTenSP(edtTenSP.getText().toString().trim());
+//                sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
+//                sanPham.setHSD(edtHSD.getText().toString().trim());
+//                sanPham.setNSX(edtNSX.getText().toString().trim());
+//                sanPham.setSoLuong(Integer.valueOf(edtSoLuong.getText().toString().trim()));
+//                sanPham.setPhanLoai(edtLoaiSP.getText().toString().trim());
+//                sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
+//                list.add(sanPham);
+//                sanPhamAdapter.setList(list);
                 sanPhamAdapter.notifyDataSetChanged();
 
             }
@@ -107,21 +107,21 @@ public class SanPhamActivity extends AppCompatActivity {
     }
 
 
-    private List<sanPham> getListSanPham() {
-        List <sanPham> list = new ArrayList<>();
-
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
-                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
-        return list;
-    }
+//    private List<sanPham> getListSanPham() {
+//        List <sanPham> list = new ArrayList<>();
+//
+//        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
+//                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
+//        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
+//                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
+//        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
+//                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
+//        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
+//                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
+//        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
+//                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
+//        list.add(new sanPham("sp1", "sua dac nong tinh khiet", 30.000,
+//                "24/5/2022","14/9/2023" , 100, "thuc pham", "thung"));
+//        return list;
+//    }
 }
