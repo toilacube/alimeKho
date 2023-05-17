@@ -1,10 +1,12 @@
 package com.example.alimekho.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Activity.DetailSanPham;
+import com.example.alimekho.Activity.SanPhamActivity;
 import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
@@ -128,12 +131,37 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
                 adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spLoaiSP.setAdapter(adapterLoaiSP);
+                spLoaiSP.setSelection(adapterLoaiSP.getPosition(sanPham.getMaSP()));
 
                 ArrayList<String> listNhaCC = new ArrayList<>();
                 listNhaCC = getNhaCC();
                 ArrayAdapter<String> adapterNhaCC = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listNhaCC);
                 adapterNhaCC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spNhaCC.setAdapter(adapterNhaCC);
+                spNhaCC.setSelection(adapterNhaCC.getPosition(sanPham.getSupplier_id()));
+
+                spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        sanPham.setPhanLoai(getIDLoaiSP().get(i));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        sanPham.setSupplier_id(getIDNhaCC().get(i));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
 
                 edtTenSP.setText(sanPham.getTenSP());
                 edtDonGia.setText(Double.toString(sanPham.getDonGia()));
@@ -148,28 +176,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                         sanPham.setTenSP(edtTenSP.getText().toString().trim());
                         sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
                         sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
-                        spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                sanPham.setPhanLoai(String.valueOf(getIDLoaiSP().get(i)));
-                            }
 
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-                        spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                sanPham.setSupplier_id(String.valueOf(getIDNhaCC().get(i)));
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
                         try {
                             Statement stm = db.getConnection().createStatement();
                             String updateSP = "UPDATE PRODUCT " +
@@ -214,10 +221,40 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
-                builder.setView(dialogView);
-                builder.show();
+                AlertDialog dialog = builder.create();
+                View dialogDelete= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
+                dialog.setView(dialogDelete);
+
+                Button btnHuy = dialogDelete.findViewById(R.id.btn_huy),
+                        btnDelete = dialogDelete.findViewById(R.id.btn_delete);
+
+                btnHuy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String id = sanPham.getMaSP();
+                        try {
+                            Statement stm = db.getConnection().createStatement();
+                            String deleteQuery = "Delete from product where id = " + id;
+                            stm.executeQuery(deleteQuery);
+                            notifyDataSetChanged();
+                            dialog.dismiss();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+                dialog.show();
             }
         });
     }

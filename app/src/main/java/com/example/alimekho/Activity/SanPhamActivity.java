@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -80,18 +81,20 @@ public class SanPhamActivity extends AppCompatActivity {
         dialogView.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogView.setContentView(R.layout.dialog_them_san_pham);
 
+        // Khai bao cac thanh phan trong dialog
         EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
                 edtDonGia = dialogView.findViewById(R.id.edtDonGia),
                 edtDonViTinh = dialogView.findViewById(R.id.edtDonViTinh);
-        Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP),
-                spNhaCC = dialogView.findViewById(R.id.spNhaCC);
+        Spinner spLoaiSP = (Spinner) dialogView.findViewById(R.id.spLoaiSP),
+                spNhaCC = (Spinner) dialogView.findViewById(R.id.spNhaCC);
 
         Button btnAdd = dialogView.findViewById(R.id.btnAdd),
                 btnCancel = dialogView.findViewById(R.id.btnCancel);
 
-
+        // Khoi tao du lieu cho 2 spinner
         ArrayList<String> listLoaiSP = new ArrayList<>();
         listLoaiSP = getLoaiSP();
+        System.out.println(listLoaiSP);
         ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
         adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spLoaiSP.setAdapter(adapterLoaiSP);
@@ -101,43 +104,44 @@ public class SanPhamActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterNhaCC = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, listNhaCC);
         adapterNhaCC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spNhaCC.setAdapter(adapterNhaCC);
+        ArrayList <String> listIDLoaiSP = getIDLoaiSP();
+        ArrayList <String> listIDNhaCC = getIDNhaCC();
+        spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sanPham.setPhanLoai(listIDLoaiSP.get(i));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                sanPham.setPhanLoai(listIDLoaiSP.get(0));
+            }
+        });
+        spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sanPham.setSupplier_id(listIDNhaCC.get(i));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                sanPham.setSupplier_id(listIDNhaCC.get(0));
+            }
+        });
 
 
-        // Da them thong tin, an nut Them de them SP vao database
+        // Them thong tin san pham, an nut Them de them SP vao database
+        // chua xu ly chuoi rong
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sanPham.setTenSP(edtTenSP.getText().toString().trim());
                 sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
                 sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
-                ArrayList <String> listIDLoaiSP = getIDLoaiSP();
-                ArrayList <String> listIDNhaCC = getIDNhaCC();
-                spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        sanPham.setPhanLoai(listIDLoaiSP.get(i));
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
-                spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        sanPham.setSupplier_id(listIDNhaCC.get(i));
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
 
                 try {
                     Statement stm = db.getConnection().createStatement();
                     String query = "INSERT INTO product ([name], [unit_price]," +
-                            " [unit], [type_id], [supplier_id])\n" +
-                            "VALUES\n" + "  ('"
+                            " [unit], [type_id], [supplier_id]) " +
+                            "VALUES " + "  ('"
                             + sanPham.getTenSP() + "', "
                             + sanPham.getDonGia() + ", '"
                             + sanPham.getDonViTinh() + "', "
@@ -162,7 +166,8 @@ public class SanPhamActivity extends AppCompatActivity {
                 list.add(sanPham);
                 sanPhamAdapter.setList(list);
                 sanPhamAdapter.notifyDataSetChanged();
-                dialogView.dismiss();
+
+                recreate();
             }
         });
 
@@ -198,7 +203,7 @@ public class SanPhamActivity extends AppCompatActivity {
             Statement stm = db.getConnection().createStatement();
             ResultSet rs = stm.executeQuery(select);
             while(rs.next()){
-                String temp = String.valueOf(rs.getInt(1));
+                String temp = String.valueOf(rs.getInt("id"));
                 l.add(temp);
             }
         } catch (SQLException e) {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,10 +17,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Activity.DetailEmployeeActivity;
+import com.example.alimekho.Activity.EmployeeActivity;
+import com.example.alimekho.Activity.SanPhamActivity;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.Employee;
 import com.example.alimekho.R;
 
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeViewHolder> {
@@ -46,6 +52,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
     @Override
     public void onBindViewHolder(@NonNull EmployeeViewHolder holder, int position) {
         Employee employee=employeeList.get(position);
+        SQLServerConnection db = new SQLServerConnection();
         if(employee==null)
             return;
         holder.id.setText(employee.getId());
@@ -64,9 +71,37 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView=LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
-                builder.setView(dialogView);
-                builder.show();
+                AlertDialog dialog = builder.create();
+                View dialogDelete= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
+                dialog.setView(dialogDelete);
+
+                Button btnHuy = dialogDelete.findViewById(R.id.btn_huy),
+                        btnDelete = dialogDelete.findViewById(R.id.btn_delete);
+
+                btnHuy.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String id = employee.getId();
+                        try {
+                            Statement stm = db.getConnection().createStatement();
+                            String deleteQuery = "Delete from employee where id = " + id;
+                            stm.executeQuery(deleteQuery);
+                            dialog.dismiss();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+                dialog.show();
             }
         });
     }

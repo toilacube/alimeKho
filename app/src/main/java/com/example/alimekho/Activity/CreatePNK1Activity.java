@@ -217,6 +217,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
                 product_id = products_id.get(position);
                 name = products_name.get(position);
                 txtdonGia.setText(String.valueOf(getdongiaSP().get(position)));
+                Toast.makeText(CreatePNK1Activity.this, "Selected", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
