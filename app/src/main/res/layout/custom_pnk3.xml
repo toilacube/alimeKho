@@ -11,63 +11,63 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_weight="1">
+        android:layout_weight="0.5">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mã lô"
             android:layout_centerHorizontal="true"
-            android:id="@+id/custompnk1_txtmaLO"
+            android:id="@+id/custompnk3_txtmaLO"
             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_weight="2">
+        android:layout_weight="1.5">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mã sản phẩm"
             android:layout_centerHorizontal="true"
-            android:id="@+id/custompnk1_txtmaSP"
+            android:id="@+id/custompnk3_txtmaSP"
             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_weight="2.5">
+        android:layout_weight="3">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên sản phẩm"
             android:layout_centerHorizontal="true"
-            android:id="@+id/custompnk1_txttenSP"
+            android:id="@+id/custompnk3_txttenSP"
             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2.5">
+        android:layout_weight="3">
         <TextView
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:text="Ngày sản xuất"
-            android:id="@+id/custompnk1_txtNSX"
+            android:id="@+id/custompnk3_txtNSX"
             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2.5">
+        android:layout_weight="3">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hạn sử dụng"
             android:layout_centerHorizontal="true"
-            android:id="@+id/custompnk1_txtHSD"
+            android:id="@+id/custompnk3_txtHSD"
             />
     </RelativeLayout>
     <RelativeLayout
@@ -79,19 +79,19 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Đơn giá"
-            android:id="@+id/custompnk1_txtdonGia"
+            android:id="@+id/custompnk3_txtdonGia"
             />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5">
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
             android:layout_centerHorizontal="true"
-            android:id="@+id/custompnk1_txtsoLuong"
+            android:id="@+id/custompnk3_txtsoLuong"
             />
     </RelativeLayout>
     <RelativeLayout
@@ -103,14 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="0"
-            android:id="@+id/custompnk1_txtThanhTien"
+            android:id="@+id/custompnk3_txtThanhTien"
             />
     </RelativeLayout>
-
-    <CheckBox
-        android:layout_width="0dp"
-        android:layout_weight="0.5"
-        android:layout_height="wrap_content"
-        android:buttonTint="#B53D6E"
-        android:id="@+id/customPNK1_checkbox"/>
 </LinearLayout>

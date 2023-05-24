@@ -44,9 +44,9 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
         CTPXK sanPham = sanPhams.get(position);
         holder.txtmaSP.setText(sanPham.getSanPham().getMaSP().toString().trim());
         holder.txttenSP.setText(sanPham.getSanPham().getTenSP().toString().trim());
-        holder.txtdonGia.setText(Double.toString(sanPham.getSanPham().getDonGia()));
+       //holder.txtdonGia.setText(Double.toString(sanPham.getSanPham().getDonGia()));
         holder.txtsoLuong.setText(Integer.toString(sanPham.getSoLuong()));
-        holder.txtthanhTien.setText(Double.toString(sanPham.getSoLuong()*sanPham.getSanPham().getDonGia()));
+       // holder.txtthanhTien.setText(Double.toString(sanPham.getSoLuong()*sanPham.getSanPham().getDonGia()));
         holder.txtsoLuong.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -55,13 +55,13 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
             @Override
             public void afterTextChanged(Editable s) {
                 if(!holder.txtsoLuong.getText().toString().trim().isEmpty()) {
-                    holder.txtthanhTien.setText(Double.toString(Double.valueOf(holder.txtsoLuong.getText().toString().trim()) * sanPham.getSanPham().getDonGia()));
+                  //  holder.txtthanhTien.setText(Double.toString(Double.valueOf(holder.txtsoLuong.getText().toString().trim()) * sanPham.getSanPham().getDonGia()));
                     sanPham.setSoLuong(Integer.parseInt(holder.txtsoLuong.getText().toString().trim()));
                 }
             }
         });
-       // holder.txtNSX.setText(sanPham.getNSX().toString().trim());
-        //holder.txtHSD.setText(sanPham.getHSD().toString().trim());
+        holder.txtNSX.setText(sanPham.getNSX().toString().trim());
+        holder.txtHSD.setText(sanPham.getHSD().toString().trim());
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

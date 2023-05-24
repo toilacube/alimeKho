@@ -8,6 +8,7 @@ public class phieuNhapKho implements Serializable {
     private String tenNCC;
     private String tenNV;
     private double totalMoney;
+    private int isDeleted;
 
     public phieuNhapKho(String maPhieu, String ngayNhapKho, String tenNCC, String tenNV, double totalMoney) {
         this.maPhieu = maPhieu;
@@ -15,6 +16,7 @@ public class phieuNhapKho implements Serializable {
         this.tenNCC = tenNCC;
         this.tenNV = tenNV;
         this.totalMoney = totalMoney;
+        this.isDeleted = 0;
     }
 
     public String getMaPhieu() {
@@ -55,5 +57,13 @@ public class phieuNhapKho implements Serializable {
 
     public void setTotalMoney(double totalMoney) {
         this.totalMoney = totalMoney;
+    }
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

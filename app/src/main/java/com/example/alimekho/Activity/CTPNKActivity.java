@@ -23,7 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.alimekho.Adapter.CTPNKAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.CTPNK;
+import com.example.alimekho.Model.loSanPham;
 import com.example.alimekho.Model.phieuNhapKho;
+import com.example.alimekho.Model.phieuXuatKho;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
@@ -40,13 +42,33 @@ public class CTPNKActivity extends AppCompatActivity {
     private TextView txtmaPhieu, txttenNCC, txtngayNhap, txtnhanVien, txttoTal;
     private SQLServerConnection db = new SQLServerConnection();
     private String product;
+    private phieuNhapKho phieuNhapKho;
     private Connection conn = db.getConnection();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ctpnk);
 
-        phieuNhapKho phieuNhapKho = (phieuNhapKho) getIntent().getSerializableExtra("pnk");
+        String maPhieu = (String) getIntent().getSerializableExtra("mapnk");
+        try {
+            Statement stm = conn.createStatement();
+            String getInputform = "SET DATEFORMAT DMy\n" +
+                    "select input_form.id, input_form.input_day, supplier.name, employee.name, total from input_form \n" +
+                    "LEFT JOIN batch ON input_form.id = batch.id\n" +
+                    "LEFT JOIN product ON product.id = batch.product_id\n" +
+                    "LEFT JOIN supplier ON product.supplier_id = supplier.id\n" +
+                    "LEFT JOIN employee ON input_form.emp_id = employee.id\n"+
+                    "WHERE input_form.id = " + String.valueOf(maPhieu);
+            ResultSet rs = stm.executeQuery(getInputform);
+            while (rs.next()) {
+                String pattern = "dd/MM/yyyy";
+                DateFormat df = new SimpleDateFormat(pattern);
+                String todayAsString = df.format(rs.getDate(2));
+                phieuNhapKho = new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, rs.getString(3), rs.getString(4), rs.getInt(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         txtmaPhieu = findViewById(R.id.gdCTPNK_txtmaPhieu);
         txtngayNhap = findViewById(R.id.gdCTPNK_txtngayNhap);
         txttenNCC = findViewById(R.id.gdCTPNK_txtNCC);
@@ -173,7 +195,7 @@ public class CTPNKActivity extends AppCompatActivity {
         return l;
     }
     public void setData(phieuNhapKho phieuNhapKho){
-        txtmaPhieu.setText("Mã phiếu: " + phieuNhapKho.getMaPhieu().toString().trim());
+        txtmaPhieu.setText("Mã phiếu nhập: " + phieuNhapKho.getMaPhieu().toString().trim());
         txtnhanVien.setText("Người phụ trách: " + phieuNhapKho.getTenNV().toString().trim());
         txttenNCC.setText("Nhà cung cấp: " + phieuNhapKho.getTenNCC().toString().trim());
         txttoTal.setText("Thành tiền: " + String.valueOf(phieuNhapKho.getTotalMoney()));
@@ -184,18 +206,11 @@ public class CTPNKActivity extends AppCompatActivity {
         List<CTPNK> l = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String getDTInput = "select product_id, name, quantity, unit_price, NSX, HSD from detail_input \n" +
-                    "JOIN product ON detail_input.product_id = product.id\n" +
+            String getDTInput = "select form_id, batch_id, quantity, total from detail_input \n" +
                     "WHERE detail_input.form_id = " + phieuNhapKho.getMaPhieu();
             ResultSet rs = stm.executeQuery(getDTInput);
             while (rs.next()) {
-                String pattern = "dd/MM/yyyy";
-                DateFormat df = new SimpleDateFormat(pattern);
-                String NSX = df.format(rs.getDate("NSX"));
-                String HSD = df.format(rs.getDate("HSD"));
-                sanPham sanPham = new sanPham(String.valueOf(rs.getInt(1)), rs.getString(2),
-                        Double.parseDouble(rs.getString(4)));
-                CTPNK ctpnk = new CTPNK(phieuNhapKho.getMaPhieu(), sanPham, rs.getInt("quantity"), NSX, HSD);
+                CTPNK ctpnk = new CTPNK(phieuNhapKho.getMaPhieu(), rs.getDouble("total"), rs.getInt("quantity"), String.valueOf(rs.getInt("batch_id")));
                 l.add(ctpnk);
              }
         } catch (SQLException e) {

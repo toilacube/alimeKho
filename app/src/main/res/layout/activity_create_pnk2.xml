@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Thông tin sản phẩm"
+                android:text="Thông tin nhà cung cấp"
                 android:textColor="@color/main"
                 android:layout_gravity="center"
                 android:paddingBottom="10dp"
@@ -53,14 +53,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Thông tin nhà cung cấp"
-                android:textColor="@color/main"
+                android:text="Thông tin lô sản phẩm"
+                android:textColor="@color/black"
                 android:layout_gravity="center"
                 android:paddingBottom="10dp"
                 />
             <TextView
                 android:layout_width="match_parent"
-                android:background="@color/main"
+                android:background="@color/noSet"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
@@ -120,6 +120,8 @@
         android:id="@+id/gdcreatePNK2_ln2"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:paddingVertical="5dp"
+        android:background="#CEEDE9EB"
         android:layout_marginTop="20dp"
         android:layout_below="@id/gdcreatePNK2_ln3"
         android:orientation="horizontal"
@@ -127,7 +129,6 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:layout_weight="3">
             <TextView
                 android:layout_width="wrap_content"
@@ -142,15 +143,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/main"
+                android:paddingVertical="3dp"
+                android:textStyle="bold"
                 android:id="@+id/maNCC"
-                android:textColor="@color/black"
                 android:layout_below="@id/gdcreatePNK2_txt1"
                 />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:layout_weight="4">
             <TextView
                 android:layout_width="wrap_content"
@@ -164,16 +166,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:paddingVertical="3dp"
                 android:id="@+id/tenNCC"
+                android:textColor="@color/main"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/black"
                 android:layout_below="@id/gdcreatePNK2_txt2"
                 />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:layout_weight="7">
             <TextView
                 android:layout_width="wrap_content"
@@ -189,15 +191,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:id="@+id/diaChi"
+                android:paddingVertical="3dp"
+                android:textColor="@color/main"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/black"
                 android:layout_below="@id/gdcreatePNK2_txt3"
                 />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:layout_weight="3">
             <TextView
                 android:layout_width="wrap_content"
@@ -211,9 +213,10 @@
                 android:layout_width="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
+                android:textColor="@color/main"
                 android:layout_marginTop="5dp"
                 android:id="@+id/sdt"
-                android:textColor="@color/black"
+                android:paddingVertical="3dp"
                 android:layout_below="@id/gdcreatePNK2_txt4"
                 />
         </RelativeLayout>

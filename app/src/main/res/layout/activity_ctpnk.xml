@@ -153,10 +153,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginHorizontal="10dp"
-            android:background="#CEEDE9EB"
-            android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
+            android:background="#CEEDE9EB"
+            android:layout_marginHorizontal="10dp"
             android:id="@+id/gdCTPNK_ln2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -167,6 +166,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/thongtinPXK">
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Mã lô"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -184,7 +196,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3">
+                android:layout_weight="2.5">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -265,12 +277,6 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView

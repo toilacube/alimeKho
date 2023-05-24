@@ -39,7 +39,7 @@ public class DetailSanPham extends AppCompatActivity {
         id.setText(sp.getMaSP());
         name.setText(sp.getTenSP());
         donViTinh.setText(sp.getDonViTinh());
-        donGia.setText(Double.toString(sp.getDonGia()));
+       // donGia.setText(Double.toString(sp.getDonGia()));
 
         Statement stm1 = null;
         try {

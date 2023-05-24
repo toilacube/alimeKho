@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Activity.CTPNKActivity;
 import com.example.alimekho.DataBase.SQLServerConnection;
+import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.phieuNhapKho;
 import com.example.alimekho.R;
 
@@ -84,10 +85,14 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CTPNKActivity.class);
-                intent.putExtra("pnk", pnk);
+                intent.putExtra("mapnk", pnk.getMaPhieu());
                 mContext.startActivity(intent);
             }
         });
+    }
+    public void setFilteredList(ArrayList<phieuNhapKho> filteredList) {
+        this.listPNK = filteredList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -101,14 +106,12 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
         for (phieuNhapKho pnk : listChecked) {
             listPNK.remove(pnk);
             try {
-                String delete = "DELETE FROM detail_input WHERE form_id = ?";
-                String delete1 = "DELETE FROM input_form WHERE id = ?";
+                String delete = "UPDATE input_form\n" +
+                        "SET isDeleted = 1 \n" +
+                        "WHERE form_id = ?";
                 PreparedStatement stm = conn.prepareStatement(delete);
-                PreparedStatement stm1 = conn.prepareStatement(delete1);
                 stm.setInt(1, Integer.parseInt(pnk.getMaPhieu()));
-                stm1.setInt(1, Integer.parseInt(pnk.getMaPhieu()));
                 int rs = stm.executeUpdate();
-                int rs1 = stm1.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }

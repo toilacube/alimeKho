@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
-        android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
         android:id="@+id/linear"
         android:layout_width="0dp"
@@ -16,6 +15,19 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="#F4F4F4">
 
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/maLo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Mã lô"
+                android:textColor="@color/black" />
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +45,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3">
+            android:layout_weight="2.5">
 
             <TextView
                 android:id="@+id/tensp"
@@ -112,20 +124,14 @@
                 android:text="Thành tiền"
                 android:textColor="@color/black"
                 android:id="@+id/thanhtien" />
-        </RelativeLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
 
-            <CheckBox
-                android:id="@+id/checkbox"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:buttonTint="#B53D6E"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:buttonTint="#B53D6E"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

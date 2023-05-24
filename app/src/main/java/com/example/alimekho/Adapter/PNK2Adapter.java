@@ -72,11 +72,12 @@ public class PNK2Adapter extends Adapter<PNK2Adapter.PNK2ViewHolder>{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         nhaCungCaps.remove(nhaCungCap);
+                        setData.setNhaCungCap(new nhaCungCap("", "", "", ""));
                         notifyDataSetChanged();
                         SQLServerConnection db = new SQLServerConnection();
                         Connection conn = db.getConnection();
                         try {
-                            String delete = "DELETE FROM supplier_id WHERE id = ?";
+                            String delete = "DELETE FROM supplier WHERE id = ?";
                             PreparedStatement stm = conn.prepareStatement(delete);
                             stm.setInt(1, Integer.parseInt(nhaCungCap.getMaNCC()));
                             int rs = stm.executeUpdate();

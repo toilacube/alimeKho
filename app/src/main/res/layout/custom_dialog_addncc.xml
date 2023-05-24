@@ -109,6 +109,7 @@
                         android:background="@color/gray_img"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/txtSDT"
+                        android:inputType="phone"
                         android:textSize="14dp"
                         />
                 </LinearLayout>

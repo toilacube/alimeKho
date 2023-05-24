@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class sanPham implements Serializable {
     private String maSP;
     private String tenSP;
-    private double donGia;
+    private int isDeleted;
     private String phanLoai;
     private String donViTinh;
     private String supplier_id;
@@ -13,19 +13,18 @@ public class sanPham implements Serializable {
     public sanPham() {
     }
 
-    public sanPham(String maSP, String tenSP, double donGia) {
+    public sanPham(String maSP, String tenSP) {
         this.maSP = maSP;
         this.tenSP = tenSP;
-        this.donGia = donGia;
     }
 
     public sanPham(String maSP, String tenSP, double donGia, String phanLoai, String donViTinh, String supplier_id) {
         this.maSP = maSP;
         this.tenSP = tenSP;
-        this.donGia = donGia;
         this.phanLoai = phanLoai;
         this.donViTinh = donViTinh;
         this.supplier_id = supplier_id;
+        this.isDeleted = 0;
     }
     public String getMaSP() {
         return maSP;
@@ -43,12 +42,12 @@ public class sanPham implements Serializable {
         this.tenSP = tenSP;
     }
 
-    public double getDonGia() {
-        return donGia;
+    public int getIsDeleted() {
+        return isDeleted;
     }
 
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
     public String getPhanLoai() {

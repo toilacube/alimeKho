@@ -106,8 +106,6 @@
                         android:background="@color/gray_img"
                         android:layout_weight="4"
                         android:text="0"
-                        android:focusable="false"
-                        android:clickable="false"
                         android:id="@+id/txtdonGia"
                         android:textSize="14dp"
                         />

@@ -2,21 +2,15 @@ package com.example.alimekho.Model;
 
 public class CTPNK {
     private String maPNK;
-    private sanPham sanPham;
     private double thanhTien;
     private int soLuong;
-    private String NSX;
-    private String HSD;
-    private int status;
+    private String maLo;
 
-    public CTPNK(String maPNK, com.example.alimekho.Model.sanPham sanPham, int soLuong, String NSX, String HSD) {
+    public CTPNK(String maPNK, double thanhTien, int soLuong, String maLo) {
         this.maPNK = maPNK;
-        this.sanPham = sanPham;
-        this.thanhTien = soLuong * sanPham.getDonGia();
+        this.thanhTien = thanhTien;
         this.soLuong = soLuong;
-        this.NSX = NSX;
-        this.HSD = HSD;
-        status = 0;
+        this.maLo = maLo;
     }
 
     public String getMaPNK() {
@@ -25,14 +19,6 @@ public class CTPNK {
 
     public void setMaPNK(String maPNK) {
         this.maPNK = maPNK;
-    }
-
-    public com.example.alimekho.Model.sanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(com.example.alimekho.Model.sanPham sanPham) {
-        this.sanPham = sanPham;
     }
 
     public double getThanhTien() {
@@ -51,28 +37,11 @@ public class CTPNK {
         this.soLuong = soLuong;
     }
 
-    public String getNSX() {
-        return NSX;
+    public String getMaLo() {
+        return maLo;
     }
 
-    public void setNSX(String NSX) {
-        this.NSX = NSX;
+    public void setMaLo(String maLo) {
+        this.maLo = maLo;
     }
-
-    public String getHSD() {
-        return HSD;
-    }
-
-    public void setHSD(String HSD) {
-        this.HSD = HSD;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
 }

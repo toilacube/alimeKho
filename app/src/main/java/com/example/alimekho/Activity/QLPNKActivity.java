@@ -19,14 +19,18 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Adapter.PNKAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
+import com.example.alimekho.Model.CTPNK;
+import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.nhaCungCap;
 import com.example.alimekho.Model.phieuNhapKho;
+import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
 import java.sql.Connection;
@@ -44,16 +48,18 @@ public class QLPNKActivity extends AppCompatActivity {
     final Calendar myCalendar= Calendar.getInstance();
     private SQLServerConnection db = new SQLServerConnection();
     private Connection conn = db.getConnection();
+    private PNKAdapter pnkAdapter;
+    private ArrayList<phieuNhapKho> phieuNhapKhos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qlpnk);
-
+        phieuNhapKhos = getListPNK();
         //test
         RecyclerView rcv = findViewById(R.id.rcv);
-        PNKAdapter adapter = new PNKAdapter(this, getListPNK());
+        pnkAdapter = new PNKAdapter(this, phieuNhapKhos);
+        rcv.setAdapter(pnkAdapter);
         rcv.setLayoutManager(new LinearLayoutManager(this));
-        rcv.setAdapter(adapter);
         Button btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +72,7 @@ public class QLPNKActivity extends AppCompatActivity {
         addPNK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(QLPNKActivity.this, CreatePNK1Activity.class));
+                startActivity(new Intent(QLPNKActivity.this, CreatePNK2Activity.class));
             }
         });
         //xoa
@@ -74,10 +80,23 @@ public class QLPNKActivity extends AppCompatActivity {
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.deleteCheckedItems();
+                pnkAdapter.deleteCheckedItems();
             }
         });
+        SearchView searchView = findViewById(R.id.search_bar);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
         //sua
         ImageView editBtn = findViewById(R.id.icon_edit);
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -183,22 +202,54 @@ public class QLPNKActivity extends AppCompatActivity {
                 });
                 dialog.show();
             }
-        });
 
+
+        });
+    }
+    private void filterList(String newText) {
+        ArrayList<phieuNhapKho> filteredList = new ArrayList<>();
+        for (phieuNhapKho phieuNhapKho: phieuNhapKhos) {
+            if (phieuNhapKho.getMaPhieu().toLowerCase().contains(newText.toLowerCase())
+                    || phieuNhapKho.getNgayNhapKho().toLowerCase().contains(newText.toLowerCase())
+                    || phieuNhapKho.getTenNCC().toLowerCase().contains(newText.toLowerCase())
+                    || phieuNhapKho.getTenNV().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(phieuNhapKho);
+            }
+        }
+            if (!filteredList.isEmpty()) {
+                pnkAdapter.setFilteredList(filteredList);
+            }
     }
     private ArrayList<phieuNhapKho> getListPNK() {
         ArrayList<phieuNhapKho> l = new ArrayList<>();
+        String tenNCC = "";
         try {
             Statement stm = conn.createStatement();
-            String getInputform = "select input_form.id, input_form.input_day, supplier.name, employee.name, total from input_form \n" +
-                    "LEFT JOIN supplier ON input_form.supplier_id = supplier.id\n" +
-                    "LEFT JOIN employee ON input_form.emp_id = employee.id";
+            String getInputform = "SET DATEFORMAT DMy\n" +
+                    "select distinct input_form.id, input_form.input_day, employee.name, total from input_form \n" +
+                    "LEFT JOIN employee ON input_form.emp_id = employee.id\n" +
+                    "WHERE input_form.is_deleted = 0";
             ResultSet rs = stm.executeQuery(getInputform);
             while (rs.next()) {
                 String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 String todayAsString = df.format(rs.getDate(2));
-                l.add(new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, rs.getString(3), rs.getString(4), rs.getDouble(5)));
+                try {
+                    Statement stm1 = conn.createStatement();
+                    String getInputform1 = "SET DATEFORMAT DMy\n" +
+                            "SELECT supplier.name from batch\n" +
+                            "LEFT JOIN detail_input ON input_form.id = detail_input.form_id\n" +
+                            "LEFT JOIN product ON product.id = batch.product_id\n" +
+                            "LEFT JOIN supplier ON product.supplier_id = supplier.id\n" +
+                            "WHERE form_id = " + rs.getInt(1);
+                    ResultSet rs1 = stm.executeQuery(getInputform1);
+                    if (rs1.next()) {
+                    tenNCC = rs1.getString("name");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                l.add(new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, tenNCC, rs.getString(3), rs.getDouble(4)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
