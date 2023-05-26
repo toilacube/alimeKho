@@ -40,6 +40,7 @@ public class CreatePNK3Activity extends AppCompatActivity {
     private PNK3Adapter pnk3Adapter;
     private SQLServerConnection db = new SQLServerConnection();
     private Connection conn = db.getConnection();
+    private ArrayList<loSanPham> loSanPhamdc;
     private ArrayList<loSanPham> loSanPhams;
     private int maPhieu;
     private String tenNCC;
@@ -65,27 +66,18 @@ public class CreatePNK3Activity extends AppCompatActivity {
         btnComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(loSanPham loSanPham : loSanPhams){
                     try {
-                        String update = "UPDATE batch\n" +
-                                "SET quantity = quantity + ?, not_stored = not_stored + ?" +
-                                "\nWHERE id  = ?";
-                        PreparedStatement stm = conn.prepareStatement(update);
-                        stm.setInt(1, loSanPham.getsLTon());
-                        stm.setInt(2, loSanPham.getsLChuaXep());
-                        stm.setInt(3, Integer.parseInt(loSanPham.getMaLo()));
-                        int rs = stm.executeUpdate();
-                        String insert = "INSERT INTO detail_input(form_id, batch_id, total, quantity) VALUES(?, ?, ?, ?)";
-                        PreparedStatement stm1 = conn.prepareStatement(insert);
-                        stm1.setInt(1, maPhieu);
-                        stm1.setInt(2, Integer.parseInt(loSanPham.getMaLo()));
-                        stm1.setDouble(3, totalMoney);
-                        stm1.setInt(4, loSanPham.getsLTon());
-                        int rs1 = stm1.executeUpdate();
+                        for(loSanPham loSanPham : loSanPhams){
+                            String insert = "INSERT INTO detail_input(form_id, batch_id, quantity) VALUES(?, ?, ?)";
+                            PreparedStatement stm = conn.prepareStatement(insert);
+                            stm.setInt(1, maPhieu);
+                            stm.setInt(2, Integer.parseInt(loSanPham.getMaLo()));
+                            stm.setInt(3, loSanPham.getsLTon());
+                            int rs1 = stm.executeUpdate();
+                        }
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                             e.printStackTrace();
                     }
-                }
                 Toast.makeText(CreatePNK3Activity.this, "Hoàn thành", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), QLPNKActivity.class));
             }
@@ -114,10 +106,12 @@ public class CreatePNK3Activity extends AppCompatActivity {
         txttenNCC = findViewById(R.id.gdcreatePNK3_txtNCC);
         txtnhanVien = findViewById(R.id.gdcreatePNK3_txtnguoiPT);
         txttoTal = findViewById(R.id.gdcreatePNK3_txtthanhTien);
-        loSanPhams = CreatePNK1Activity.spSelected();
+        loSanPhams = new ArrayList<>();
+        loSanPhamdc = CreatePNK1Activity.spSelected();
         tenNCC = getIntent().getStringExtra("tenNCC");
         maPhieu = getIntent().getIntExtra("maPhieu", -1);
-        for(loSanPham loSanPham : loSanPhams){
+        for(loSanPham loSanPham : loSanPhamdc){
+            loSanPhams.add(loSanPham);
             totalMoney += loSanPham.getDonGia()*loSanPham.getsLTon();
         }
         try {

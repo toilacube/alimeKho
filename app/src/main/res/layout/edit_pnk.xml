@@ -101,34 +101,6 @@
                 <LinearLayout
                     android:layout_width="500dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="160dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:paddingLeft="50dp"
-                        android:text="Nhà cung cấp: "
-                        android:textAlignment="textStart"
-                        android:textColor="@color/black"
-                        tools:ignore="RtlCompat" />
-
-                    <Spinner
-                        android:layout_width="290dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/spinnerform"
-                        android:paddingLeft="10dp"
-                        android:text="xxxxxxxxx "
-                        android:id="@+id/spinnerncc"
-                        android:textColor="@color/black"
-                        android:textSize="13dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="500dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:orientation="horizontal">
 

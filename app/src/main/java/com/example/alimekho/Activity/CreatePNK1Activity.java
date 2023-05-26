@@ -209,7 +209,6 @@ public class CreatePNK1Activity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(CreatePNK1Activity.this, android.R.layout.simple_spinner_dropdown_item, products);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        txtsoLuong = dialog.findViewById(R.id.txtsoLuong);
         txtNSX = dialog.findViewById(R.id.txtNSX);
         txtHSD = dialog.findViewById(R.id.txtHSD);
         DatePickerDialog.OnDateSetListener date = (view1, year, month, day) -> {
@@ -248,8 +247,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sanPham sanPham = new sanPham(product_id, name);
-                loSanPham loSanPham = new loSanPham("",txtNSX.getText().toString().trim(), txtHSD.getText().toString().trim(), sanPham, Integer.parseInt(txtsoLuong.getText().toString().trim()),
-                        Integer.parseInt(txtsoLuong.getText().toString().trim()), Double.parseDouble(txtdonGia.getText().toString().trim()));
+                loSanPham loSanPham = new loSanPham("",txtNSX.getText().toString().trim(), txtHSD.getText().toString().trim(), sanPham, Double.parseDouble(txtdonGia.getText().toString().trim()));
                 try {
                     String insert = "INSERT INTO batch(NSX, HSD, product_id, unit_price, quantity, not_stored, is_deleted) VALUES(?,?,?,?,?,?,0)";
                     PreparedStatement stm = conn.prepareStatement(insert);

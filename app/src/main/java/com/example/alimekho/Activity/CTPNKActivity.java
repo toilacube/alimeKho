@@ -1,6 +1,8 @@
 package com.example.alimekho.Activity;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,18 +19,22 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Adapter.CTPNKAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.CTPNK;
+import com.example.alimekho.Model.ExcelExporter;
 import com.example.alimekho.Model.loSanPham;
 import com.example.alimekho.Model.phieuNhapKho;
 import com.example.alimekho.Model.phieuXuatKho;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,6 +42,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CTPNKActivity extends AppCompatActivity {
@@ -144,7 +151,7 @@ public class CTPNKActivity extends AppCompatActivity {
                             String Query = "update detail_input" +
                                     "\nset quantity = " + sl.getText()
                                     +"\nwhere form_id = " + phieuNhapKho.getMaPhieu()
-                                    +"and product_id = " + product;
+                                    +"and batch_id = " + product;
                             stm.executeUpdate(Query);
                             Toast.makeText(CTPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
@@ -164,8 +171,9 @@ public class CTPNKActivity extends AppCompatActivity {
     public ArrayList<String> getListSP(phieuNhapKho phieuNhapKho){
         ArrayList<String> l = new ArrayList<>();
         try {
-            String select = "select product_id, name from detail_input \n" +
-                    "JOIN product ON detail_input.product_id = product.id\n" +
+            String select = "select batch_id, name from detail_input \n" +
+                    "JOIN batch ON batch.id = detail_input.batch_id\n" +
+                    "JOIN product ON batch.product_id = product.id\n" +
                     "WHERE detail_input.form_id = " + phieuNhapKho.getMaPhieu();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(select);
@@ -181,8 +189,9 @@ public class CTPNKActivity extends AppCompatActivity {
     public ArrayList<String> getmaSP(phieuNhapKho phieuNhapKho){
         ArrayList<String> l = new ArrayList<>();
         try {
-            String select = "select product_id from detail_input \n" +
-                     "WHERE detail_input.form_id = " + phieuNhapKho.getMaPhieu();
+            String select = "select batch_id from detail_input \n" +
+                    "JOIN batch ON batch.id = detail_input.batch_id\n" +
+                    "WHERE detail_input.form_id = " + phieuNhapKho.getMaPhieu();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(select);
             while(rs.next()){
@@ -218,4 +227,53 @@ public class CTPNKActivity extends AppCompatActivity {
         }
         return l;
     }
+    private void askForPermission(String permission, Integer requestCode) {
+        if (ContextCompat.checkSelfPermission(CTPNKActivity.this, permission)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    CTPNKActivity.this, permission)) {
+
+                //This is called if user has denied the permission before
+                //In this case I am just asking the permission again
+                ActivityCompat.requestPermissions(CTPNKActivity.this,
+                        new String[]{permission}, requestCode);
+
+            } else {
+                ActivityCompat.requestPermissions(CTPNKActivity.this,
+                        new String[]{permission}, requestCode);
+            }
+        }
+    }
+    public void export(){
+        askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, 100);
+        askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 200);
+        askForPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE, 300);
+        ArrayList<String[]> data =  new ArrayList<>();
+        for(CTPNK ctpnk : getListCTPNK(phieuNhapKho)){
+            try {
+                String select = "SET DATEFORMAT DMY\n" +
+                        "SELECT batch.id, product_id, NSX, HSD, unit_price, name FROM batch\n" +
+                        "JOIN product ON batch.product_id = product.id\n" +
+                        "WHERE batch.is_deleted = 0 AND batch.id = " + ctpnk.getMaLo();
+                Statement stm = conn.createStatement();
+                ResultSet rs = stm.executeQuery(select);
+                while(rs.next()){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String NSX = dateFormat.format(rs.getDate("NSX"));
+                    String HSD = dateFormat.format(rs.getDate("HSD"));
+                   data.add(new String[]{rs.getString(1), rs.getString(2), rs.getString("name"), NSX, HSD,
+                                            rs.getString("unit_price"), String.valueOf(ctpnk.getSoLuong()),String.valueOf(ctpnk.getThanhTien())});
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        ExcelExporter excelExporter = new ExcelExporter(this);
+        excelExporter.setFileName("phieunhapkho" + phieuNhapKho.getMaPhieu() + ".xlsx");
+        excelExporter.setHeader(Arrays.asList("Mã lô, Mã sản phẩm, Tên sản phẩm, Ngày sản xuất, Hạn sử dụng, Đơn giá, Số lượng, Thành tiền"));
+        excelExporter.exportToExcel(data);
+    }
+
 }

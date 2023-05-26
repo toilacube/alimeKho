@@ -64,7 +64,7 @@ public class QLPNKActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                startActivity(new Intent(QLPNKActivity.this, HomeActivity.class));
             }
         });
         //them
@@ -126,23 +126,6 @@ public class QLPNKActivity extends AppCompatActivity {
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
 
-                Spinner spinner1 = dialog.findViewById(R.id.spinnerncc);
-                ArrayList<String> nccs = getNCC();
-                ArrayList<String> nccss = getmaNCC();
-                spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        ncc = nccss.get(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(QLPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, nccs);
-                adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner1.setAdapter(adapter1);
-
                 Spinner spinner2 = dialog.findViewById(R.id.spinnernpt);
                 ArrayList<String> npts = getNPT();
                 ArrayList<String> nptss = getmaNPT();
@@ -187,7 +170,6 @@ public class QLPNKActivity extends AppCompatActivity {
                             Statement stm = conn.createStatement();
                             String Query = "set dateformat dmy\nupdate [input_form]" +
                                     "\nset emp_id = " + npt +
-                                    ", supplier_id = " + ncc +
                                     ", input_day = " + "'" + ngaynhapkho.getText() + "'" +
                                     "\n where id = " + pcs;
                             stm.executeUpdate(Query);
@@ -222,11 +204,10 @@ public class QLPNKActivity extends AppCompatActivity {
     }
     private ArrayList<phieuNhapKho> getListPNK() {
         ArrayList<phieuNhapKho> l = new ArrayList<>();
-        String tenNCC = "";
         try {
             Statement stm = conn.createStatement();
             String getInputform = "SET DATEFORMAT DMy\n" +
-                    "select distinct input_form.id, input_form.input_day, employee.name, total from input_form \n" +
+                    "select input_form.id, input_form.input_day, employee.name, total from input_form \n" +
                     "LEFT JOIN employee ON input_form.emp_id = employee.id\n" +
                     "WHERE input_form.is_deleted = 0";
             ResultSet rs = stm.executeQuery(getInputform);
@@ -234,22 +215,23 @@ public class QLPNKActivity extends AppCompatActivity {
                 String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 String todayAsString = df.format(rs.getDate(2));
+                String tenNCC = "";
                 try {
                     Statement stm1 = conn.createStatement();
-                    String getInputform1 = "SET DATEFORMAT DMy\n" +
+                    String getInputform1 = "SET DATEFORMAT DMY\n" +
                             "SELECT supplier.name from batch\n" +
-                            "LEFT JOIN detail_input ON input_form.id = detail_input.form_id\n" +
+                            "LEFT JOIN detail_input ON batch.id = detail_input.batch_id\n" +
                             "LEFT JOIN product ON product.id = batch.product_id\n" +
                             "LEFT JOIN supplier ON product.supplier_id = supplier.id\n" +
                             "WHERE form_id = " + rs.getInt(1);
-                    ResultSet rs1 = stm.executeQuery(getInputform1);
+                    ResultSet rs1 = stm1.executeQuery(getInputform1);
                     if (rs1.next()) {
-                    tenNCC = rs1.getString("name");
+                        tenNCC = rs1.getString(1);
                     }
+                    l.add(new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, tenNCC, rs.getString(3), rs.getDouble(4)));
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                l.add(new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, tenNCC, rs.getString(3), rs.getDouble(4)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -260,7 +242,8 @@ public class QLPNKActivity extends AppCompatActivity {
         ArrayList<String> l = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String getInputform = "select id from input_form";
+            String getInputform = "select id from input_form" +
+                    "\nwhere is_deleted = 0";
             ResultSet rs = stm.executeQuery(getInputform);
             while (rs.next()) {
                 String temp =  String.valueOf(rs.getInt(1));

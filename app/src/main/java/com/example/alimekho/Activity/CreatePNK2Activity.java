@@ -106,7 +106,7 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
                 maNCC = Integer.parseInt(txtmaNCC.getText().toString().trim());
                 tenNCC = txtTenNCC.getText().toString().trim();
                 try {
-                    String insert = "INSERT INTO input_form (emp_id, input_day) VALUES(?, GETDATE())";
+                    String insert = "INSERT INTO input_form (emp_id, input_day, is_deleted) VALUES(?, GETDATE(), 0)";
                     PreparedStatement stm = conn.prepareStatement(insert);
                     SharedPreferences preferences = getSharedPreferences("user info", MODE_PRIVATE);
                     String name = preferences.getString("id", "");

@@ -168,6 +168,7 @@
                 android:layout_marginTop="5dp"
                 android:paddingVertical="3dp"
                 android:id="@+id/tenNCC"
+                android:textStyle="bold"
                 android:textColor="@color/main"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/gdcreatePNK2_txt2"
@@ -193,6 +194,7 @@
                 android:id="@+id/diaChi"
                 android:paddingVertical="3dp"
                 android:textColor="@color/main"
+                android:textStyle="bold"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/gdcreatePNK2_txt3"
                 />
@@ -215,6 +217,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/main"
                 android:layout_marginTop="5dp"
+                android:textStyle="bold"
                 android:id="@+id/sdt"
                 android:paddingVertical="3dp"
                 android:layout_below="@id/gdcreatePNK2_txt4"

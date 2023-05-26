@@ -40,7 +40,7 @@ public class PNK3Adapter extends RecyclerView.Adapter<PNK3Adapter.PNK3ViewHolder
     @NonNull
     @Override
     public PNK3ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_pnk1, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_pnk3, parent, false);
         return new PNK3ViewHolder(view);
     }
 
