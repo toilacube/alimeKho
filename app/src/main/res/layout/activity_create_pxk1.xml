@@ -39,10 +39,23 @@
                 android:layout_gravity="center"
                 android:paddingBottom="10dp"
                 />
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:background="@color/main"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:background="@color/main"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:background="#D8D8D8"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="0dp"
@@ -120,111 +133,108 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="2.5">
+            android:layout_weight="1.75">
+
             <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Mã lô"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.75">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="Mã sản phẩm"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/customPXK1_txtmaSP"
-                />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="2.5">
+            android:layout_weight="2.75">
+
             <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:text="Tên sản phẩm"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/customPXK1_txttenSP"
-                />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5">
+            android:layout_weight="1.75">
             <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số lượng"
-                android:textSize="13dp"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/customPXK1_txtsoLuong"
-                />
+                android:text="Số lượng tồn"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2">
+            android:layout_weight="2.25">
+
             <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:text="Đơn giá"
-                android:id="@+id/customPXK1_txtdonGia"
-                />
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3">
-            <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
-                android:text="Ngày sản xuất"
-                android:id="@+id/customPXK1_txtNSX"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3">
-            <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hạn sử dụng"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/customPXK1_txtHSD"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2">
-            <TextView
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="Thành tiền"
-                android:id="@+id/customPXK1_txtThanhTien"
-                />
-        </RelativeLayout>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/customPXK1_checkbox"
-            android:visibility="invisible"/>
-    </LinearLayout>
+            android:layout_weight="2.25">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Ngày sản xuất"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.25">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Hạn sử dụng"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.25">
+            <CheckBox
+                android:id="@+id/checkAll"
+                android:layout_width="25dp"
+                android:layout_height="20dp"
+                android:buttonTint="#B53D6E"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gdcreatePXK1_rcv"
         android:layout_width="match_parent"
@@ -232,7 +242,7 @@
         android:layout_above="@id/gdcreatePXK1_btnContinue"
         android:layout_below="@id/gdcreatePXK1_ln2"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="9dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp" />
     <Button

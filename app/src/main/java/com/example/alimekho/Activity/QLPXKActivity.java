@@ -11,6 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -52,6 +54,15 @@ public class QLPXKActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qlpxk);
+        //select all
+        CheckBox checkbox = findViewById(R.id.checkbox);
+        checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()) adapter.selectAll();
+                else adapter.unSelectAll();
+            }
+        });
 
         //back btn
         Button backBtn = findViewById(R.id.btn_back);
@@ -144,8 +155,8 @@ public class QLPXKActivity extends AppCompatActivity {
                         try {
                             Statement stm = conn.createStatement();
                             String Query = "set dateformat dmy\nupdate [output_form]" +
-                                    "\nset emp_id = " + spnNPT.getSelectedItem() +
-                                    ", store_id = " + spnCHX.getSelectedItem() +
+                                    "\nset emp_id = " + spnNPT.getSelectedItem().toString().split(" - ")[0] +
+                                    ", supermarket_id = " + spnCHX.getSelectedItem().toString().split(" - ")[0] +
                                     ", output_day = " + "'" + et.getText() + "'" +
                                     "\n where id = " + spnMaPhieu.getSelectedItem();
                             stm.executeUpdate(Query);
@@ -154,7 +165,7 @@ public class QLPXKActivity extends AppCompatActivity {
                             Toast.makeText(QLPXKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
                         } catch (SQLException e) {
                             e.printStackTrace();
-                            Toast.makeText(QLPXKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(QLPXKActivity.this, "That bai: " + e.toString(), Toast.LENGTH_SHORT).show();
                         }
                         recreate();
                     }
@@ -171,9 +182,9 @@ public class QLPXKActivity extends AppCompatActivity {
 
         try {
             Statement stm = conn.createStatement();
-            String Query = "select output_form.id, output_form.output_day, store.name, employee.name, output_form.total\n" +
-                    "from output_form, store, employee\n" +
-                    "where output_form.emp_id = employee.id and output_form.store_id = store.id";
+            String Query = "select f.id, f.output_day, s.name, e.name\n" +
+                    "from output_form f, supermarket s, employee e\n" +
+                    "where f.emp_id = e.id and f.supermarket_id = s.id and f.is_deleted = 0";
             ResultSet rs = stm.executeQuery(Query);
             while (rs.next()) {
                 list.add(new phieuXuatKho(
@@ -181,17 +192,17 @@ public class QLPXKActivity extends AppCompatActivity {
                         new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate(2)),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getDouble(5))
+                        0.0)
                 );
             }
 
-            rs = stm.executeQuery("select id from store");
+            rs = stm.executeQuery("select id, name from supermarket");
             while (rs.next()) {
-                listCHX.add(rs.getString(1));
+                listCHX.add(rs.getString(1) + " - " + rs.getString(2));
             }
-            rs = stm.executeQuery("select id from employee");
+            rs = stm.executeQuery("select id, name from employee");
             while (rs.next()) {
-                listNPT.add(rs.getString(1));
+                listNPT.add(rs.getString(1) + " - " + rs.getString(2));
             }
             rs.close();
             stm.close();
@@ -209,8 +220,8 @@ public class QLPXKActivity extends AppCompatActivity {
             if (pxk.getMaPhieu().toLowerCase().contains(newText.toLowerCase())
                     || pxk.getNgayXuatKho().toLowerCase().contains(newText.toLowerCase())
                     || pxk.getTenCuaHangXuat().toLowerCase().contains(newText.toLowerCase())
-                    || pxk.getTenNV().toLowerCase().contains(newText.toLowerCase())
-            ){
+                    || pxk.getTenNV().toLowerCase().contains(newText.toLowerCase()))
+            {
                 filteredList.add(pxk);
             }
         }

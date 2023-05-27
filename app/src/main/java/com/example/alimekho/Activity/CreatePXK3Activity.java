@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.alimekho.Adapter.PXK3Adapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.CTPXK;
+import com.example.alimekho.Model.loSanPham;
 import com.example.alimekho.Model.phieuXuatKho;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
@@ -66,19 +67,22 @@ public class CreatePXK3Activity extends AppCompatActivity {
                     SharedPreferences sharedPref = getSharedPreferences("user info", MODE_PRIVATE);
                     Statement stm = conn.createStatement();
                     String Query = "set dateformat dmy\n"+
-                            "INSERT INTO [output_form] ([output_day], [emp_id], [store_id], [total]) VALUES ( "+
+                            "INSERT INTO [output_form] ([output_day], [emp_id], [supermarket_id], [is_deleted]) VALUES ( "+
                                     "'" + today +"'" +
                                     " , " + sharedPref.getString("id", "") +
                                     " , "+ getIntent().getExtras().getString("maCHX") +
-                                    " , "+String.valueOf(total)+")";
+                                    " , 0)";
                     stm.executeUpdate(Query);
 
                     for (CTPXK ct : ctpxks){
                         String insertQuery = "DECLARE @formID int;\n" +
                                 "SELECT @formID = IDENT_CURRENT('[output_form]');\n" +
-                                "INSERT INTO [detail_output] ([product_id], [form_id], [quantity], [NSX], [HSD], [total]) "+
-                                "VALUES ( " + ct.getSanPham().getMaSP() + ", @formID, "+ ct.getSoLuong() + "," + ct.getNSX() +", "+
-                                        ct.getHSD() +", " + ct.getThanhTien() + ")";
+                                "INSERT INTO [detail_output] ([batch_id], [form_id], [quantity]) "+
+                                "VALUES (" +
+                                ct.getLo().getMaLo() + "," +
+                                "@formID, " +
+                                ct.getSoLuong() +
+                                ")";
                         stm.executeUpdate(insertQuery);
                     }
                     stm.close();
@@ -116,8 +120,19 @@ public class CreatePXK3Activity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("user info", MODE_PRIVATE);
         txtnhanVien.setText("Người phụ trách: " + sharedPref.getString("name", "N/A"));
         txttenCHX.setText("Cửa hàng xuất: " + getIntent().getExtras().getString("tenCHX"));
-        txttoTal.setText("Thành tiền: " + String.valueOf(total));
         txtngayNhap.setText("Ngày xuất kho: " + today);
+
+        String numString = String.valueOf((int)total);
+        String thanhTien ="";
+        for(int i = 0; i < numString.length() ; i++){
+            if((numString.length() - i - 1) % 3 == 0 && i < numString.length()-1){
+                thanhTien += Character.toString(numString.charAt(i)) + ".";
+            }else{
+                thanhTien += Character.toString(numString.charAt(i));
+            }
+        }
+        txttoTal.setText("Thành tiền: " + thanhTien + " đ");
+
     }
     public void Init(){
         btnBackHome = findViewById(R.id.btn_back_createPXK3);

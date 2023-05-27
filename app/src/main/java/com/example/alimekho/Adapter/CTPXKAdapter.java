@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -28,13 +29,24 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
     private Context mContext;
     private List<CTPXK> listCTPXK;
     private List<CTPXK> listChecked = new ArrayList<>();
-
-
+    private boolean isSelectedAll = false;
     public CTPXKAdapter(Context mContext, List<CTPXK> listCTPXK) {
         this.mContext = mContext;
         this.listCTPXK = listCTPXK;
     }
+
+    public void selectAll() {
+        isSelectedAll=true;
+        notifyDataSetChanged();
+    }
+
+    public void unSelectAll() {
+        isSelectedAll=false;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView maLo;
         private TextView maSP;
         private TextView tenSP;
         private TextView SL;
@@ -47,6 +59,7 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            maLo = itemView.findViewById(R.id.maLo);
             maSP = itemView.findViewById(R.id.masp);
             tenSP = itemView.findViewById(R.id.tensp);
             SL = itemView.findViewById(R.id.sl);
@@ -74,14 +87,17 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
         CTPXK item = listCTPXK.get(position);
         if(position % 2 == 0) holder.linearLayout.setBackgroundColor(Color.WHITE);
 
-        holder.maSP.setText(item.getSanPham().getMaSP());
-        holder.tenSP.setText(item.getSanPham().getTenSP());
+        holder.maLo.setText(item.getLo().getMaLo());
+        holder.maSP.setText(item.getLo().getSanPham().getMaSP());
+        holder.tenSP.setText(item.getLo().getSanPham().getTenSP());
         holder.SL.setText(String.valueOf(item.getSoLuong()));
-        //holder.DG.setText(String.valueOf(item.getSanPham().getDonGia()));
-        holder.NSX.setText(item.getNSX());
-        holder.HSD.setText(item.getHSD());
-        //holder.TT.setText(String.valueOf(item.getSoLuong() * item.getSanPham().getDonGia()));
-        holder.cb.setChecked(false);
+        holder.DG.setText(String.valueOf((int)item.getLo().getDonGia()));
+        holder.NSX.setText(item.getLo().getNSX());
+        holder.HSD.setText(item.getLo().getHSD());
+        holder.TT.setText(String.valueOf((int)item.getThanhTien()));
+        if (!isSelectedAll) holder.cb.setChecked(false);
+        else holder.cb.setChecked(true);
+
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -104,15 +120,9 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
             Connection conn = db.getConnection();
             try {
                 Statement stm = conn.createStatement();
-                stm.executeUpdate( "delete from detail_output where product_id = " + ctpxk.getSanPham().getMaSP());
-                String Query = "UPDATE output_form\n" +
-                        "SET total = \n" +
-                        "(\n" +
-                        "\tSELECT SUM(p.quantity * pr.unit_price) \n" +
-                        "\tFROM detail_output p INNER JOIN product pr ON p.product_id = pr.id \n" +
-                        "\tWHERE p.form_id = output_form.id\t\n" +
-                        ")";
-                stm.executeUpdate(Query);
+                stm.executeUpdate( "delete from detail_output where batch_id = " + ctpxk.getLo().getMaLo() +
+                        "and form_id = " + ctpxk.getMaPXK());
+
                 stm.close();
                 conn.close();
             } catch (SQLException e) {

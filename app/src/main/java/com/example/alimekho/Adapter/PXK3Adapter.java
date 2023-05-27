@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Model.CTPNK;
 import com.example.alimekho.Model.CTPXK;
+import com.example.alimekho.Model.loSanPham;
 import com.example.alimekho.R;
 
 import java.util.ArrayList;
@@ -33,13 +34,14 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
     @Override
     public void onBindViewHolder(@NonNull PXK3ViewHolder holder, int position) {
         CTPXK ctpxk = ctpxks.get(position);
-        holder.txtmaSP.setText(ctpxk.getSanPham().getMaSP().toString().trim());
-        holder.txttenSP.setText(ctpxk.getSanPham().getTenSP().toString().trim());
-        //holder.txtdonGia.setText(Double.toString(ctpxk.getSanPham().getDonGia()));
+        holder.txtmaLo.setText(ctpxk.getLo().getMaLo());
+        holder.txtmaSP.setText(ctpxk.getLo().getSanPham().getMaSP().toString().trim());
+        holder.txttenSP.setText(ctpxk.getLo().getSanPham().getTenSP().toString().trim());
+        holder.txtdonGia.setText(Integer.toString((int)ctpxk.getLo().getDonGia()));
         holder.txtsoLuong.setText(Integer.toString(ctpxk.getSoLuong()));
-        holder.txtthanhTien.setText(Double.toString(ctpxk.getThanhTien()));
-        holder.txtNSX.setText(ctpxk.getNSX().toString().trim());
-        holder.txtHSD.setText(ctpxk.getHSD().toString().trim());
+        holder.txtthanhTien.setText(Integer.toString((int)ctpxk.getThanhTien()));
+        holder.txtNSX.setText(ctpxk.getLo().getNSX().toString().trim());
+        holder.txtHSD.setText(ctpxk.getLo().getHSD().toString().trim());
 
     }
 
@@ -49,10 +51,11 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
     }
 
     public class PXK3ViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtmaSP, txttenSP, txtsoLuong, txtdonGia, txtNSX, txtHSD, txtthanhTien;
+        private TextView txtmaLo, txtmaSP, txttenSP, txtsoLuong, txtdonGia, txtNSX, txtHSD, txtthanhTien;
 
         public PXK3ViewHolder(@NonNull View itemView) {
             super(itemView);
+            txtmaLo = itemView.findViewById(R.id.maLo);
             txtmaSP = itemView.findViewById(R.id.custompnk1_txtmaSP);
             txttenSP = itemView.findViewById(R.id.custompnk1_txttenSP);
             txtdonGia = itemView.findViewById(R.id.txtdonGia);
