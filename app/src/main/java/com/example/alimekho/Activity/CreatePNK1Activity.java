@@ -72,6 +72,18 @@ public class CreatePNK1Activity extends AppCompatActivity {
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    String delete = "DELETE FROM detail_input WHERE form_id = ?";
+                    String delete1 = "DELETE FROM input_form WHERE id = ?";
+                    PreparedStatement stm = conn.prepareStatement(delete);
+                    PreparedStatement stm1 = conn.prepareStatement(delete1);
+                    stm.setInt(1, maPhieu);
+                    stm1.setInt(1, maPhieu);
+                    int rs = stm.executeUpdate();
+                    int rs1 = stm1.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 onBackPressed();
             }
         });
@@ -84,6 +96,18 @@ public class CreatePNK1Activity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    String delete = "DELETE FROM detail_input WHERE form_id = ?";
+                    String delete1 = "DELETE FROM input_form WHERE id = ?";
+                    PreparedStatement stm = conn.prepareStatement(delete);
+                    PreparedStatement stm1 = conn.prepareStatement(delete1);
+                    stm.setInt(1, maPhieu);
+                    stm1.setInt(1, maPhieu);
+                    int rs = stm.executeUpdate();
+                    int rs1 = stm1.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                onBackPressed();
             }
         });

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,6 +84,13 @@ public class CTPNKActivity extends AppCompatActivity {
         txtnhanVien = findViewById(R.id.gdCTPNK_txtnguoiPT);
         txttoTal = findViewById(R.id.gdCTPNK_txtthanhTien);
         setData(phieuNhapKho);
+        ImageView imageView = findViewById(R.id.excel);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                export();
+            }
+        });
         //test
         RecyclerView rcv = findViewById(R.id.rcv);
         CTPNKAdapter adapter = new CTPNKAdapter(this, getListCTPNK(phieuNhapKho));
@@ -250,7 +259,7 @@ public class CTPNKActivity extends AppCompatActivity {
         askForPermission(Manifest.permission.READ_EXTERNAL_STORAGE, 100);
         askForPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, 200);
         askForPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE, 300);
-        ArrayList<String[]> data =  new ArrayList<>();
+        ArrayList<Object[]> data =  new ArrayList<>();
         for(CTPNK ctpnk : getListCTPNK(phieuNhapKho)){
             try {
                 String select = "SET DATEFORMAT DMY\n" +
@@ -261,10 +270,8 @@ public class CTPNKActivity extends AppCompatActivity {
                 ResultSet rs = stm.executeQuery(select);
                 while(rs.next()){
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    String NSX = dateFormat.format(rs.getDate("NSX"));
-                    String HSD = dateFormat.format(rs.getDate("HSD"));
-                   data.add(new String[]{rs.getString(1), rs.getString(2), rs.getString("name"), NSX, HSD,
-                                            rs.getString("unit_price"), String.valueOf(ctpnk.getSoLuong()),String.valueOf(ctpnk.getThanhTien())});
+                    data.add(new Object[]{rs.getInt(1), rs.getInt(2), rs.getString("name"), rs.getDate("NSX"), rs.getDate("HSD"),
+                                            rs.getDouble("unit_price"), ctpnk.getSoLuong(), ctpnk.getThanhTien()});
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -272,7 +279,7 @@ public class CTPNKActivity extends AppCompatActivity {
         }
         ExcelExporter excelExporter = new ExcelExporter(this);
         excelExporter.setFileName("phieunhapkho" + phieuNhapKho.getMaPhieu() + ".xlsx");
-        excelExporter.setHeader(Arrays.asList("Mã lô, Mã sản phẩm, Tên sản phẩm, Ngày sản xuất, Hạn sử dụng, Đơn giá, Số lượng, Thành tiền"));
+        excelExporter.setHeader(Arrays.asList("Mã lô", "Mã sản phẩm", "Tên sản phẩm", "Ngày sản xuất", "Hạn sử dụng", "Đơn giá", "Số lượng", "Thành tiền"));
         excelExporter.exportToExcel(data);
     }
 

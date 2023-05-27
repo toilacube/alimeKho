@@ -3,6 +3,7 @@ package com.example.alimekho.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -55,11 +56,17 @@ public class QLPNKActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qlpnk);
         phieuNhapKhos = getListPNK();
-        //test
         RecyclerView rcv = findViewById(R.id.rcv);
         pnkAdapter = new PNKAdapter(this, phieuNhapKhos);
         rcv.setAdapter(pnkAdapter);
         rcv.setLayoutManager(new LinearLayoutManager(this));
+        //test
+        CheckBox checkBox = findViewById(R.id.checkbox);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         Button btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,5 +322,4 @@ public class QLPNKActivity extends AppCompatActivity {
         }
         return l;
     }
-
 }

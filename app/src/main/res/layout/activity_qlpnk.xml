@@ -157,13 +157,19 @@
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"/>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:paddingHorizontal="10dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black">
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:buttonTint="#B53D6E"/>
+        </LinearLayout>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv"

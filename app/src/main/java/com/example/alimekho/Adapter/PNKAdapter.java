@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Activity.CTPNKActivity;
+import com.example.alimekho.Activity.QLPNKActivity;
 import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.phieuNhapKho;
@@ -73,7 +74,6 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
         holder.tvNPT.setText(pnk.getTenNV());
         holder.tvNCC.setText(pnk.getTenNCC());
         holder.tvNgNK.setText(pnk.getNgayNhapKho());
-        holder.cb.setChecked(false);
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -118,5 +118,8 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
         }
         listChecked.clear();
         notifyDataSetChanged();
+    }
+    public void setListChecked(){
+
     }
 }

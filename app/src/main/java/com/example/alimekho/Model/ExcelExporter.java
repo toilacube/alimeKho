@@ -1,5 +1,6 @@
 package com.example.alimekho.Model;
 
+
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Context;
@@ -39,14 +40,14 @@ public class ExcelExporter {
         }
     }
 
-    public void exportToExcel(List<String[]> data) {
+    public void exportToExcel(List<Object[]> data) {
         int rowCount = 1;
-        for (String[] rowData : data) {
+        for (Object[] rowData : data) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            for (String cellData : rowData) {
+            for (Object cellData : rowData) {
                 Cell cell = row.createCell(columnCount++);
-                cell.setCellValue(cellData);
+                setCellValue(cell, cellData);
             }
         }
 
@@ -59,6 +60,28 @@ public class ExcelExporter {
         } catch (IOException e) {
             e.printStackTrace();
             Log.e(TAG, "Error export to xlsx");
+        }
+    }
+
+    private void setCellValue(Cell cell, Object value) {
+        if (value == null) {
+            cell.setCellValue("");
+        } else if (value instanceof String) {
+            cell.setCellValue((String) value);
+        } else if (value instanceof Integer) {
+            cell.setCellValue((Integer) value);
+        } else if (value instanceof Double) {
+            cell.setCellValue((Double) value);
+        } else if (value instanceof Boolean) {
+            cell.setCellValue((Boolean) value);
+        } else if (value instanceof java.util.Date) {
+            cell.setCellValue((java.util.Date) value);
+            CellStyle cellStyle = workbook.createCellStyle();
+            CreationHelper creationHelper = workbook.getCreationHelper();
+            cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-mm-dd"));
+            cell.setCellStyle(cellStyle);
+        } else {
+            cell.setCellValue(value.toString());
         }
     }
 }
