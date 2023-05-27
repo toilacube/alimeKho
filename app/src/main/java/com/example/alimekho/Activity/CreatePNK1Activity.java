@@ -212,7 +212,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
         if (window == null) return;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView txtdonGia, txtsoLuong, txtNSX, txtHSD;
+        TextView txtdonGia, txtNSX, txtHSD;
         Spinner spinner = dialog.findViewById(R.id.spinnermaSP);
         ArrayList<String> products = getListSP();
         ArrayList<String> products_id = getMaSP();
@@ -285,8 +285,21 @@ public class CreatePNK1Activity extends AppCompatActivity {
                     } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
+                int maLo = -1;
+                try {
+                    String select = "SELECT IDENT_CURRENT('batch')";
+                    Statement stm1 = conn.createStatement();
+                    ResultSet rs1 = stm1.executeQuery(select);
+                    while(rs1.next()){
+                        maLo = rs1.getInt(1);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                loSanPham.setMaLo(String.valueOf(maLo));
+                loSanPhams.add(loSanPham);
+                pnk1Adapter.notifyDataSetChanged();
                 dialog.dismiss();
-                recreate();
             }
         });
         dialog.show();
