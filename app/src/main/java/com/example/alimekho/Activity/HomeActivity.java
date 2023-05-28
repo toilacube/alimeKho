@@ -11,7 +11,8 @@ import com.example.alimekho.Model.Employee;
 import com.example.alimekho.R;
 
 public class HomeActivity extends AppCompatActivity {
-    CardView cvSanPham, cvNhapKho, cvXuatKho, cvNhanVien;
+    CardView cvSanPham, cvNhapKho, cvXuatKho, cvNhanVien
+            , cvViTri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +22,19 @@ public class HomeActivity extends AppCompatActivity {
         cvNhanVien = findViewById(R.id.cv_nhan_vien);
         cvNhapKho = findViewById(R.id.cv_nhap_kho);
         cvXuatKho = findViewById(R.id.cv_xuat_kho);
+        cvViTri = findViewById(R.id.cv_khu_vuc_kho);
 
         toActivity();
     }
 
     private void toActivity() {
+        cvViTri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AreaActivity.class);
+                startActivity(intent);
+            }
+        });
         cvSanPham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,92 +1,74 @@
 package com.example.alimekho.Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Area implements Serializable {
     private String id;
     private String area;
     private String shelf;
-    private String bin;
-    private String idProduct;
-    private int numProduct;
-    private String status;
-
-    public Area(String id, String area, String shelf, String bin, String idProduct, int numProduct, String status) {
-        this.id = id;
-        this.area = area;
-        this.shelf = shelf;
-        this.bin = bin;
-        this.idProduct = idProduct;
-        this.numProduct = numProduct;
-        this.status = status;
+    private  int slot;
+    private int available;
+    private String type_id;
+    private int is_deleted;
+    private ArrayList<loSanPham> listLoSP = new ArrayList<>();
+    public Area() {
+        this.is_deleted = 0;
     }
 
-    public String getId() {
-        return id;
+    public void setListLoSP(ArrayList<loSanPham> listLoSP) {
+        this.listLoSP = listLoSP;
+    }
+
+    public ArrayList<loSanPham> getListLoSP() {
+        return listLoSP;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+
+    public int getSlot() {
+        return slot;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getArea() {
-        return area;
-    }
-
     public void setArea(String area) {
         this.area = area;
-    }
-
-    public String getShelf() {
-        return shelf;
     }
 
     public void setShelf(String shelf) {
         this.shelf = shelf;
     }
 
-    public String getBin() {
-        return bin;
+    public void setAvailable(int available) {
+        this.available = available;
     }
 
-    public void setBin(String bin) {
-        this.bin = bin;
+    public void setType_id(String type_id) {
+        this.type_id = type_id;
     }
 
-    public String getIdProduct() {
-        return idProduct;
+    public String getId() {
+        return id;
     }
 
-    public void setIdProduct(String idProduct) {
-        this.idProduct = idProduct;
+    public String getArea() {
+        return area;
     }
 
-    public int getNumProduct() {
-        return numProduct;
+    public String getShelf() {
+        return shelf;
     }
 
-    public void setNumProduct(int numProduct) {
-        this.numProduct = numProduct;
+    public int getAvailable() {
+        return available;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Area{" +
-                "id='" + id + '\'' +
-                ", area='" + area + '\'' +
-                ", shelf='" + shelf + '\'' +
-                ", bin='" + bin + '\'' +
-                ", idProduct='" + idProduct + '\'' +
-                ", numProduct=" + numProduct +
-                ", status='" + status + '\'' +
-                '}';
+    public String getType_id() {
+        return type_id;
     }
 }

@@ -15,15 +15,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Activity.DetailAreaActivity;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.Area;
 import com.example.alimekho.R;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder> {
     private Context context;
     List<Area> areaList;
+
+    SQLServerConnection db = new SQLServerConnection();
 
     public AreaAdapter(Context context)
     {
@@ -44,14 +51,14 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull AreaViewHolder holder, int position) {
-        Area area=areaList.get(position);
+        Area area = areaList.get(position);
         if(area==null)
             return;
         holder.id.setText(area.getId());
         holder.area.setText(area.getArea());
         holder.shelf.setText(area.getShelf());
-        holder.bin.setText(area.getBin());
-        holder.status.setText(area.getStatus());
+        holder.available.setText(Integer.toString(area.getAvailable()));
+        holder.type.setText(area.getType_id());
 
         holder.linearLayoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +97,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
     }
     public class AreaViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView id, area, shelf, bin, status;
+        private TextView id, area, shelf, type, available;
         private ImageView delete, update;
         private LinearLayout linearLayoutItem;
         public AreaViewHolder(@NonNull View itemView) {
@@ -99,8 +106,8 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
             id=itemView.findViewById(R.id.tv_id);
             area=itemView.findViewById(R.id.tv_area);
             shelf=itemView.findViewById(R.id.tv_shelf);
-            bin=itemView.findViewById(R.id.tv_bin);
-            status=itemView.findViewById(R.id.tv_status);
+            type=itemView.findViewById(R.id.tv_type);
+            available=itemView.findViewById(R.id.tv_status);
             delete=itemView.findViewById(R.id.img_delete);
             update=itemView.findViewById(R.id.img_update);
             linearLayoutItem=itemView.findViewById(R.id.linear);
