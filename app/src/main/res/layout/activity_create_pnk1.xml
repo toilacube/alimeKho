@@ -84,6 +84,16 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_bar"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/gdcreatePNK1_ln1"
+        android:layout_toStartOf="@id/gdcreatePNK1_btnAdd"
+        android:background="#F2F2F2"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

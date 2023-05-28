@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.QLPNKActivity"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_back"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
+            android:text=" Danh sách lô sản phẩm"
+            android:textColor="@color/main"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_tenUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trần Nhung"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_back"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+            android:paddingRight="20dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img_avatar"
+            android:layout_marginRight="12dp"
+            app:layout_constraintRight_toLeftOf="@+id/tv_tenUser"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tenUser"
+            app:layout_constraintTop_toTopOf="@+id/tv_tenUser" />
+        <ImageView
+            android:id="@+id/icon_noti"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_noti"
+            android:layout_marginRight="28dp"
+            app:layout_constraintRight_toLeftOf="@+id/img_avatar"
+            app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
+            app:layout_constraintTop_toTopOf="@+id/img_avatar" />
+        <ImageView
+            android:id="@+id/icon_kobiet"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_kobiet"
+            app:layout_constraintRight_toLeftOf="@+id/icon_noti"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_noti"
+            app:layout_constraintTop_toTopOf="@+id/icon_noti" />
+
+        <SearchView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F2F2F2"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back"
+            android:layout_marginHorizontal="52dp"
+            android:layout_marginTop="36dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#913175"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/search_bar"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+            <TextView
+                android:id="@+id/btn_themPNK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="Thêm mới lô sản phẩm"
+                android:textColor="@color/white"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/icon_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/icon_delete"
+            app:layout_constraintBottom_toBottomOf="@+id/add_button"
+            app:layout_constraintEnd_toEndOf="@id/search_bar"
+            app:layout_constraintTop_toTopOf="@+id/add_button"
+            android:layout_marginRight="24dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ln2"
+        android:paddingVertical="10dp"
+        android:background="#CEEDE9EB"
+        android:layout_marginHorizontal="52dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/btnAdd"
+        android:orientation="horizontal"
+        android:weightSum="16.5">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã lô"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã sản phẩm"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+
+            android:layout_weight="2.5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày sản xuất"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hạn sử dụng"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đơn giá"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tồn kho"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa được đặt"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:buttonTint="#B53D6E"
+            android:id="@+id/check_box"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ln2"
+        android:layout_marginHorizontal="52dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp" />
+</LinearLayout>
