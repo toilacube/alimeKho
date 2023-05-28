@@ -32,7 +32,6 @@ public class CreatePXK1_2Activity extends AppCompatActivity {
     SQLServerConnection db = new SQLServerConnection();
     Connection conn = db.getConnection();
     private Button btnBackHome, btnContinue, btnBack;
-    private CheckBox checkAll;
     private RecyclerView recyclerView;
     private SearchView searchView;
     private ArrayList<CTPXK> sanPhams;
@@ -44,7 +43,6 @@ public class CreatePXK1_2Activity extends AppCompatActivity {
         Init();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        Toast.makeText(this, String.valueOf(sanPhams.size()), Toast.LENGTH_SHORT).show();
         pxk12Adapter = new PXK1_2Adapter(this, sanPhams);
         recyclerView.setAdapter(pxk12Adapter);
         btnBackHome.setOnClickListener(v -> onBackPressed());
@@ -75,7 +73,6 @@ public class CreatePXK1_2Activity extends AppCompatActivity {
         btnBack = findViewById(R.id.gdcreatePXK1_btnBack);
         recyclerView = findViewById(R.id.gdcreatePXK1_rcv);
         searchView = findViewById(R.id.gdcreatePXK1_sv);
-        checkAll = findViewById(R.id.checkAll);
         sanPhams = CreatePXK1Activity.spSelected();
     }
 

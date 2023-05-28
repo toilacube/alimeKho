@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,21 +56,19 @@ public class PXK1Adapter extends RecyclerView.Adapter<PXK1Adapter.PXK1ViewHolder
         holder.txtsoLuong.setText(Integer.toString(sanPham.getSoLuong()));
         holder.txtNSX.setText(sanPham.getLo().getNSX().toString().trim());
         holder.txtHSD.setText(sanPham.getLo().getHSD().toString().trim());
-        if (!isSelectedAll) holder.checkBox.setChecked(false);
-        else holder.checkBox.setChecked(true);
+
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 boolean isChecked = compoundButton.isChecked();
-                String sl = holder.txtsoLuong.getText().toString().trim();
-                if (sl.isEmpty()) sl = "0";
-                sanPham.setSoLuong(Integer.parseInt(sl));
                 if(isChecked)
                     sanPhamVV.add(sanPham);
                 else
                     sanPhamVV.remove(sanPham);
             }
         });
+        if (!isSelectedAll) holder.checkBox.setChecked(false);
+        else holder.checkBox.setChecked(true);
     }
 
     @Override
