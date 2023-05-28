@@ -134,23 +134,23 @@ public class SanPhamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sanPham.setTenSP(edtTenSP.getText().toString().trim());
-                sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
+               // sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
                 sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
 
-                try {
-                    Statement stm = db.getConnection().createStatement();
-                    String query = "INSERT INTO product ([name], [unit_price]," +
-                            " [unit], [type_id], [supplier_id]) " +
-                            "VALUES " + "  ('"
-                            + sanPham.getTenSP() + "', "
-                            + sanPham.getDonGia() + ", '"
-                            + sanPham.getDonViTinh() + "', "
-                            + sanPham.getPhanLoai() + ", "
-                            + sanPham.getSupplier_id() + ");";
-                    stm.executeUpdate(query);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Statement stm = db.getConnection().createStatement();
+//                    String query = "INSERT INTO product ([name], [unit_price]," +
+//                            " [unit], [type_id], [supplier_id]) " +
+//                            "VALUES " + "  ('"
+//                            + sanPham.getTenSP() + "', "
+//                            + sanPham.getDonGia() + ", '"
+//                            + sanPham.getDonViTinh() + "', "
+//                            + sanPham.getPhanLoai() + ", "
+//                            + sanPham.getSupplier_id() + ");";
+//                    stm.executeUpdate(query);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
                 String select = "SELECT IDENT_CURRENT('product')";
                 Statement stm1 = null;
                 try {
@@ -289,7 +289,7 @@ public class SanPhamActivity extends AppCompatActivity {
                 sanPham sp = new sanPham();
                 sp.setMaSP(resultSet.getString("id"));
                 sp.setTenSP(resultSet.getString("name"));
-                sp.setDonGia(resultSet.getDouble("unit_price"));
+                //sp.setDonGia(resultSet.getDouble("unit_price"));
                 sp.setDonViTinh(resultSet.getString("unit"));
                 sp.setPhanLoai(Integer.toString(resultSet.getInt("type_id")));
                 sp.setSupplier_id(Integer.toString(resultSet.getInt("supplier_id")));

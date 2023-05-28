@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Thông tin sản phẩm"
+                android:text="Thông tin nhà cung cấp"
                 android:textColor="@color/main"
                 android:layout_gravity="center"
                 android:paddingBottom="10dp"
@@ -53,7 +53,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Thông tin nhà cung cấp"
+                android:text="Thông tin lô sản phẩm"
                 android:textColor="@color/main"
                 android:layout_gravity="center"
                 android:paddingBottom="10dp"
@@ -165,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -176,6 +176,19 @@
         android:layout_below="@id/gdcreatePNK3_ln3"
         android:orientation="horizontal"
         android:weightSum="16.5">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã lô"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -205,13 +218,25 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5">
+            android:layout_weight="2.5">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số lượng"
+                android:text="Ngày sản xuất"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hạn sử dụng"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_centerHorizontal="true"/>
         </RelativeLayout>
         <RelativeLayout
@@ -229,25 +254,13 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3">
+            android:layout_weight="1.5">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ngày sản xuất"
+                android:text="Số lượng"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_centerHorizontal="true"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hạn sử dụng"
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_centerHorizontal="true"/>
         </RelativeLayout>
         <RelativeLayout
@@ -270,9 +283,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/gdcreatePNK3_btnComplete"
         android:layout_below="@id/gdcreatePNK3_ln2"
-        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="15dp" />
     <Button
         android:layout_width="wrap_content"

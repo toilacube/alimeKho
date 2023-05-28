@@ -3,6 +3,7 @@ package com.example.alimekho.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -19,14 +20,18 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Adapter.PNKAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
+import com.example.alimekho.Model.CTPNK;
+import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.nhaCungCap;
 import com.example.alimekho.Model.phieuNhapKho;
+import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
 import java.sql.Connection;
@@ -44,21 +49,29 @@ public class QLPNKActivity extends AppCompatActivity {
     final Calendar myCalendar= Calendar.getInstance();
     private SQLServerConnection db = new SQLServerConnection();
     private Connection conn = db.getConnection();
+    private PNKAdapter pnkAdapter;
+    private ArrayList<phieuNhapKho> phieuNhapKhos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qlpnk);
-
-        //test
+        phieuNhapKhos = getListPNK();
         RecyclerView rcv = findViewById(R.id.rcv);
-        PNKAdapter adapter = new PNKAdapter(this, getListPNK());
+        pnkAdapter = new PNKAdapter(this, phieuNhapKhos);
+        rcv.setAdapter(pnkAdapter);
         rcv.setLayoutManager(new LinearLayoutManager(this));
-        rcv.setAdapter(adapter);
+        //test
+        CheckBox checkBox = findViewById(R.id.checkbox);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         Button btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                startActivity(new Intent(QLPNKActivity.this, HomeActivity.class));
             }
         });
         //them
@@ -66,7 +79,7 @@ public class QLPNKActivity extends AppCompatActivity {
         addPNK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(QLPNKActivity.this, CreatePNK1Activity.class));
+                startActivity(new Intent(QLPNKActivity.this, CreatePNK2Activity.class));
             }
         });
         //xoa
@@ -74,10 +87,23 @@ public class QLPNKActivity extends AppCompatActivity {
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.deleteCheckedItems();
+                pnkAdapter.deleteCheckedItems();
             }
         });
+        SearchView searchView = findViewById(R.id.search_bar);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
         //sua
         ImageView editBtn = findViewById(R.id.icon_edit);
         editBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,23 +132,6 @@ public class QLPNKActivity extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(QLPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, pcss);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
-
-                Spinner spinner1 = dialog.findViewById(R.id.spinnerncc);
-                ArrayList<String> nccs = getNCC();
-                ArrayList<String> nccss = getmaNCC();
-                spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        ncc = nccss.get(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<>(QLPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, nccs);
-                adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner1.setAdapter(adapter1);
 
                 Spinner spinner2 = dialog.findViewById(R.id.spinnernpt);
                 ArrayList<String> npts = getNPT();
@@ -168,7 +177,6 @@ public class QLPNKActivity extends AppCompatActivity {
                             Statement stm = conn.createStatement();
                             String Query = "set dateformat dmy\nupdate [input_form]" +
                                     "\nset emp_id = " + npt +
-                                    ", supplier_id = " + ncc +
                                     ", input_day = " + "'" + ngaynhapkho.getText() + "'" +
                                     "\n where id = " + pcs;
                             stm.executeUpdate(Query);
@@ -183,22 +191,54 @@ public class QLPNKActivity extends AppCompatActivity {
                 });
                 dialog.show();
             }
-        });
 
+
+        });
+    }
+    private void filterList(String newText) {
+        ArrayList<phieuNhapKho> filteredList = new ArrayList<>();
+        for (phieuNhapKho phieuNhapKho: phieuNhapKhos) {
+            if (phieuNhapKho.getMaPhieu().toLowerCase().contains(newText.toLowerCase())
+                    || phieuNhapKho.getNgayNhapKho().toLowerCase().contains(newText.toLowerCase())
+                    || phieuNhapKho.getTenNCC().toLowerCase().contains(newText.toLowerCase())
+                    || phieuNhapKho.getTenNV().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(phieuNhapKho);
+            }
+        }
+            if (!filteredList.isEmpty()) {
+                pnkAdapter.setFilteredList(filteredList);
+            }
     }
     private ArrayList<phieuNhapKho> getListPNK() {
         ArrayList<phieuNhapKho> l = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String getInputform = "select input_form.id, input_form.input_day, supplier.name, employee.name, total from input_form \n" +
-                    "LEFT JOIN supplier ON input_form.supplier_id = supplier.id\n" +
-                    "LEFT JOIN employee ON input_form.emp_id = employee.id";
+            String getInputform = "SET DATEFORMAT DMy\n" +
+                    "select input_form.id, input_form.input_day, employee.name, total from input_form \n" +
+                    "LEFT JOIN employee ON input_form.emp_id = employee.id\n" +
+                    "WHERE input_form.is_deleted = 0";
             ResultSet rs = stm.executeQuery(getInputform);
             while (rs.next()) {
                 String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 String todayAsString = df.format(rs.getDate(2));
-                l.add(new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, rs.getString(3), rs.getString(4), rs.getDouble(5)));
+                String tenNCC = "";
+                try {
+                    Statement stm1 = conn.createStatement();
+                    String getInputform1 = "SET DATEFORMAT DMY\n" +
+                            "SELECT supplier.name from batch\n" +
+                            "LEFT JOIN detail_input ON batch.id = detail_input.batch_id\n" +
+                            "LEFT JOIN product ON product.id = batch.product_id\n" +
+                            "LEFT JOIN supplier ON product.supplier_id = supplier.id\n" +
+                            "WHERE form_id = " + rs.getInt(1);
+                    ResultSet rs1 = stm1.executeQuery(getInputform1);
+                    if (rs1.next()) {
+                        tenNCC = rs1.getString(1);
+                    }
+                    l.add(new phieuNhapKho(String.valueOf(rs.getInt(1)), todayAsString, tenNCC, rs.getString(3), rs.getDouble(4)));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -209,7 +249,8 @@ public class QLPNKActivity extends AppCompatActivity {
         ArrayList<String> l = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String getInputform = "select id from input_form";
+            String getInputform = "select id from input_form" +
+                    "\nwhere is_deleted = 0";
             ResultSet rs = stm.executeQuery(getInputform);
             while (rs.next()) {
                 String temp =  String.valueOf(rs.getInt(1));
@@ -281,5 +322,4 @@ public class QLPNKActivity extends AppCompatActivity {
         }
         return l;
     }
-
 }

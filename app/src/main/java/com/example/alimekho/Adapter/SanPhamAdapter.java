@@ -78,7 +78,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         holder.id.setText(sanPham.getMaSP());
         holder.name.setText(sanPham.getTenSP());
         holder.donViTinh.setText(sanPham.getDonViTinh());
-        holder.donGia.setText(Double.toString(sanPham.getDonGia()));
+       // holder.donGia.setText(Double.toString(sanPham.getDonGia()));
 
         try {
             Statement stm1 = db.getConnection().createStatement();
@@ -164,7 +164,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 });
 
                 edtTenSP.setText(sanPham.getTenSP());
-                edtDonGia.setText(Double.toString(sanPham.getDonGia()));
+                //edtDonGia.setText(Double.toString(sanPham.getDonGia()));
                 edtDonViTinh.setText(sanPham.getDonViTinh());
                 Button btnUpdate = dialogView.findViewById(R.id.btnUpdate),
                         btnCancel = dialogView.findViewById(R.id.btnCancel);
@@ -174,7 +174,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     @Override
                     public void onClick(View view) {
                         sanPham.setTenSP(edtTenSP.getText().toString().trim());
-                        sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
+                       // sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
                         sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
 
                         try {

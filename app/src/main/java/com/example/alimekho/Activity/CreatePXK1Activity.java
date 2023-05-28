@@ -93,8 +93,8 @@ public class CreatePXK1Activity extends AppCompatActivity {
                 sanPhams.add(new CTPXK(
                         new sanPham(
                                 rs.getString("product_id"),
-                                rs.getString("name"),
-                                rs.getDouble("unit_price")
+                                rs.getString("name")
+//                                rs.getDouble("unit_price")
                                 ),
                         rs.getInt("quantity"),
                         new SimpleDateFormat("dd-MM-yyyy").format(rs.getDate("NSX")),

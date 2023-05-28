@@ -35,7 +35,7 @@ public class PXK3Adapter extends RecyclerView.Adapter<PXK3Adapter.PXK3ViewHolder
         CTPXK ctpxk = ctpxks.get(position);
         holder.txtmaSP.setText(ctpxk.getSanPham().getMaSP().toString().trim());
         holder.txttenSP.setText(ctpxk.getSanPham().getTenSP().toString().trim());
-        holder.txtdonGia.setText(Double.toString(ctpxk.getSanPham().getDonGia()));
+        //holder.txtdonGia.setText(Double.toString(ctpxk.getSanPham().getDonGia()));
         holder.txtsoLuong.setText(Integer.toString(ctpxk.getSoLuong()));
         holder.txtthanhTien.setText(Double.toString(ctpxk.getThanhTien()));
         holder.txtNSX.setText(ctpxk.getNSX().toString().trim());

@@ -70,30 +70,6 @@
                     android:orientation="horizontal">
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-
-                        android:textStyle="bold"
-                        android:text="Số lượng: "
-                        android:textSize="14dp"/>
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:paddingLeft="10dp"
-                        android:background="@color/gray_img"
-                        android:layout_weight="4"
-                        android:id="@+id/txtsoLuong"
-                        android:text="0"
-                        android:textSize="14dp"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textStyle="bold"
@@ -106,8 +82,7 @@
                         android:background="@color/gray_img"
                         android:layout_weight="4"
                         android:text="0"
-                        android:focusable="false"
-                        android:clickable="false"
+                        android:inputType="number"
                         android:id="@+id/txtdonGia"
                         android:textSize="14dp"
                         />

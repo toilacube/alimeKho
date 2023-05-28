@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -41,6 +42,8 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
     private SQLServerConnection db = new SQLServerConnection();
     private Connection conn = db.getConnection();
     private int maPhieu;
+    private int maNCC;
+    private String tenNCC;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,18 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    String delete = "DELETE FROM detail_input WHERE form_id = ?";
+                    String delete1 = "DELETE FROM input_form WHERE id = ?";
+                    PreparedStatement stm = conn.prepareStatement(delete);
+                    PreparedStatement stm1 = conn.prepareStatement(delete1);
+                    stm.setInt(1, maPhieu);
+                    stm1.setInt(1, maPhieu);
+                    int rs = stm.executeUpdate();
+                    int rs1 = stm1.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 onBackPressed();
             }
         });
@@ -75,17 +90,28 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
                     Toast.makeText(CreatePNK2Activity.this, "Vui lòng chọn nhà cung cấp!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                maNCC = Integer.parseInt(txtmaNCC.getText().toString().trim());
+                tenNCC = txtTenNCC.getText().toString().trim();
                 try {
-                    String update = "UPDATE input_form SET supplier_id = ? WHERE id = ?";
-                    PreparedStatement stm = conn.prepareStatement(update);
-                    stm.setInt(1, Integer.parseInt(txtmaNCC.getText().toString().trim()));
-                    stm.setInt(2, maPhieu);
+                    String insert = "INSERT INTO input_form (emp_id, input_day, is_deleted) VALUES(?, GETDATE(), 0)";
+                    PreparedStatement stm = conn.prepareStatement(insert);
+                    SharedPreferences preferences = getSharedPreferences("user info", MODE_PRIVATE);
+                    String name = preferences.getString("id", "");
+                    stm.setString(1, name);
                     int rs = stm.executeUpdate();
+                    String select = "SELECT IDENT_CURRENT('input_form')";
+                    Statement stm1 = conn.createStatement();
+                    ResultSet rs1 = stm1.executeQuery(select);
+                    while(rs1.next()){
+                        maPhieu = rs1.getInt(1);
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent(CreatePNK2Activity.this, CreatePNK3Activity.class);
+                Intent intent = new Intent(CreatePNK2Activity.this, CreatePNK1Activity.class);
                 intent.putExtra("maPhieu", maPhieu);
+                intent.putExtra("maNCC", maNCC);
+                intent.putExtra("tenNCC", tenNCC);
                 startActivity(intent);
             }
         });
@@ -130,7 +156,6 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
         txtTenNCC = findViewById(R.id.tenNCC);
         txtdiaChi = findViewById(R.id.diaChi);
         txtSDT = findViewById(R.id.sdt);
-        maPhieu = getIntent().getIntExtra("maPhieu", -1);
         nhaCungCaps = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();

@@ -12,14 +12,14 @@ public class CTPXK {
         this.maPXK = maPXK;
         this.sanPham = sanPham;
         this.soLuong = soLuong;
-        this.thanhTien = sanPham.getDonGia()*soLuong;
+//        this.thanhTien = sanPham.getDonGia()*soLuong;
         this.HSD = HSD;
         this.NSX = NSX;
     }
     public CTPXK(com.example.alimekho.Model.sanPham sanPham, int soLuong, String NSX, String HSD) {
         this.sanPham = sanPham;
         this.soLuong = soLuong;
-        this.thanhTien = sanPham.getDonGia()*soLuong;
+   //     this.thanhTien = sanPham.getDonGia()*soLuong;
         this.HSD = HSD;
         this.NSX = NSX;
     }
@@ -27,7 +27,7 @@ public class CTPXK {
     public CTPXK(com.example.alimekho.Model.sanPham sanPham, int soLuong) {
         this.sanPham = sanPham;
         this.soLuong = soLuong;
-        this.thanhTien = sanPham.getDonGia()*soLuong;
+       // this.thanhTien = sanPham.getDonGia()*soLuong;
     }
 
     public String getNSX() {
@@ -48,7 +48,7 @@ public class CTPXK {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-        this.thanhTien = this.soLuong * this.sanPham.getDonGia();
+       // this.thanhTien = this.soLuong * this.sanPham.getDonGia();
     }
 
     public int getSoLuong() {

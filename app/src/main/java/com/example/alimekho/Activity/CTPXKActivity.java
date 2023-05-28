@@ -73,7 +73,7 @@ public class CTPXKActivity extends AppCompatActivity {
         }
         if (PXK != null) {
             TextView tvMaPhieu = findViewById(R.id.gdcreatePNK3_txtmaPhieu);
-            tvMaPhieu.setText("Mã phiếu nhập: " + PXK.getMaPhieu());
+            tvMaPhieu.setText("Mã phiếu xuất: " + PXK.getMaPhieu());
             TextView tvNgayNK = findViewById(R.id.gdcreatePNK3_txtngayNhap);
             tvNgayNK.setText("Ngày xuất kho: " + PXK.getNgayXuatKho());
             TextView tvCHN = findViewById(R.id.gdcreatePNK3_txtCHX);
@@ -147,12 +147,13 @@ public class CTPXKActivity extends AppCompatActivity {
                             stm.executeUpdate(Query);
                             stm.close();
                             conn.close();
+                            dialog.dismiss();
+                            recreate();
                             Toast.makeText(CTPXKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
                         } catch (SQLException e) {
                             e.printStackTrace();
                             Toast.makeText(CTPXKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
                         }
-                        recreate();
                     }
                 });
                 dialog.show();
@@ -169,17 +170,17 @@ public class CTPXKActivity extends AppCompatActivity {
                     "from detail_output, product\n" +
                     "where detail_output.product_id = product.id and form_id = " + maPhieu;
             ResultSet rs = stm.executeQuery(Query);
-            while (rs.next()) {
-                list.add(new CTPXK(maPhieu,
-                        new sanPham(rs.getString("product_id"),
-                                rs.getString("name"),
-                                rs.getDouble("unit_price")
-                                ),
-                        rs.getInt("quantity"),
-                        dateFormat.format(rs.getDate("NSX")),
-                        dateFormat.format(rs.getDate("HSD"))));
-                listSP.add(rs.getString("product_id"));
-            }
+//            while (rs.next()) {
+//                list.add(new CTPXK(maPhieu,
+//                        new sanPham(rs.getString("product_id"),
+//                                rs.getString("name"),
+//                                rs.getDouble("unit_price")
+//                                ),
+//                        rs.getInt("quantity"),
+//                        dateFormat.format(rs.getDate("NSX")),
+//                        dateFormat.format(rs.getDate("HSD"))));
+//                listSP.add(rs.getString("product_id"));
+//            }
             rs.close();
             stm.close();
             conn.close();
