@@ -49,7 +49,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2.5">
+        android:layout_weight="3">
         <TextView
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
@@ -61,7 +61,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2.5">
+        android:layout_weight="3">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_weight="1">
+        android:layout_weight="2">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,20 +95,6 @@
             android:id="@+id/txtsoLuong"
             />
     </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_weight="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="0.0"
-            android:id="@+id/txtsLK"
-            />
-    </RelativeLayout>
-
     <CheckBox
         android:layout_width="0dp"
         android:layout_weight="1"

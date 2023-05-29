@@ -53,7 +53,6 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.BatchViewHol
         holder.txtNSX.setText(loSanPham.getNSX().toString().trim());
         holder.txtHSD.setText(loSanPham.getHSD().toString().trim());
         holder.txtsoLuong.setText(String.valueOf(loSanPham.getsLTon()).toString().trim());
-        holder.txtsLK.setText(String.valueOf(loSanPham.getsLChuaXep()).toString().trim());
         holder.checkBox.setChecked(isSelectedAll);
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -108,7 +107,7 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.BatchViewHol
     }
 
     public class BatchViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtmaSP, txttenSP, txtsoLuong, txtdonGia, txtNSX, txtHSD, txtsLK, txtmaLo;
+        private TextView txtmaSP, txttenSP, txtsoLuong, txtdonGia, txtNSX, txtHSD, txtmaLo;
         private LinearLayout linearLayout;
         private CheckBox checkBox;
 
@@ -121,7 +120,6 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.BatchViewHol
             txtsoLuong = itemView.findViewById(R.id.txtsoLuong);
             txtNSX = itemView.findViewById(R.id.txtNSX);
             txtHSD = itemView.findViewById(R.id.txtHSD);
-            txtsLK = itemView.findViewById(R.id.txtsLK);
             linearLayout = itemView.findViewById(R.id.custompnk_ln);
             checkBox = itemView.findViewById(R.id.checkbox);
         }
