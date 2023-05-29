@@ -146,14 +146,14 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
         if (window == null) return;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView txtdiaChi, txtSDT;
+        TextView txtTenCHX, txtdiaChi, txtSDT;
 
         txtTenCHX = dialog.findViewById(R.id.txttenCHX);
         txtdiaChi = dialog.findViewById(R.id.txtdiaChi);
         txtSDT = dialog.findViewById(R.id.txtSDT);
         Button btnAdd = dialog.findViewById(R.id.btnAdd);
-        Button btnCancle = dialog.findViewById(R.id.btnBack);
-        btnCancle.setOnClickListener(new View.OnClickListener() {
+        Button btnCancel = dialog.findViewById(R.id.btnBack);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

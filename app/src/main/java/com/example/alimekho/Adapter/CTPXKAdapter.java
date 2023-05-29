@@ -95,9 +95,6 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
         holder.NSX.setText(item.getLo().getNSX());
         holder.HSD.setText(item.getLo().getHSD());
         holder.TT.setText(String.valueOf((int)item.getThanhTien()));
-        if (!isSelectedAll) holder.cb.setChecked(false);
-        else holder.cb.setChecked(true);
-
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -105,6 +102,8 @@ public class CTPXKAdapter extends RecyclerView.Adapter<CTPXKAdapter.ViewHolder> 
                 else listChecked.remove(item);
             }
         });
+        if (!isSelectedAll) holder.cb.setChecked(false);
+        else holder.cb.setChecked(true);
     }
 
     @Override
