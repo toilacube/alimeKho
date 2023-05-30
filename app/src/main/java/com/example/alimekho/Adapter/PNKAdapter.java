@@ -30,6 +30,7 @@ import java.util.List;
 public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
     private Context mContext;
     private List<phieuNhapKho> listPNK;
+    private boolean isSelectedAll = false;
     private List<phieuNhapKho> listChecked = new ArrayList<>();
 
     public PNKAdapter(Context mContext, List<phieuNhapKho> listPNK) {
@@ -74,6 +75,7 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
         holder.tvNPT.setText(pnk.getTenNV());
         holder.tvNCC.setText(pnk.getTenNCC());
         holder.tvNgNK.setText(pnk.getNgayNhapKho());
+        holder.cb.setChecked(isSelectedAll);
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -119,7 +121,8 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
         listChecked.clear();
         notifyDataSetChanged();
     }
-    public void setListChecked(){
-
+    public void setCheckAll(boolean is_checked){
+        isSelectedAll = is_checked;
+        notifyDataSetChanged();
     }
 }

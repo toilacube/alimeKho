@@ -1,91 +1,72 @@
 package com.example.alimekho.Activity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.alimekho.Adapter.BatchAdapter;
+import com.example.alimekho.Adapter.PNK1Adapter;
+import com.example.alimekho.Adapter.SupplierAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
-import com.example.alimekho.Model.CTPNK;
-import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.loSanPham;
+import com.example.alimekho.Model.nhaCungCap;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
-import com.example.alimekho.Adapter.PNK1Adapter;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class CreatePNK1Activity extends AppCompatActivity {
-    private Button btnBackHome, btnContinue, btnAdd, btnBack;
+public class BatchActivity extends AppCompatActivity {
+    private Button btnBack;
+    private CardView btnAdd;
+    private ImageView btnDelete;
+    private CheckBox cb;
     private RecyclerView recyclerView;
-    private String product_id, name;
     private SearchView searchView;
     final Calendar myCalendar= Calendar.getInstance();
     private ArrayList<loSanPham> loSanPhams;
-    private PNK1Adapter pnk1Adapter;
+    private String product_id, name;
+    private BatchAdapter batchAdapter;
     private SQLServerConnection db = new SQLServerConnection();
     private Connection conn = db.getConnection();
-    private int maPhieu;
-    private int maNCC;
-    private String tenNCC;
-    private static ArrayList<loSanPham> losanPhamDuocChon;
-    public static ArrayList<loSanPham> spSelected(){
-        return losanPhamDuocChon;
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_pnk1);
-
+        setContentView(R.layout.activity_batch);
         Init();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        pnk1Adapter = new PNK1Adapter(this, loSanPhams);
-        recyclerView.setAdapter(pnk1Adapter);
-        btnBackHome.setOnClickListener(new View.OnClickListener() {
+        batchAdapter = new BatchAdapter(this, loSanPhams);
+        recyclerView.setAdapter(batchAdapter);
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String delete = "DELETE FROM detail_input WHERE form_id = ?";
-                    String delete1 = "DELETE FROM input_form WHERE id = ?";
-                    PreparedStatement stm = conn.prepareStatement(delete);
-                    PreparedStatement stm1 = conn.prepareStatement(delete1);
-                    stm.setInt(1, maPhieu);
-                    stm1.setInt(1, maPhieu);
-                    int rs = stm.executeUpdate();
-                    int rs1 = stm1.executeUpdate();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
                 onBackPressed();
             }
         });
@@ -95,33 +76,16 @@ public class CreatePNK1Activity extends AppCompatActivity {
                 showDialog();
             }
         });
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String delete = "DELETE FROM detail_input WHERE form_id = ?";
-                    String delete1 = "DELETE FROM input_form WHERE id = ?";
-                    PreparedStatement stm = conn.prepareStatement(delete);
-                    PreparedStatement stm1 = conn.prepareStatement(delete1);
-                    stm.setInt(1, maPhieu);
-                    stm1.setInt(1, maPhieu);
-                    int rs = stm.executeUpdate();
-                    int rs1 = stm1.executeUpdate();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-               onBackPressed();
+                batchAdapter.deleteCheckedItems();
             }
         });
-        btnContinue.setOnClickListener(new View.OnClickListener() {
+        cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreatePNK1Activity.this, CreatePNK3Activity.class);
-                intent.putExtra("maPhieu", maPhieu);
-                intent.putExtra("maNCC", maNCC);
-                intent.putExtra("tenNCC", tenNCC);
-                losanPhamDuocChon = pnk1Adapter.getLoSanPhamdc();
-                startActivity(intent);
+                batchAdapter.setCheckAll(cb.isChecked());
             }
         });
         searchView.clearFocus();
@@ -138,18 +102,6 @@ public class CreatePNK1Activity extends AppCompatActivity {
             }
         });
     }
-    public void Init(){
-        btnBackHome = findViewById(R.id.btn_back_createPNK1);
-        btnAdd = findViewById(R.id.gdcreatePNK1_btnAdd);
-        btnContinue = findViewById(R.id.gdcreatePNK1_btnContinue);
-        btnBack = findViewById(R.id.gdcreatePNK1_btnBack);
-        recyclerView = findViewById(R.id.gdcreatePNK1_rcv);
-        maPhieu = getIntent().getIntExtra("maPhieu", -1);
-        maNCC = getIntent().getIntExtra("maNCC", -1);
-        tenNCC = getIntent().getStringExtra("tenNCC");
-        loSanPhams= getListLoSP();
-        searchView = findViewById(R.id.search_bar);
-    }
     private void filterList(String newText) {
         ArrayList<loSanPham> filteredList = new ArrayList<>();
         for (loSanPham loSanPham : loSanPhams) {
@@ -158,15 +110,24 @@ public class CreatePNK1Activity extends AppCompatActivity {
                 filteredList.add(loSanPham);
             }
         }
-        pnk1Adapter.setFilteredList(filteredList);
+        batchAdapter.setFilteredList(filteredList);
+    }
+    public void Init(){
+        btnAdd = findViewById(R.id.add_button);
+        btnBack = findViewById(R.id.btn_back);
+        recyclerView = findViewById(R.id.rcv);
+        cb = findViewById(R.id.check_box);
+        btnDelete = findViewById(R.id.icon_delete);
+        searchView = findViewById(R.id.search_bar);
+        loSanPhams= getListLoSP();
     }
     public ArrayList<loSanPham> getListLoSP(){
         ArrayList<loSanPham> l = new ArrayList<>();
         try {
             String select = "SET DATEFORMAT DMY\n" +
-                    "SELECT batch.id, product_id, NSX, HSD, unit_price, product.name FROM batch\n" +
+                    "SELECT batch.id, product_id, NSX, HSD, unit_price, product.name, quantity, not_stored FROM batch\n" +
                     "JOIN product ON batch.product_id = product.id\n" +
-                    "WHERE DATEDIFF(DAY, GETDATE(), HSD) > 3 AND batch.is_deleted = 0 AND supplier_id = " + maNCC;
+                    "WHERE batch.is_deleted = 0";
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(select);
             while(rs.next()){
@@ -174,7 +135,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
                 String NSX = dateFormat.format(rs.getDate("NSX"));
                 String HSD = dateFormat.format(rs.getDate("HSD"));
                 sanPham sanPham = new sanPham(String.valueOf(rs.getInt("product_id")), rs.getString(6));
-                loSanPham loSanPham = new loSanPham(String.valueOf(rs.getInt(1)), NSX, HSD, sanPham, rs.getDouble("unit_price"));
+                loSanPham loSanPham = new loSanPham(String.valueOf(rs.getInt(1)), NSX, HSD, sanPham, rs.getInt("quantity"),  rs.getInt("not_stored"),rs.getDouble("unit_price"));
                 l.add(loSanPham);
             }
         } catch (SQLException e) {
@@ -186,7 +147,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
         ArrayList<String> l = new ArrayList<>();
         try {
             String select = "SELECT id, name FROM product\n" +
-                    "WHERE is_deleted = 0 and supplier_id = " + maNCC;
+                    "WHERE is_deleted = 0";
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(select);
             while(rs.next()){
@@ -202,7 +163,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
         ArrayList<String> l = new ArrayList<>();
         try {
             String select = "SELECT id FROM product\n" +
-            "WHERE is_deleted = 0 and supplier_id = " + maNCC;
+                    "WHERE is_deleted = 0";
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(select);
             while(rs.next()){
@@ -218,7 +179,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
         ArrayList<String> l = new ArrayList<>();
         try {
             String select = "SELECT name FROM product\n" +
-                    "WHERE is_deleted = 0 and supplier_id = " + maNCC;
+                    "WHERE is_deleted = 0";
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(select);
             while(rs.next()){
@@ -231,7 +192,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
         return l;
     }
     public void showDialog(){
-        Dialog dialog = new Dialog(CreatePNK1Activity.this);
+        Dialog dialog = new Dialog(BatchActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom_dialog_addsp);
         Window window = dialog.getWindow();
@@ -249,14 +210,14 @@ public class CreatePNK1Activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 product_id = products_id.get(position);
                 name = products_name.get(position);
-                Toast.makeText(CreatePNK1Activity.this, "Selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BatchActivity.this, "Selected", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CreatePNK1Activity.this, android.R.layout.simple_spinner_dropdown_item, products);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(BatchActivity.this, android.R.layout.simple_spinner_dropdown_item, products);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         txtNSX = dialog.findViewById(R.id.txtNSX);
@@ -270,7 +231,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
         txtNSX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(CreatePNK1Activity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(BatchActivity.this, date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         DatePickerDialog.OnDateSetListener date1 = (view1, year, month, day) -> {
@@ -282,7 +243,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
         txtHSD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(CreatePNK1Activity.this,date1,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(BatchActivity.this, date1,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         Button btnAdd = dialog.findViewById(R.id.btnAdd);
@@ -307,7 +268,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
                     stm.setDouble(4, loSanPham.getDonGia());
                     stm.setInt(5, 0);
                     int rs = stm.executeUpdate();
-                    } catch (SQLException ex) {
+                } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
                 int maLo = -1;
@@ -323,7 +284,7 @@ public class CreatePNK1Activity extends AppCompatActivity {
                 }
                 loSanPham.setMaLo(String.valueOf(maLo));
                 loSanPhams.add(loSanPham);
-                pnk1Adapter.notifyDataSetChanged();
+                batchAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });

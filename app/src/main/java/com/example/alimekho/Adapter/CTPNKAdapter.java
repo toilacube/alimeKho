@@ -85,7 +85,7 @@ public class CTPNKAdapter extends RecyclerView.Adapter<CTPNKAdapter.ViewHolder> 
             String select = "SET DATEFORMAT DMY\n" +
                     "SELECT batch.id, product_id, NSX, HSD, unit_price, name FROM batch\n" +
                     "JOIN product ON batch.product_id = product.id\n" +
-                    "WHERE batch.is_deleted = 0 AND batch.id = " + item.getMaLo();
+                    "WHERE batch.id = " + item.getMaLo();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery(select);
             while(rs.next()){

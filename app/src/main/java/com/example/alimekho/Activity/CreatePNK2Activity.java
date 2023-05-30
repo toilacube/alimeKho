@@ -129,12 +129,6 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
             }
         });
     }
-    public void setData(nhaCungCap nhaCungCap){
-        txtmaNCC.setText(nhaCungCap.getMaNCC());
-        txtTenNCC.setText(nhaCungCap.getTenCC());
-        txtdiaChi.setText(nhaCungCap.getDiaChi());
-        txtSDT.setText(nhaCungCap.getSDT());
-    }
     private void filterList(String newText) {
         ArrayList<nhaCungCap> filteredList = new ArrayList<>();
         for (nhaCungCap nhaCungCap : nhaCungCaps) {
@@ -159,7 +153,8 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
         nhaCungCaps = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String getSupplier = "select * from supplier";
+            String getSupplier = "select * from supplier\n" +
+                    "WHERE is_deleted = 0";
             ResultSet rs = stm.executeQuery(getSupplier);
             while (rs.next()) {
                 nhaCungCaps.add(new nhaCungCap(String.valueOf(rs.getInt(1)), rs.getString(2), rs.getString(3), rs.getString(4)));
@@ -193,7 +188,7 @@ public class CreatePNK2Activity extends AppCompatActivity implements PNK2Adapter
             public void onClick(View v) {
                 String maNCC = "";
                 try {
-                    String insert = "INSERT INTO [supplier] ([name], [address], [phone]) VALUES(?,?,?)";
+                    String insert = "INSERT INTO [supplier] ([name], [address], [phone], [is_deleted]) VALUES(?,?,?,0)";
                     PreparedStatement stm = conn.prepareStatement(insert);
                     stm.setString(1, txttenNCC.getText().toString().trim());
                     stm.setString(2, txtdiaChi.getText().toString().trim());

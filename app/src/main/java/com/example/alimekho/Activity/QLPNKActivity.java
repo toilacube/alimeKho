@@ -45,7 +45,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class QLPNKActivity extends AppCompatActivity {
-    private String pcs, ncc, npt;
+    private String pcs, npt;
     final Calendar myCalendar= Calendar.getInstance();
     private SQLServerConnection db = new SQLServerConnection();
     private Connection conn = db.getConnection();
@@ -65,6 +65,7 @@ public class QLPNKActivity extends AppCompatActivity {
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pnkAdapter.setCheckAll(checkBox.isChecked());
             }
         });
         Button btnBack = findViewById(R.id.btn_back);
