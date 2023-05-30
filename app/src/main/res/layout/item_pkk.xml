@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F4F4F4"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:weightSum="20">
+        <TextView
+            android:id="@+id/ma"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingHorizontal="10dp"
+            android:text="Mã địa điểm"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/ngay"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingHorizontal="10dp"
+            android:text="Ngày kiểm kho"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/nv"
+            android:layout_weight="5"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingHorizontal="10dp"
+            android:text="Người phụ trách"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tinhtrang"
+            android:layout_weight="4.5"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingHorizontal="10dp"
+            android:text="Tình trạng"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+        <LinearLayout
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:paddingHorizontal="10dp"
+            android:text=""
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_gravity="center">
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:buttonTint="#B53D6E"
+                android:layout_marginRight="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
