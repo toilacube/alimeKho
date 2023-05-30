@@ -29,6 +29,11 @@ public class loSanPham {
         this.sLChuaXep = 0;
     }
 
+    public loSanPham(String maLo, com.example.alimekho.Model.sanPham sanPham) {
+        this.maLo = maLo;
+        this.sanPham = sanPham;
+    }
+
     public double getDonGia() {
         return donGia;
     }

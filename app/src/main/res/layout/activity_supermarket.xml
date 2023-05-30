@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                android:text="Thêm mới phiếu xuất kho"
+                android:text="Thêm mới địa điểm xuất"
                 android:textColor="@color/white"
                 />
         </androidx.cardview.widget.CardView>

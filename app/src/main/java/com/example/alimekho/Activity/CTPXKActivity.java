@@ -127,7 +127,7 @@ public class CTPXKActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Dialog dialog = new Dialog(CTPXKActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.edit_ctpnk);
+                dialog.setContentView(R.layout.edit_ctpxk);
                 Window window = dialog.getWindow();
                 if (window == null) return;
                 window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);

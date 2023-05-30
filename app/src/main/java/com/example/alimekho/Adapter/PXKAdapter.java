@@ -104,16 +104,12 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
         holder.tvCHX.setText(pxk.getTenCuaHangXuat());
         holder.tvNPT.setText(pxk.getTenNV());
         holder.tvNgXK.setText(pxk.getNgayXuatKho());
-
+        holder.cb.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) listChecked.add(pxk);
+            else listChecked.remove(pxk);
+        });
         if (!isSelectedAll) holder.cb.setChecked(false);
         else holder.cb.setChecked(true);
-        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (compoundButton.isChecked()) listChecked.add(pxk);
-                else listChecked.remove(pxk);
-            }
-        });
     }
 
     @Override
