@@ -37,49 +37,63 @@
             android:padding="15dp"
             android:gravity="center"
             >
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginBottom="100dp"
-                android:src="@drawable/cubealime1" />
-
-            <EditText
-                android:id="@+id/edtUserName"
+                app:cardCornerRadius="20dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/cubealime1" />
+            </androidx.cardview.widget.CardView>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_text_background"
-                android:baselineAligned="false"
-                android:drawableLeft="@drawable/baseline_person_24"
-                android:hint=" Nhập email hoặc tên tài khoản" />
+                app:startIconDrawable="@drawable/baseline_person_24"
+                app:errorEnabled="true">
 
-            <EditText
-                android:id="@+id/edtPassword"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nhập tên tài khoản"
+                    android:textColorHint="@color/gray_text"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/edit_text_background"
-                android:drawableLeft="@drawable/baseline_key_24"
-                android:hint=" Nhập mật khẩu"
-                android:inputType="textPassword" />
+                app:startIconDrawable="@drawable/baseline_key_24"
+                app:errorEnabled="true"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleDrawable="@drawable/show_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:textColorHint="@color/gray_text"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/btnDangNhap"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="đăng nhập"
-                android:background="@drawable/button_background"
-                android:textColor="@color/white"
                 android:layout_marginTop="50dp"
-                />
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-
-</LinearLayout>
+                android:background="@drawable/button_background"
+                android:text="đăng nhập"
+                android:textColor="@color/white" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
