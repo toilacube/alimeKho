@@ -1,45 +1,35 @@
 package com.example.alimekho.Model;
 
 public class CTPXK {
+    private loSanPham lo;
     private String maPXK;
-    private sanPham sanPham;
     private double thanhTien;
     private int soLuong;
-    private String NSX;
-    private String HSD;
 
-    public CTPXK(String maPXK, com.example.alimekho.Model.sanPham sanPham, int soLuong, String NSX, String HSD) {
+    public CTPXK(loSanPham lo, String maPXK, double thanhTien, int soLuong) {
+        this.lo = lo;
         this.maPXK = maPXK;
-        this.sanPham = sanPham;
+        this.thanhTien = thanhTien;
         this.soLuong = soLuong;
-//        this.thanhTien = sanPham.getDonGia()*soLuong;
-        this.HSD = HSD;
-        this.NSX = NSX;
     }
-    public CTPXK(com.example.alimekho.Model.sanPham sanPham, int soLuong, String NSX, String HSD) {
-        this.sanPham = sanPham;
+    public CTPXK(loSanPham lo, String maPXK, int soLuong) {
+        this.lo = lo;
+        this.maPXK = maPXK;
+        this.thanhTien = soLuong * lo.getDonGia();
         this.soLuong = soLuong;
-   //     this.thanhTien = sanPham.getDonGia()*soLuong;
-        this.HSD = HSD;
-        this.NSX = NSX;
     }
-
-    public CTPXK(com.example.alimekho.Model.sanPham sanPham, int soLuong) {
-        this.sanPham = sanPham;
+    public CTPXK(loSanPham lo, int soLuong) {
+        this.lo = lo;
+        this.thanhTien = soLuong * lo.getDonGia();
         this.soLuong = soLuong;
-       // this.thanhTien = sanPham.getDonGia()*soLuong;
     }
 
-    public String getNSX() {
-        return NSX;
+    public void setLo(loSanPham lo) {
+        this.lo = lo;
     }
 
-    public String getHSD() {
-        return HSD;
-    }
-
-    public String getMaPXK() {
-        return maPXK;
+    public void setMaPXK(String maPXK) {
+        this.maPXK = maPXK;
     }
 
     public void setThanhTien(double thanhTien) {
@@ -48,34 +38,22 @@ public class CTPXK {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-       // this.thanhTien = this.soLuong * this.sanPham.getDonGia();
+        this.thanhTien = soLuong * this.lo.getDonGia();
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public loSanPham getLo() {
+        return lo;
     }
 
-    public String getMaPNX() {
+    public String getMaPXK() {
         return maPXK;
-    }
-
-    public void setMaPNX(String maPXK) {
-        this.maPXK = maPXK;
-    }
-
-    public com.example.alimekho.Model.sanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(com.example.alimekho.Model.sanPham sanPham) {
-        this.sanPham = sanPham;
     }
 
     public double getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(int thanhTien) {
-        this.thanhTien = thanhTien;
+    public int getSoLuong() {
+        return soLuong;
     }
 }

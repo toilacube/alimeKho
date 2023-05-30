@@ -10,87 +10,106 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_weight="2">
+        android:layout_weight="1.5">
+
         <TextView
-            android:id="@+id/custompnk1_txtmaSP"
+            android:id="@+id/maLo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mã sản phẩm"
-            android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_weight="3">
-        <TextView
-            android:id="@+id/custompnk1_txttenSP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tên sản phẩm"
-            android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:text="Mã lô"
+            android:textColor="@color/black"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1.5">
+
         <TextView
-            android:id="@+id/custompnk1_txtsoLuong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Mã sản phẩm"
+            android:textColor="@color/black"
+            android:id="@+id/custompnk1_txtmaSP"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Tên sản phẩm"
+            android:textColor="@color/black"
+            android:id="@+id/custompnk1_txttenSP"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="Số lượng"
             android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/custompnk1_txtsoLuong"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2">
+
         <TextView
-            android:id="@+id/txtdonGia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="Đơn giá"
             android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/txtdonGia" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3">
+        android:layout_weight="2.5">
+
         <TextView
-            android:id="@+id/custompnk1_txtNSX"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="Ngày sản xuất"
             android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/custompnk1_txtNSX" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3">
+        android:layout_weight="2.5">
+
         <TextView
-            android:id="@+id/custompnk1_txtHSD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="Hạn sử dụng"
             android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/custompnk1_txtHSD" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2">
+
         <TextView
-            android:id="@+id/custompnk1_txtThanhTien"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="Thành tiền"
             android:textColor="@color/black"
-            android:layout_centerHorizontal="true"/>
+            android:id="@+id/custompnk1_txtThanhTien" />
     </RelativeLayout>
+
 </LinearLayout>

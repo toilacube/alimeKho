@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.QLPXKActivity"
+    tools:context=".Activity.SupermarketActivity"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
-            android:text="Danh sách phiếu xuất kho"
+            android:text="Danh sách địa điểm xuất"
             android:textColor="@color/main"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
@@ -83,12 +83,12 @@
             app:layout_constraintTop_toBottomOf="@+id/search_bar">
 
             <TextView
-                android:id="@+id/btn_themPXK"
+                android:id="@+id/addBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                android:text="Thêm mới phiếu xuất kho"
+                android:text="Thêm mới địa điểm xuất"
                 android:textColor="@color/white"
                 />
         </androidx.cardview.widget.CardView>
@@ -124,41 +124,47 @@
         android:gravity="center_vertical"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginHorizontal="52dp"
-        android:layout_marginTop="28dp">
+        android:layout_marginTop="28dp"
+        android:weightSum="20">
         <TextView
-            android:layout_width="150dp"
+            android:layout_weight="3"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:paddingHorizontal="10dp"
-            android:text="Mã phiếu"
+            android:text="Mã địa điểm"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"/>
         <TextView
-            android:layout_width="200dp"
+            android:layout_weight="5"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:paddingHorizontal="10dp"
-            android:text="Ngày xuất kho"
+            android:text="Tên địa điểm"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"/>
         <TextView
-            android:layout_width="230dp"
+            android:layout_weight="6"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:paddingHorizontal="10dp"
-            android:text="Người phụ trách"
+            android:text="Địa chỉ"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"/>
         <TextView
-            android:layout_width="230dp"
+            android:layout_weight="4.5"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:paddingHorizontal="10dp"
-            android:text="Cửa hàng xuất"
+            android:text="Số điện thoại"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"/>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:paddingHorizontal="10dp"
             android:text=""
@@ -170,7 +176,8 @@
                 android:id="@+id/checkbox"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:buttonTint="#B53D6E"/>
+                android:buttonTint="#B53D6E"
+                android:layout_marginRight="8dp"/>
         </LinearLayout>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView

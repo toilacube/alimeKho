@@ -124,7 +124,7 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
         cuaHangXuats = new ArrayList<>();
         try {
             Statement stm = conn.createStatement();
-            String Query = "select * from store";
+            String Query = "select * from supermarket where is_deleted = 0";
             ResultSet rs = stm.executeQuery(Query);
             while (rs.next()) {
                 cuaHangXuats.add(new cuaHangXuat(
@@ -146,14 +146,14 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
         if (window == null) return;
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        TextView txtmaNCC, txttenNCC, txtdiaChi, txtSDT;
+        TextView txtTenCHX, txtdiaChi, txtSDT;
 
         txtTenCHX = dialog.findViewById(R.id.txttenCHX);
         txtdiaChi = dialog.findViewById(R.id.txtdiaChi);
         txtSDT = dialog.findViewById(R.id.txtSDT);
         Button btnAdd = dialog.findViewById(R.id.btnAdd);
-        Button btnCancle = dialog.findViewById(R.id.btnBack);
-        btnCancle.setOnClickListener(new View.OnClickListener() {
+        Button btnCancel = dialog.findViewById(R.id.btnBack);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -162,14 +162,20 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cuaHangXuat cuaHangXuat = new cuaHangXuat("", txtTenCHX.getText().toString().trim(),
-                        txtdiaChi.getText().toString().trim(), txtSDT.getText().toString().trim());
+                cuaHangXuat cuaHangXuat = new cuaHangXuat("",
+                        txtTenCHX.getText().toString().trim(),
+                        txtSDT.getText().toString().trim(),
+                        txtdiaChi.getText().toString().trim());
                 try {
                     Statement stm = conn.createStatement();
-                    String Query = "INSERT INTO [store] ([address]) VALUES ('" + cuaHangXuat.getDiaChi() + "')";
+                    String Query = "INSERT INTO [supermarket] ([address], [name], [phone], [is_deleted])\n"+
+                            "VALUES (N'" + cuaHangXuat.getDiaChi() +"', "+
+                            "N'" + cuaHangXuat.getTenCHX() + "', " +
+                            "'" + cuaHangXuat.getSDT() + "'," +
+                            "0)";
                     stm.executeUpdate(Query);
                     try {
-                        ResultSet rs = stm.executeQuery(" SELECT IDENT_CURRENT('[store]')");
+                        ResultSet rs = stm.executeQuery(" SELECT IDENT_CURRENT('[supermarket]')");
                         if (rs.next()) cuaHangXuat.setMaCHX(rs.getString(1));
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -179,7 +185,7 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
                     Toast.makeText(CreatePXK2Activity.this, "Them thanh cong", Toast.LENGTH_SHORT).show();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    Toast.makeText(CreatePXK2Activity.this, "That bai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePXK2Activity.this, "That bai: " +e.toString(), Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
@@ -193,9 +199,17 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
         TextView tvTen = findViewById(R.id.gdcreatePXK2_txttenCH);
         TextView tvDC = findViewById(R.id.gdcreatePXK2_txtdiaChi);
         TextView tvSDT = findViewById(R.id.gdcreatePXK2_txtSDT);
+
+        tvMa.setVisibility(View.VISIBLE);
         tvMa.setText(data.getMaCHX());
+
+        tvTen.setVisibility(View.VISIBLE);
         tvTen.setText(data.getTenCHX());
+
+        tvDC.setVisibility(View.VISIBLE);
         tvDC.setText(data.getDiaChi());
+
+        tvSDT.setVisibility(View.VISIBLE);
         tvSDT.setText(data.getSDT());
     }
 }

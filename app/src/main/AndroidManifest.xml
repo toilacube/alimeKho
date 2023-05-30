@@ -26,6 +26,9 @@
             android:name=".Activity.CTPNKActivity"
             android:exported="true"></activity>
         <activity
+            android:name=".Activity.SupermarketActivity"
+            android:exported="true"></activity>
+        <activity
             android:name=".Activity.HomeActivity"
             android:exported="true"></activity>
         <activity
@@ -39,6 +42,9 @@
             android:exported="false" />
         <activity
             android:name=".Activity.CreatePXK2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.CreatePXK1_2Activity"
             android:exported="false" />
         <activity
             android:name=".Activity.CreatePXK1Activity"
@@ -70,6 +76,7 @@
         <activity
             android:name=".Activity.CreatePNK1Activity"
             android:exported="true"></activity>
+
         <activity
             android:name=".Activity.DetailSanPham"
             android:exported="false" />
@@ -82,6 +89,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activity.SanPhamActivity"
             android:exported="true" />

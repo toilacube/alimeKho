@@ -27,12 +27,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
     private Context mContext;
     private List<phieuXuatKho> listPXK;
     private List<phieuXuatKho> listChecked = new ArrayList<>();
+    private boolean isSelectedAll = false;
 
     public PXKAdapter(Context mContext, List<phieuXuatKho> listPXK) {
         this.mContext = mContext;
@@ -41,6 +43,16 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
 
     public void setFilteredList(ArrayList<phieuXuatKho> filteredList) {
         this.listPXK = filteredList;
+        notifyDataSetChanged();
+    }
+
+    public void selectAll() {
+        isSelectedAll=true;
+        notifyDataSetChanged();
+    }
+
+    public void unSelectAll() {
+        isSelectedAll=false;
         notifyDataSetChanged();
     }
 
@@ -78,21 +90,26 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
         if(position % 2 == 0) holder.linearLayout.setBackgroundColor(Color.WHITE);
         holder.linearLayout.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, CTPXKActivity.class);
-            intent.putExtra("maPhieuXuat", pxk.getMaPhieu());
+            HashMap<String, String> pxkMap = new HashMap<>();
+            pxkMap.put("maPhieu", pxk.getMaPhieu());
+            pxkMap.put("ngXK",pxk.getNgayXuatKho());
+            pxkMap.put("CHX",pxk.getTenCuaHangXuat());
+            pxkMap.put("NV",pxk.getTenNV());
+            pxkMap.put("thanhTien",pxk.getTotalMoney().toString());
+
+            intent.putExtra("PXK", pxkMap);
             mContext.startActivity(intent);
         });
         holder.tvMaPhieu.setText(pxk.getMaPhieu());
         holder.tvCHX.setText(pxk.getTenCuaHangXuat());
         holder.tvNPT.setText(pxk.getTenNV());
         holder.tvNgXK.setText(pxk.getNgayXuatKho());
-        holder.cb.setChecked(false);
-        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (compoundButton.isChecked()) listChecked.add(pxk);
-                else listChecked.remove(pxk);
-            }
+        holder.cb.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (compoundButton.isChecked()) listChecked.add(pxk);
+            else listChecked.remove(pxk);
         });
+        if (!isSelectedAll) holder.cb.setChecked(false);
+        else holder.cb.setChecked(true);
     }
 
     @Override
@@ -108,8 +125,9 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
             Connection conn = db.getConnection();
             try {
                 Statement stm = conn.createStatement();
-                stm.executeUpdate( "delete from [detail_output] where [form_id] = " + pxk.getMaPhieu() + "\n"
-                        +"delete from [output_form] where id = " + pxk.getMaPhieu());
+                stm.executeUpdate("update output_form\n" +
+                        "set is_deleted = 1\n" +
+                        "where id = " + pxk.getMaPhieu());
                 stm.close();
                 conn.close();
             } catch (SQLException e) {

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.example.alimekho.Adapter.PNK1Adapter;
 import com.example.alimekho.Adapter.PXK1Adapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
+import com.example.alimekho.Model.CTPKK;
 import com.example.alimekho.Model.CTPNK;
 import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.Model.loSanPham;
@@ -33,7 +35,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class CreatePXK1Activity extends AppCompatActivity {
+public class CreatePKKActivity extends AppCompatActivity {
     SQLServerConnection db = new SQLServerConnection();
     Connection conn = db.getConnection();
     private Button btnBackHome, btnContinue, btnBack;
@@ -42,14 +44,11 @@ public class CreatePXK1Activity extends AppCompatActivity {
     private SearchView searchView;
     private ArrayList<CTPXK> sanPhams;
     private static ArrayList<CTPXK> sanPhamDuocChon;
-    public static ArrayList<CTPXK> spSelected(){
-        return sanPhamDuocChon;
-    }
     private PXK1Adapter pxk1Adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_pxk1);
+        setContentView(R.layout.activity_create_pkk);
         Init();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -61,7 +60,29 @@ public class CreatePXK1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sanPhamDuocChon = pxk1Adapter.getSanPhamVV();
-                startActivity( new Intent(CreatePXK1Activity.this, CreatePXK1_2Activity.class));
+                try {
+                    SharedPreferences sharedPref = getSharedPreferences("user info", MODE_PRIVATE);
+                    Statement stm = conn.createStatement();
+                    String Query ="insert into [check_form] ([check_date], [emp_id], [is_solved], [is_deleted]) values\n" +
+                            "(GETDATE(), " +
+                            sharedPref.getString("id", "") +
+                            ", 0, 0)";
+                    stm.executeUpdate(Query);
+                    for (CTPXK ct : sanPhamDuocChon) {
+                        String insertQuery = "DECLARE @formID int;\n" +
+                                "SELECT @formID = IDENT_CURRENT('[check_form]');\n" +
+                                "INSERT INTO [detail_check] ([batch_id], [form_id], [db_quantity]) "+
+                                "VALUES (" +
+                                ct.getLo().getMaLo() + "," +
+                                "@formID, " +
+                                ct.getSoLuong() +
+                                ")";
+                        stm.executeUpdate(insertQuery);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                onBackPressed();
             }
         });
         searchView.clearFocus();
@@ -133,7 +154,6 @@ public class CreatePXK1Activity extends AppCompatActivity {
         if (!filteredList.isEmpty()){
             pxk1Adapter.setFilteredList(filteredList);
         }
-
     }
 
 }

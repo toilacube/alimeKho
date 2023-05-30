@@ -8,12 +8,11 @@
     android:orientation="horizontal"
     android:weightSum="16.5"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:paddingVertical="8dp">
+    android:focusableInTouchMode="true">
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.75">
+        android:layout_weight="1.5">
         <TextView
             android:id="@+id/maLo"
             android:layout_width="wrap_content"
@@ -51,12 +50,12 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.75">
-        <TextView
-            android:text="123"
+        android:layout_weight="1.25">
+        <EditText
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="13dp"
             android:layout_centerHorizontal="true"
             android:id="@+id/customPXK1_txtsoLuong"
             />
@@ -77,7 +76,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2.25">
+        android:layout_weight="2">
         <TextView
             android:textColor="@color/black"
             android:layout_width="wrap_content"
@@ -90,7 +89,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2.25">
+        android:layout_weight="2">
         <TextView
             android:textColor="@color/black"
             android:layout_width="wrap_content"
@@ -100,20 +99,17 @@
             android:id="@+id/customPXK1_txtHSD"
             />
     </RelativeLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1.25">
-
-        <CheckBox
-            android:id="@+id/customPXK1_checkbox"
-            android:layout_width="25dp"
-            android:layout_height="20dp"
-            android:buttonTint="#B53D6E"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:layout_weight="3">
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Thành tiền"
+            android:id="@+id/customPXK1_txtThanhTien"
+            />
+    </RelativeLayout>
 </LinearLayout>

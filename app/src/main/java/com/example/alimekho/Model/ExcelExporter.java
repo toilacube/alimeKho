@@ -6,7 +6,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
-
+import android.widget.Toast;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -56,9 +56,11 @@ public class ExcelExporter {
             FileOutputStream outputStream = new FileOutputStream(file);
             workbook.write(outputStream);
             outputStream.close();
+            Toast.makeText(context, "Xuất thành công", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "OKKKKKKKKK");
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(context, "Thất bại: " + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e(TAG, "Error export to xlsx");
         }
     }
