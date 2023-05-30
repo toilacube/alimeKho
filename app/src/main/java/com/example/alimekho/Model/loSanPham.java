@@ -1,6 +1,8 @@
 package com.example.alimekho.Model;
 
-public class loSanPham {
+import java.io.Serializable;
+
+public class loSanPham implements Serializable {
     private String maLo;
     private String NSX;
     private String HSD;
@@ -8,6 +10,9 @@ public class loSanPham {
     private int sLTon;
     private int sLChuaXep;
     private double donGia;
+
+    public loSanPham() {
+    }
 
     public loSanPham(String maLo, String NSX, String HSD, com.example.alimekho.Model.sanPham sanPham, int sLTon, int sLChuaXep, double donGia) {
         this.maLo = maLo;

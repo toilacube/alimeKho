@@ -7,13 +7,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLServerConnection {
-//    private String DB_URL = "jdbc:jtds:sqlserver://sql5110.site4now.net:1433/db_a99248_alime";
-//    private String DB_USERNAME = "db_a99248_alime_admin";
-//    private String DB_PASSWORD = "alime123";
-
-    private String DB_URL = "jdbc:jtds:sqlserver://192.168.1.39:1433/AlimeKho";
-    private String DB_USERNAME = "alime";
-    private String DB_PASSWORD = "1";
+    private String DB_URL = "jdbc:jtds:sqlserver://sql5110.site4now.net:1433/db_a99248_alime";
+    private String DB_USERNAME = "db_a99248_alime_admin";
+    private String DB_PASSWORD = "alime123";
    public SQLServerConnection(){
        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
        StrictMode.setThreadPolicy(policy);

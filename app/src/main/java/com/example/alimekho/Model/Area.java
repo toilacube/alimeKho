@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Area implements Serializable {
     private String id;
     private String area;
-    private String shelf;
+    private String shelve;
     private  int slot;
     private int available;
     private String type_id;
@@ -40,8 +40,8 @@ public class Area implements Serializable {
         this.area = area;
     }
 
-    public void setShelf(String shelf) {
-        this.shelf = shelf;
+    public void setShelve(String shelf) {
+        this.shelve = shelf;
     }
 
     public void setAvailable(int available) {
@@ -60,8 +60,8 @@ public class Area implements Serializable {
         return area;
     }
 
-    public String getShelf() {
-        return shelf;
+    public String getShelve() {
+        return shelve;
     }
 
     public int getAvailable() {

@@ -56,7 +56,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
             return;
         holder.id.setText(area.getId());
         holder.area.setText(area.getArea());
-        holder.shelf.setText(area.getShelf());
+        holder.shelf.setText(area.getShelve());
         holder.available.setText(Integer.toString(area.getAvailable()));
         holder.type.setText(area.getType_id());
 
@@ -90,9 +90,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
 
     private void goToDetailArea(Area area) {
         Intent intent = new Intent(context, DetailAreaActivity.class);
-        Bundle bundle =new Bundle();
-        bundle.putSerializable("object_area", (Serializable) area);
-        intent.putExtras(bundle);
+        intent.putExtra("object_area", area);
         context.startActivity(intent);
     }
     public class AreaViewHolder extends RecyclerView.ViewHolder{

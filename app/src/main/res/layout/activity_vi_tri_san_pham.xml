@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AreaActivity">
+    tools:context=".Activity.ViTriSanPhamActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,13 +19,13 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_back_area"
+                android:id="@+id/btnBackViTriSP"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
                 android:fontFamily="sans-serif"
-                android:text="Danh sách khu vực kho"
+                android:text="Vị trí sản phẩm"
                 android:textSize="20dp"
                 android:textColor="@color/main"
                 android:textStyle="bold"
@@ -65,101 +65,68 @@
                 app:srcCompat="@drawable/img_avatar" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <SearchView
-            android:id="@+id/svArea"
+            android:id="@+id/svViTriSP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="#F2F2F2" />
-        <Button
-            android:id="@+id/btnViTriSP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="danh mục vị trí sản phẩm"
-            android:textSize="12dp"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"/>
         <LinearLayout
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:gravity="center"
             android:layout_marginTop="10dp"
             android:background="@color/gray_img"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:weightSum="6"
+            android:weightSum="8"
             >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Mã lô sản phẩm"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Mã vị trí"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="Tên sản phẩm"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+            <TextView
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Số lượng"
                 android:layout_weight="1"
+                android:gravity="center"/>
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Vị trí"
+                android:layout_weight="2"
                 android:gravity="center"/>
 
             <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Khu vực"
                 android:layout_weight="1"
-                android:gravity="center"/>
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Kệ"
-                android:layout_weight="1"
-                android:gravity="center"/>
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Loại sản phẩm"
-                android:layout_weight="1"
-                android:gravity="center"/>
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Còn trống"
-                android:layout_weight="1"
-                android:gravity="center"/>
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Tùy chọn"
-                android:layout_weight="1"
-                android:gravity="center"/>
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_area"
-            android:layout_marginLeft="10dp"
+            android:id="@+id/rcvViTriSP"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+            android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_add_area"
-        android:text="+"
-        android:textSize="40dp"
-        android:backgroundTint="@color/main"
-        android:layout_width="75dp"
-        android:textColor="@color/white"
-        android:layout_margin="50dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="wrap_content"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

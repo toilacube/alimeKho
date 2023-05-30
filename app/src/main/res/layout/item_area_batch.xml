@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/txvID"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Mã lô sản phẩm"
+        android:textColor="@color/black"
+        android:layout_weight="4"
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/txvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Tên sản phẩm"
+        android:textColor="@color/black"
+        android:layout_weight="8"
+        />
+
+    <TextView
+        android:id="@+id/txvNhaCC"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Nhà cung cấp"
+        android:textColor="@color/black"
+        android:layout_weight="4"/>
+    <TextView
+        android:id="@+id/txvQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Số lượng "
+        android:textColor="@color/black"
+        android:layout_weight="4"/>
+
+
+</LinearLayout>
