@@ -16,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31" >
+        <activity android:name=".Activity.BatchActivity"
+            android:exported="false"/>
         <activity
             android:name=".Activity.SupplierActivity"
             android:exported="false" />
@@ -24,19 +26,19 @@
             android:exported="true" />
         <activity
             android:name=".Activity.CTPNKActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".Activity.SupermarketActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".Activity.HomeActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".Activity.CTPXKActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".Activity.QLPXKActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".Activity.CreatePXK3Activity"
             android:exported="false" />
@@ -75,7 +77,7 @@
             android:exported="true" />
         <activity
             android:name=".Activity.CreatePNK1Activity"
-            android:exported="true"></activity>
+            android:exported="true"/>
 
         <activity
             android:name=".Activity.DetailSanPham"
