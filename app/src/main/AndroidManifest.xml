@@ -20,9 +20,6 @@
             android:name=".Activity.SupplierActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.ViTriSanPhamActivity"
             android:exported="true" />
         <activity
@@ -72,22 +69,13 @@
             android:exported="true" />
         <activity
             android:name=".Activity.CreatePNK1Activity"
-<<<<<<< HEAD
             android:exported="true"></activity>
-=======
-            android:exported="true" />
->>>>>>> Pinky
         <activity
             android:name=".Activity.DetailSanPham"
             android:exported="false" />
         <activity
-<<<<<<< HEAD
             android:name=".Activity.LoginActivity"
             android:exported="true">
-=======
-            android:name=".Activity.HomeActivity"
-            android:exported="true" >
->>>>>>> Pinky
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
