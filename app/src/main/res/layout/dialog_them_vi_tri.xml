@@ -51,13 +51,8 @@
                 android:textColor="@color/black"
                 android:layout_margin="5dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:text="Sức chứa:"
-                android:textSize="14dp"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"/>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
@@ -89,13 +84,6 @@
                 android:inputType="number"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
-            <EditText
-                android:id="@+id/edtSucChua"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@color/gray_img"
-                android:layout_margin="5dp"
-                android:inputType="number"/>
             <Spinner
                 android:id="@+id/spLoaiSP"
                 android:layout_width="match_parent"

@@ -82,7 +82,7 @@
                 android:id="@+id/btnViTriSP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@color/main_color"
                 android:padding="10dp"
                 android:text="danh mục vị trí sản phẩm"
@@ -96,6 +96,17 @@
                 android:background="@color/main_color"
                 android:padding="10dp"
                 android:text="Thêm vị trí mới"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+            <Button
+                android:id="@+id/btnThemLoVaoViTri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/main_color"
+                android:padding="10dp"
+                android:text="xếp sản phẩm lên kệ"
+                android:layout_marginLeft="10dp"
                 android:textColor="@color/white"
                 android:textSize="12dp" />
 
@@ -108,7 +119,7 @@
             android:background="@color/gray_img"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:weightSum="6"
+            android:weightSum="5"
             >
 
             <TextView
@@ -136,22 +147,15 @@
                 android:text="Kệ"
                 android:layout_weight="1"
                 android:gravity="center"/>
+
             <TextView
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="Loại sản phẩm"
-                android:layout_weight="1"
-                android:gravity="center"/>
-            <TextView
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Còn trống"
-                android:layout_weight="1"
-                android:gravity="center"/>
+                android:textStyle="bold" />
             <TextView
                 android:textStyle="bold"
                 android:textColor="@color/black"

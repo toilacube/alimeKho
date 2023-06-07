@@ -17,7 +17,7 @@ import com.example.alimekho.R;
 
 public class DetailAreaActivity extends AppCompatActivity {
     Area area = new Area();
-    TextView id, zone, shelve, slot, type, available;
+    TextView id, zone, shelve, type;
     Button btnBackDetail, btnUpdate, btnDelete;
     RecyclerView recyclerView;
     DetailAreaAdapter adapter;
@@ -54,8 +54,6 @@ public class DetailAreaActivity extends AppCompatActivity {
         id.setText(area.getId());
         zone.setText(area.getArea());
         shelve.setText(area.getShelve());
-        slot.setText(Integer.toString(area.getSlot()));
-        available.setText(Integer.toString(area.getAvailable()));
         type.setText(area.getType_id());
     }
 
@@ -63,9 +61,7 @@ public class DetailAreaActivity extends AppCompatActivity {
         id = findViewById(R.id.txvMaViTri);
         zone = findViewById(R.id.txvZone);
         shelve = findViewById(R.id.txvShelve);
-        slot = findViewById(R.id.txvSlot);
         type = findViewById(R.id.txvType);
-        available = findViewById(R.id.txvAvailable);
         recyclerView = findViewById(R.id.rec);
         btnBackDetail = findViewById(R.id.btnBackDetailViTri);
     }

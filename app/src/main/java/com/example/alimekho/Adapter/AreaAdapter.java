@@ -65,7 +65,6 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
         holder.id.setText(area.getId());
         holder.area.setText(area.getArea());
         holder.shelf.setText(area.getShelve());
-        holder.available.setText(Integer.toString(area.getAvailable()));
         holder.type.setText(area.getType_id());
 
         holder.linearLayoutItem.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +94,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
 
                 TextView txvTitle = dialogView.findViewById(R.id.txvSua);
                 EditText edtZone = dialogView.findViewById(R.id.edtZone),
-                        edtShelve = dialogView.findViewById(R.id.edtShelve),
-                        edtSucChua = dialogView.findViewById(R.id.edtSucChua);
+                        edtShelve = dialogView.findViewById(R.id.edtShelve);
                 Button btnAdd = dialogView.findViewById(R.id.btnAdd),
                         btnCancel = dialogView.findViewById(R.id.btnCancel);
                 Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP);
@@ -176,7 +174,7 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
     }
     public class AreaViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView id, area, shelf, type, available;
+        private TextView id, area, shelf, type;
         private ImageView delete, update;
         private LinearLayout linearLayoutItem;
         public AreaViewHolder(@NonNull View itemView) {
@@ -186,7 +184,6 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
             area=itemView.findViewById(R.id.tv_area);
             shelf=itemView.findViewById(R.id.tv_shelf);
             type=itemView.findViewById(R.id.tv_type);
-            available=itemView.findViewById(R.id.tv_status);
             delete=itemView.findViewById(R.id.img_delete);
             update=itemView.findViewById(R.id.img_update);
             linearLayoutItem=itemView.findViewById(R.id.linear);

@@ -37,7 +37,7 @@ public class AreaActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;AreaAdapter areaAdapter;
     SQLServerConnection db = new SQLServerConnection();;
-    Button btnBackArea, btnViTriSP, btnThemViTri;
+    Button btnBackArea, btnViTriSP, btnThemViTri, btnThemLoVaoViTri;
     SearchView searchView;
     ArrayList <Area> list;
     @Override
@@ -78,6 +78,12 @@ public class AreaActivity extends AppCompatActivity {
     }
 
     private void onClickButton() {
+        btnThemLoVaoViTri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), AddBatchToLocatonActivity.class));
+            }
+        });
         btnThemViTri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,8 +115,7 @@ public class AreaActivity extends AppCompatActivity {
         dialog.setView(dialogView);
 
         EditText edtZone = dialogView.findViewById(R.id.edtZone),
-                edtShelve = dialogView.findViewById(R.id.edtShelve),
-                edtSucChua = dialogView.findViewById(R.id.edtSucChua);
+                edtShelve = dialogView.findViewById(R.id.edtShelve);
         Button btnAdd = dialogView.findViewById(R.id.btnAdd),
                 btnCancel = dialogView.findViewById(R.id.btnCancel);
         Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP);
@@ -142,21 +147,17 @@ public class AreaActivity extends AppCompatActivity {
                     edtZone.setError("Vui lòng nhập thông tin");
                 else if(edtShelve.getText().toString().trim().isEmpty())
                     edtShelve.setError("Vui lòng nhập thông tin");
-                else if (edtSucChua.getText().toString().trim().isEmpty())
-                    edtSucChua.setError("Vui lòng nhập thông tin");
                 else{
                     try {
-                        String insertQuery = "insert into location (id, zone, shelve, slot, type_id, available, is_deleted)" +
-                                "values (?, ?, ?, ?, ?, ?, ?)";
+                        String insertQuery = "insert into location (id, zone, shelve, type_id, is_deleted)" +
+                                "values (?, ?, ?, ?, ?)";
                         SQLServerConnection db = new SQLServerConnection();
                         PreparedStatement stm = db.getConnection().prepareStatement(insertQuery);
                         stm.setString(1, edtZone.getText().toString().trim().toUpperCase()
                         + edtShelve.getText().toString().trim().toUpperCase());
                         stm.setString(2, edtZone.getText().toString().trim().toUpperCase());
                         stm.setString(3, edtShelve.getText().toString().trim().toUpperCase());
-                        stm.setString(4, edtSucChua.getText().toString().trim());
                         stm.setString(5, sanPham.getPhanLoai());
-                        stm.setString(6, edtSucChua.getText().toString().trim() );
                         stm.setString(7, "0");
                         stm.executeUpdate();
                         dialog.dismiss();
@@ -167,7 +168,12 @@ public class AreaActivity extends AppCompatActivity {
                 }
             }
         });
-
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
@@ -226,12 +232,13 @@ public class AreaActivity extends AppCompatActivity {
         btnBackArea=findViewById(R.id.btn_back_area);
         recyclerView=findViewById(R.id.rv_area);
         searchView = findViewById(R.id.svArea);
+        btnThemLoVaoViTri = findViewById(R.id.btnThemLoVaoViTri);
     }
 
     private List<Area> getListArea() {
         List<Area>  l = new ArrayList<>();
         try {
-            String query = "select l.id, l.zone, l.shelve, l.available, l.slot, t.name " +
+            String query = "select l.id, l.zone, l.shelve, t.name " +
                     "from location l " +
                     "join product_type t on t.id = l.type_id " +
                     "where l.is_deleted = 0";
@@ -242,8 +249,6 @@ public class AreaActivity extends AppCompatActivity {
                 area.setId(rs.getString("id"));
                 area.setArea(rs.getString("zone"));
                 area.setShelve(rs.getString("shelve"));
-                area.setAvailable(rs.getInt("available"));
-                area.setSlot(rs.getInt("slot"));
                 area.setType_id(rs.getString("name"));
 
                 String queryBatch = "select b.id, product.id as product_id, product.name as product_name, supplier.name as supplier_name, b.quantity, b.not_stored \n" +

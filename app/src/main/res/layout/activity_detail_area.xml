@@ -86,19 +86,6 @@
                             android:layout_margin="10dp"
                             android:text="Loại sản phẩm:"
                             android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="Sức chứa:"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="Còn trống:"
-                            android:textStyle="bold"/>
-
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -136,26 +123,7 @@
                             android:layout_margin="10dp"
                             android:text="type"
                             />
-                        <TextView
-                            android:id="@+id/txvSlot"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="slot"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            />
-                        <TextView
-                            android:id="@+id/txvAvailable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="available"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/black"
-                            />
+
 
                     </LinearLayout>
 
@@ -209,6 +177,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_weight="8"
+                android:gravity="center"
                 />
 
             <TextView
