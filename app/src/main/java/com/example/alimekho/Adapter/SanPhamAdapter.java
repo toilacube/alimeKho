@@ -26,6 +26,7 @@ import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -52,7 +53,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             id = view.findViewById(R.id.txvID);
             name = view.findViewById(R.id.txvName);
             donViTinh = view.findViewById(R.id.txvDonViTinh);
-            donGia = view.findViewById(R.id.txvDonGia);
             loaiSP = view.findViewById(R.id.txvLoaiSP);
             nhaCC = view.findViewById(R.id.txvNhaCC);
             linearLayout = view.findViewById(R.id.linear);
@@ -126,8 +126,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                 Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP),
                         spNhaCC = dialogView.findViewById(R.id.spNhaCC);
 
-                ArrayList<String> listLoaiSP = new ArrayList<>();
-                listLoaiSP = getLoaiSP();
+                ArrayList<String> listLoaiSP = getLoaiSP();
                 ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
                 adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spLoaiSP.setAdapter(adapterLoaiSP);
@@ -242,9 +241,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                     public void onClick(View view) {
                         String id = sanPham.getMaSP();
                         try {
-                            Statement stm = db.getConnection().createStatement();
-                            String deleteQuery = "Delete from product where id = " + id;
-                            stm.executeQuery(deleteQuery);
+                            String deleteQuery = "update product set is_deleted = 1 where id = ?";
+                            PreparedStatement stm = db.getConnection().prepareStatement(deleteQuery);
+                            stm.setString(1, id);
+                            stm.executeQuery();
                             notifyDataSetChanged();
                             dialog.dismiss();
                         } catch (SQLException e) {

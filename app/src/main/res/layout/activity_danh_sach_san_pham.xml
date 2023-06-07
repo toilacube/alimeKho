@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:background="@color/main_color"
-        android:text="Them san pham"
+        android:text="Thêm sản phẩm"
         android:textColor="@color/white"
         android:layout_margin="15dp"
         android:padding="5dp"
@@ -87,79 +87,63 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:weightSum="31"
+        android:weightSum="27"
         >
         <TextView
             android:id="@+id/txvID"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Mã sản phẩm"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_weight="4"
             />
         <TextView
             android:id="@+id/txvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Tên sản phẩm"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_weight="8"
          />
         <TextView
             android:id="@+id/txvDonViTinh"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Đơn vị tính"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_weight="3"/>
-        <TextView
-            android:id="@+id/txvDonGia"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Đơn giá"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_weight="4"/>
 
         <TextView
             android:id="@+id/txvLoaiSP"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Loại sản phẩm"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_weight="4"/>
         <TextView
             android:id="@+id/txvNhaCC"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Nhà cung cấp"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_weight="4"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Tùy chính"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_weight="4"/>
         
     </LinearLayout>
@@ -167,7 +151,6 @@
         android:id="@+id/rcvSanPham"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
         >
 
     </androidx.recyclerview.widget.RecyclerView>

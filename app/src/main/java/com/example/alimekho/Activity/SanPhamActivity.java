@@ -27,6 +27,7 @@ import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -134,23 +135,20 @@ public class SanPhamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sanPham.setTenSP(edtTenSP.getText().toString().trim());
-               // sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
                 sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
 
-//                try {
-//                    Statement stm = db.getConnection().createStatement();
-//                    String query = "INSERT INTO product ([name], [unit_price]," +
-//                            " [unit], [type_id], [supplier_id]) " +
-//                            "VALUES " + "  ('"
-//                            + sanPham.getTenSP() + "', "
-//                            + sanPham.getDonGia() + ", '"
-//                            + sanPham.getDonViTinh() + "', "
-//                            + sanPham.getPhanLoai() + ", "
-//                            + sanPham.getSupplier_id() + ");";
-//                    stm.executeUpdate(query);
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    String query = "INSERT INTO product ([name], [unit], [type_id], [supplier_id]) VALUES (?, ?, ?, ?)";
+                    PreparedStatement stm = db.getConnection().prepareStatement(query);
+                    stm.setString(1, sanPham.getTenSP());
+                    stm.setString(2, sanPham.getDonViTinh());
+                    stm.setString(3, sanPham.getPhanLoai());
+                    stm.setString(4, sanPham.getSupplier_id());
+
+                    stm.executeQuery();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 String select = "SELECT IDENT_CURRENT('product')";
                 Statement stm1 = null;
                 try {
@@ -283,7 +281,7 @@ public class SanPhamActivity extends AppCompatActivity {
         Connection con = db.getConnection();
         try {
             Statement stm = con.createStatement();
-            String query = "select * from product";
+            String query = "select * from product where is_deleted = 0";
             ResultSet resultSet = stm.executeQuery(query);
             while (resultSet.next()){
                 sanPham sp = new sanPham();

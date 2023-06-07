@@ -2,10 +2,17 @@ package com.example.alimekho.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,12 +31,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AreaActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;AreaAdapter areaAdapter;
     SQLServerConnection db = new SQLServerConnection();;
-    Button btnBackArea, btnViTriSP;
+    Button btnBackArea, btnViTriSP, btnThemViTri;
     SearchView searchView;
     ArrayList <Area> list;
     @Override
@@ -70,6 +78,12 @@ public class AreaActivity extends AppCompatActivity {
     }
 
     private void onClickButton() {
+        btnThemViTri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogThemViTri(view);
+            }
+        });
         btnBackArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +99,108 @@ public class AreaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void showDialogThemViTri(View view) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+        View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                .inflate(R.layout.dialog_them_vi_tri,null);
+        AlertDialog dialog = builder.create();
+        dialog.setView(dialogView);
+
+        EditText edtZone = dialogView.findViewById(R.id.edtZone),
+                edtShelve = dialogView.findViewById(R.id.edtShelve),
+                edtSucChua = dialogView.findViewById(R.id.edtSucChua);
+        Button btnAdd = dialogView.findViewById(R.id.btnAdd),
+                btnCancel = dialogView.findViewById(R.id.btnCancel);
+        Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP);
+
+        ArrayList<String> listLoaiSP = new ArrayList<>();
+        listLoaiSP = getLoaiSP();
+        ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
+        adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spLoaiSP.setAdapter(adapterLoaiSP);
+
+        sanPham sanPham = new sanPham();
+
+        spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sanPham.setPhanLoai(getIDLoaiSP().get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                sanPham.setPhanLoai(getIDLoaiSP().get(0));
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtZone.getText().toString().trim().isEmpty())
+                    edtZone.setError("Vui lòng nhập thông tin");
+                else if(edtShelve.getText().toString().trim().isEmpty())
+                    edtShelve.setError("Vui lòng nhập thông tin");
+                else if (edtSucChua.getText().toString().trim().isEmpty())
+                    edtSucChua.setError("Vui lòng nhập thông tin");
+                else{
+                    try {
+                        String insertQuery = "insert into location (id, zone, shelve, slot, type_id, available, is_deleted)" +
+                                "values (?, ?, ?, ?, ?, ?, ?)";
+                        SQLServerConnection db = new SQLServerConnection();
+                        PreparedStatement stm = db.getConnection().prepareStatement(insertQuery);
+                        stm.setString(1, edtZone.getText().toString().trim().toUpperCase()
+                        + edtShelve.getText().toString().trim().toUpperCase());
+                        stm.setString(2, edtZone.getText().toString().trim().toUpperCase());
+                        stm.setString(3, edtShelve.getText().toString().trim().toUpperCase());
+                        stm.setString(4, edtSucChua.getText().toString().trim());
+                        stm.setString(5, sanPham.getPhanLoai());
+                        stm.setString(6, edtSucChua.getText().toString().trim() );
+                        stm.setString(7, "0");
+                        stm.executeUpdate();
+                        dialog.dismiss();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        Toast.makeText(AreaActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
+    private ArrayList<String> getIDLoaiSP() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id FROM product_type";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1));
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
+    }
+
+    private ArrayList<String> getLoaiSP() {
+        ArrayList<String> l = new ArrayList<>();
+        try {
+            String select = "SELECT id, name FROM product_type";
+            Statement stm = db.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(select);
+            while(rs.next()){
+                String temp = String.valueOf(rs.getInt(1)) + " - " + rs.getString(2);
+                l.add(temp);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return l;
     }
 
     private void showArea() {
@@ -105,6 +221,7 @@ public class AreaActivity extends AppCompatActivity {
     }
 
     private void findView() {
+        btnThemViTri = findViewById(R.id.btnThemViTri);
         btnViTriSP = findViewById(R.id.btnViTriSP);
         btnBackArea=findViewById(R.id.btn_back_area);
         recyclerView=findViewById(R.id.rv_area);

@@ -67,12 +67,6 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_margin="10dp"
-                       android:text="Đơn giá:"
-                       android:textStyle="bold"/>
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_margin="10dp"
                        android:text="Đơn vị tính:"
                        android:textStyle="bold"/>
                    <TextView
@@ -107,13 +101,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="Tên sản phẩm"
-                    />
-                <TextView
-                    android:id="@+id/txvDonGia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="Đơn giá"
                     />
                 <TextView
                     android:id="@+id/txvDonViTinh"

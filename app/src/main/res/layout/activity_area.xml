@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".Activity.AreaActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,18 +69,37 @@
             android:id="@+id/svArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginBottom="20dp"
             android:background="#F2F2F2" />
-        <Button
-            android:id="@+id/btnViTriSP"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="danh mục vị trí sản phẩm"
-            android:textSize="12dp"
-            android:padding="10dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"/>
+            android:orientation="horizontal"
+            android:gravity="center|right"
+            >
+
+            <Button
+                android:id="@+id/btnViTriSP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@color/main_color"
+                android:padding="10dp"
+                android:text="danh mục vị trí sản phẩm"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/btnThemViTri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/main_color"
+                android:padding="10dp"
+                android:text="Thêm vị trí mới"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:gravity="center_vertical"
@@ -150,16 +170,5 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-    <Button
-        android:id="@+id/btn_add_area"
-        android:text="+"
-        android:textSize="40dp"
-        android:backgroundTint="@color/main"
-        android:layout_width="75dp"
-        android:textColor="@color/white"
-        android:layout_margin="50dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

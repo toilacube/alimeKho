@@ -14,7 +14,7 @@
         android:background="@color/main_color"
         android:gravity="center_vertical"
         android:padding="15dp"
-        android:text="Thêm sản phẩm"
+        android:text="Thêm vị trí"
         android:textColor="@color/white"
         android:textSize="30dp" />
 
@@ -39,14 +39,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:text="Tên sản phẩm: "
+                android:text="Khu: "
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:layout_margin="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:text="Đơn vị tính: "
+                android:text="Kệ: "
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:layout_margin="5dp"/>
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:text="Nhà cung cấp "
+                android:text="Sức chứa:"
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:layout_margin="5dp"/>
@@ -77,23 +77,25 @@
             android:layout_weight="6"
             >
             <EditText
-                android:id="@+id/edtTenSP"
+                android:id="@+id/edtZone"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
             <EditText
-                android:id="@+id/edtDonViTinh"
+                android:id="@+id/edtShelve"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:inputType="number"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp"/>
+            <EditText
+                android:id="@+id/edtSucChua"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
-                android:layout_margin="5dp"/>
-            <Spinner
-                android:id="@+id/spNhaCC"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:background="@color/gray_img"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:inputType="number"/>
             <Spinner
                 android:id="@+id/spLoaiSP"
                 android:layout_width="match_parent"
@@ -117,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Thêm"
+            android:text="Xác nhận"
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:layout_gravity="center"

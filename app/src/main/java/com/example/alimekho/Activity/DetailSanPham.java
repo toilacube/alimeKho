@@ -30,7 +30,6 @@ public class DetailSanPham extends AppCompatActivity {
         sanPham sp = (sanPham) getIntent().getSerializableExtra("SP");
         id = findViewById(R.id.txvMaSP);
         name = findViewById(R.id. txvTenSP);
-        donGia = findViewById(R.id.txvDonGia);
         phanLoai = findViewById(R.id.txvLoaiSP);
         donViTinh = findViewById(R.id.txvDonViTinh);
         nhaCC = findViewById(R.id.txvNhaCC);
