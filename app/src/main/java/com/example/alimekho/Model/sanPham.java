@@ -9,6 +9,15 @@ public class sanPham implements Serializable {
     private String phanLoai;
     private String donViTinh;
     private String supplier_id;
+    private String img;
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
 
     public sanPham() {
     }

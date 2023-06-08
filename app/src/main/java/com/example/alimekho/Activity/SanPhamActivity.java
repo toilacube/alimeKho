@@ -1,11 +1,9 @@
 package com.example.alimekho.Activity;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -13,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +36,8 @@ public class SanPhamActivity extends AppCompatActivity {
     SanPhamAdapter sanPhamAdapter;
     Button btnAdd, btnBack;
     List<sanPham> list = new ArrayList<>();
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_GALLERY = 2;
 
     SQLServerConnection db = new SQLServerConnection();
     @Override
@@ -127,6 +126,7 @@ public class SanPhamActivity extends AppCompatActivity {
                 sanPham.setSupplier_id(listIDNhaCC.get(0));
             }
         });
+
 
 
         // Them thong tin san pham, an nut Them de them SP vao database

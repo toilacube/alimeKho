@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "117971458944",
+    "project_id": "alimekho",
+    "storage_bucket": "alimekho.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117971458944:android:98d8244fe292c1390b3f65",
+        "android_client_info": {
+          "package_name": "com.example.alimekho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117971458944-n2cv1v3hi0l414dd55n5nk38uva7ena4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW55DngWn25-jUFtw2tSHAs6fLumOlvLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117971458944-n2cv1v3hi0l414dd55n5nk38uva7ena4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

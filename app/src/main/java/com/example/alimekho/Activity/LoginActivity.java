@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
         edtUserName = findViewById(R.id.edtUserName);
         edtPass = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnDangNhap);
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
