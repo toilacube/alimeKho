@@ -62,12 +62,12 @@ public class ViTriSPAdapter extends RecyclerView.Adapter<ViTriSPAdapter.ViTriSPV
             e.printStackTrace();
         }
 
-        holder.imvDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        holder.imvDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
     }
 
@@ -91,7 +91,7 @@ public class ViTriSPAdapter extends RecyclerView.Adapter<ViTriSPAdapter.ViTriSPV
             txvName = itemView.findViewById(R.id.txvTenSP);
             txvQuantity = itemView.findViewById(R.id.txvQuantity);
             txvLocation = itemView.findViewById(R.id.txvLocation);
-            imvDelete = itemView.findViewById(R.id.imvDelete);
+          //  imvDelete = itemView.findViewById(R.id.imvDelete);
 
         }
     }
