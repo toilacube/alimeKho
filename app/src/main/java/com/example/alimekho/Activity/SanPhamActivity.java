@@ -1,11 +1,10 @@
 package com.example.alimekho.Activity;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,7 +60,7 @@ public class SanPhamActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogThemSP();
+                showDialogThemSP(view);
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -74,16 +73,16 @@ public class SanPhamActivity extends AppCompatActivity {
     }
 
 
-    private void showDialogThemSP() {
+    private void showDialogThemSP(View view) {
        sanPham sanPham = new sanPham();
 
-        Dialog dialogView = new Dialog(this, android.R.style.Theme_Material_Light_Dialog_Presentation);
-        dialogView.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogView.setContentView(R.layout.dialog_them_san_pham);
+        AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+        View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                .inflate(R.layout.dialog_them_san_pham,null);
+        AlertDialog dialog = builder.create();
 
         // Khai bao cac thanh phan trong dialog
         EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
-                edtDonGia = dialogView.findViewById(R.id.edtDonGia),
                 edtDonViTinh = dialogView.findViewById(R.id.edtDonViTinh);
         Spinner spLoaiSP = (Spinner) dialogView.findViewById(R.id.spLoaiSP),
                 spNhaCC = (Spinner) dialogView.findViewById(R.id.spNhaCC);
@@ -172,11 +171,12 @@ public class SanPhamActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogView.dismiss();
+                dialog.dismiss();
             }
         });
 
-        dialogView.show();
+        dialog.setView(dialogView);
+        dialog.show();
     }
 
     private ArrayList<String> getLoaiSP() {

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ public class DetailAreaAdapter extends RecyclerView.Adapter<DetailAreaAdapter.De
 
     Context context;
     ArrayList <loSanPham> listLoSP = new ArrayList<>();
+    boolean isSelectedAll = false;
+    ArrayList<loSanPham> listChecked = new ArrayList<>();
 
     public DetailAreaAdapter(Context context, ArrayList<loSanPham> listLoSP) {
         this.context = context;
@@ -41,8 +45,23 @@ public class DetailAreaAdapter extends RecyclerView.Adapter<DetailAreaAdapter.De
         holder.txvID.setText(sp.getMaSP());
         holder.txvSupplier.setText(sp.getSupplier_id());
         holder.txvQuantity.setText(Integer.toString(loSP.getsLTon()));
-    }
+        holder.checkBox.setChecked(isSelectedAll);
 
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()) listChecked.add(loSP);
+                else listChecked.remove(loSP);
+            }
+        });
+    }
+    public void setCheckAll(boolean is_checked){
+        isSelectedAll = is_checked;
+        notifyDataSetChanged();
+    }
+    public ArrayList<loSanPham> getSelectedLo(){
+        return listChecked;
+    }
     @Override
     public int getItemCount() {
         if(listLoSP != null) return listLoSP.size();
@@ -51,12 +70,14 @@ public class DetailAreaAdapter extends RecyclerView.Adapter<DetailAreaAdapter.De
 
     public class DetailAreaViewHolder extends RecyclerView.ViewHolder {
         TextView txvID, txvName, txvSupplier, txvQuantity;
+        CheckBox checkBox;
         public DetailAreaViewHolder(@NonNull View itemView) {
             super(itemView);
             txvID = itemView.findViewById(R.id.txvID);
             txvName = itemView.findViewById(R.id.txvName);
             txvSupplier = itemView.findViewById(R.id.txvNhaCC);
             txvQuantity = itemView.findViewById(R.id.txvQuantity);
+            checkBox = itemView.findViewById(R.id.cbAll);
         }
     }
 }

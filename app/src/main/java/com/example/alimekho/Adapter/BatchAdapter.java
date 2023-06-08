@@ -101,6 +101,9 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.BatchViewHol
         });
     }
 
+    public ArrayList<loSanPham> getSelectedLo(){
+        return listChecked;
+    }
     @Override
     public int getItemCount() {
         return loSanPhams == null ? 0 : loSanPhams.size();
@@ -123,6 +126,9 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.BatchViewHol
             linearLayout = itemView.findViewById(R.id.custompnk_ln);
             checkBox = itemView.findViewById(R.id.checkbox);
         }
+    }
+    public void setList(ArrayList<loSanPham> l){
+        this.loSanPhams = l;
     }
     public void setFilteredList(ArrayList<loSanPham> filteredList) {
         this.loSanPhams = filteredList;

@@ -1,14 +1,16 @@
 package com.example.alimekho.Activity;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.example.alimekho.Adapter.EmployeeAdapter;
 import com.example.alimekho.DataBase.SQLServerConnection;
@@ -27,12 +29,14 @@ public class EmployeeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EmployeeAdapter employeeAdapter;
+    private Button btnAddEmp;
     private Button btnBackEmployee;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
+        btnAddEmp = findViewById(R.id.btn_add_employee);
         btnBackEmployee=findViewById(R.id.btn_back_employee);
         recyclerView=findViewById(R.id.rv_employee);
         employeeAdapter=new EmployeeAdapter(this);
@@ -42,6 +46,18 @@ public class EmployeeActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(itemDecoration);
         employeeAdapter.setData(getListEmployee());
         recyclerView.setAdapter(employeeAdapter);
+
+        btnAddEmp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                        .inflate(R.layout.dialog_them_nhanvien,null);
+                AlertDialog dialog = builder.create();
+                dialog.setView(dialogView);
+                dialog.show();
+            }
+        });
 
         btnBackEmployee.setOnClickListener(new View.OnClickListener() {
             @Override

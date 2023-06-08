@@ -38,10 +38,11 @@
         android:layout_width="40dp"
         android:layout_height="20dp"
         app:srcCompat="@drawable/img_xoa" />
+
     <ImageView
         android:id="@+id/img_update"
         android:layout_width="40dp"
         android:layout_height="20dp"
-        app:srcCompat="@drawable/img_cap_nhat" />
+        app:srcCompat="@drawable/ic_update" />
 
 </LinearLayout>

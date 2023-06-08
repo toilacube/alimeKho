@@ -91,7 +91,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
                         String id = employee.getId();
                         try {
                             Statement stm = db.getConnection().createStatement();
-                            String deleteQuery = "Delete from employee where id = " + id;
+                            String deleteQuery = "update employee set is_deleted = 1 where id = " + id;
                             stm.executeQuery(deleteQuery);
                             dialog.dismiss();
                         } catch (SQLException e) {
@@ -100,7 +100,18 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
                     }
                 });
 
+                dialog.show();
+            }
+        });
 
+        holder.update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                        .inflate(R.layout.dialog_sua_nhanvien,null);
+                AlertDialog dialog = builder.create();
+                dialog.setView(dialogView);
                 dialog.show();
             }
         });

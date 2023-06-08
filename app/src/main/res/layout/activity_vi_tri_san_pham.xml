@@ -77,7 +77,7 @@
             android:background="@color/gray_img"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:weightSum="8"
+            android:weightSum="7"
             >
             <TextView
                 android:layout_width="0dp"
@@ -113,20 +113,12 @@
                 android:layout_weight="2"
                 android:gravity="center"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Tùy chọn"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvViTriSP"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

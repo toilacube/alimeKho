@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/txvSua"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="Thêm thông tin nhân viên"
+        android:textSize="30dp"
+        android:background="@color/main_color"
+        android:textColor="@color/white"
+        android:gravity="center_vertical"
+        android:padding="15dp"
+        />
+    <LinearLayout
+        android:id="@+id/llUpdatet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:weightSum="8"
+        android:gravity="center|top"
+        android:layout_below="@id/txvSua"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_weight="2"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Tên nhân viên: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Ngày sinh: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="CCCD/CMND: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="SDT: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Chức vụ: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Địa chỉ: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_weight="6"
+            >
+            <EditText
+                android:id="@+id/edtTenSP"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp"/>
+            <EditText
+                android:id="@+id/edtDonGia"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp" />
+
+            <EditText
+                android:id="@+id/spLoaiSP"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp"/>
+            <EditText
+                android:id="@+id/edtDonVi"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp"/>
+
+            <Spinner
+                android:id="@+id/spNhaCC"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/llUpdatet"
+        >
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Thêm"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"/>
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Hủy"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"/>
+
+    </LinearLayout>
+</RelativeLayout>
