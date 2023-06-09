@@ -1,12 +1,13 @@
 package com.example.alimekho.Adapter;
 
-import android.app.Dialog;
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,7 +22,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Activity.DetailSanPham;
-import com.example.alimekho.Activity.SanPhamActivity;
 import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
@@ -188,7 +188,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
                             stm.executeUpdate(updateSP);
                         } catch (SQLException e) {
-                            throw new RuntimeException(e);
+                            Log.e(TAG, e.toString());
                         }
 
                         sanPhamList.set(holder.getAdapterPosition(), sanPham);
@@ -245,8 +245,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                             PreparedStatement stm = db.getConnection().prepareStatement(deleteQuery);
                             stm.setString(1, id);
                             stm.executeQuery();
-                            notifyDataSetChanged();
                             dialog.dismiss();
+                            notifyDataSetChanged();
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }

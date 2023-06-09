@@ -16,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
+        <activity android:name=".Activity.CTPKKActivity"/>
+        <activity android:name=".Activity.CreatePKKActivity"/>
         <activity
             android:name=".Activity.AddBatchToLocatonActivity"
             android:exported="false" />
