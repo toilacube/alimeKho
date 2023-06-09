@@ -8,11 +8,12 @@
         android:id="@+id/txvSua"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="Thêm thông tin nhân viên"
-        android:textSize="30dp"
+        android:text="THÊM THÔNG TIN NHÂN VIÊN"
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:background="@color/main_color"
         android:textColor="@color/white"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:padding="15dp"
         />
     <LinearLayout
@@ -119,6 +120,12 @@
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
 
+            <EditText
+                android:id="@+id/edtAddr"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp"/>
 
         </LinearLayout>
 

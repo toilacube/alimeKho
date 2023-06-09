@@ -38,7 +38,7 @@
                 android:textColor="@color/gray_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Thông tin san pham" />
+                android:text="Thông tin sản phẩm" />
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -49,6 +49,7 @@
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
                    android:orientation="vertical"
+                   android:layout_margin="20dp"
                    android:layout_weight="1"
                    >
                    <TextView
@@ -87,6 +88,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="20dp"
                 android:layout_weight="3">
                 <TextView
                     android:id="@+id/txvMaSP"
@@ -129,6 +131,7 @@
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
                    android:layout_weight="2"
+                   android:layout_margin="30dp"
                    android:orientation="vertical"
                    android:gravity="center"
                    >

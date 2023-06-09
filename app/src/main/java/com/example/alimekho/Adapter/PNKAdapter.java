@@ -69,7 +69,6 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         phieuNhapKho pnk = listPNK.get(position);
-        if(position % 2 == 0) holder.linearLayout.setBackgroundColor(Color.WHITE);
 
         holder.tvMaPhieu.setText(pnk.getMaPhieu().toString().trim());
         holder.tvNPT.setText(pnk.getTenNV());

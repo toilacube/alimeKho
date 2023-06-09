@@ -14,6 +14,9 @@
         android:text=" Tạo phiếu kiểm kho   "
         android:textColor="@color/main"
         android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         />
@@ -30,9 +33,10 @@
 
         <SearchView
             android:id="@+id/gdcreatePXK1_sv"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:layout_marginRight="30dp"
             android:background="#F2F2F2" />
 
         <TextView
@@ -53,6 +57,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
+        android:background="#CEEDE9EB"
         android:layout_below="@id/gdcreatePXK1_ln3"
         android:orientation="horizontal"
         android:weightSum="16.5">

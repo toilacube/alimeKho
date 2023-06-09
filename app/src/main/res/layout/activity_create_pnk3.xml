@@ -14,6 +14,9 @@
         android:text=" Tạo phiếu nhập kho   "
         android:textColor="@color/main"
         android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         />
@@ -95,6 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="13dp">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -105,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Thông tin phiếu nhập kho"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:textColor="@color/black"
                     android:id="@+id/gdcreatePNK3_txt1"
                     android:layout_centerHorizontal="true"

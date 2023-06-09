@@ -104,7 +104,6 @@ public class SuperMarketAdapter extends RecyclerView.Adapter<SuperMarketAdapter.
     @Override
     public void onBindViewHolder(@NonNull SuperMarketAdapter.ViewHolder holder, int position) {
         cuaHangXuat item = listCHX.get(position);
-        if(position % 2 == 0) holder.linearLayout.setBackgroundColor(Color.WHITE);
         holder.ma.setText(item.getMaCHX());
         holder.ten.setText(item.getTenCHX());
         holder.diachi.setText(item.getDiaChi());

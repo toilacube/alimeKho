@@ -62,7 +62,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img_avatar" />
+                app:srcCompat="@drawable/img_profile" />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <SearchView
             android:layout_width="match_parent"
@@ -74,7 +74,7 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@color/gray_img"
+            android:background="#CEEDE9EB"
             android:layout_width="match_parent"
             android:layout_height="40dp">
             <TextView
@@ -82,25 +82,30 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
                 android:text="Mã NV" />
             <TextView
                 android:textStyle="bold"
-                android:layout_width="180dp"
+                android:layout_width="220dp"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Tên nhân viên" />
             <TextView
                 android:textStyle="bold"
                 android:layout_width="170dp"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Chức vụ" />
             <TextView
                 android:textStyle="bold"
-                android:layout_width="100dp"
+                android:layout_width="170dp"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Ngày sinh" />
             <TextView
                 android:textStyle="bold"
-                android:layout_width="100dp"
+                android:layout_width="180dp"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Số điện thoại" />
 
@@ -109,8 +114,7 @@
             android:id="@+id/rv_employee"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+            android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
     <Button

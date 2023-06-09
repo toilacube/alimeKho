@@ -19,6 +19,9 @@
         <activity android:name=".Activity.CTPKKActivity"/>
         <activity android:name=".Activity.CreatePKKActivity"/>
         <activity
+            android:name=".Activity.ThongKeActivity"
+            android:exported="true" />
+        <activity
             android:name=".Activity.AddBatchToLocatonActivity"
             android:exported="false" />
         <activity android:name=".Activity.QLPKKActivity" />
@@ -30,7 +33,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.ViTriSanPhamActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Activity.CTPNKActivity"
             android:exported="true" />
