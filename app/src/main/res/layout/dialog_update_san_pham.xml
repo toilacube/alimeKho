@@ -7,13 +7,15 @@
 <TextView
     android:id="@+id/txvSua"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="80dp"
+    android:padding="15dp"
+    android:textSize="20dp"
+    android:textAllCaps="true"
     android:text="Sửa thông tin sản phẩm"
-    android:textSize="30dp"
     android:background="@color/main_color"
     android:textColor="@color/white"
-    android:gravity="center_vertical"
-    android:padding="15dp"
+
     />
 <LinearLayout
     android:id="@+id/llUpdatet"

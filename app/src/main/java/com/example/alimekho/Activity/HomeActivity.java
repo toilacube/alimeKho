@@ -13,7 +13,7 @@ import com.example.alimekho.R;
 
 public class HomeActivity extends AppCompatActivity {
     CardView cvSanPham, cvNhapKho, cvXuatKho, cvNhanVien,cvBatch, cvOutLocation, cvKiemKho, cvNhaCC
-            , cvViTri;
+            , cvViTri, cvThongKe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         cvNhapKho = findViewById(R.id.cv_nhap_kho);
         cvXuatKho = findViewById(R.id.cv_xuat_kho);
         cvViTri = findViewById(R.id.cv_khu_vuc_kho);
-
+        cvThongKe = findViewById(R.id.cv_thong_ke);
         toActivity();
     }
 
@@ -37,6 +37,13 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SupplierActivity.class);
+                startActivity(intent);
+            }
+        });
+        cvThongKe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ThongKeActivity.class);
                 startActivity(intent);
             }
         });

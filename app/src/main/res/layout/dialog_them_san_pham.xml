@@ -12,11 +12,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/main_color"
-        android:gravity="center_vertical"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textStyle="bold"
         android:padding="15dp"
         android:text="Thêm sản phẩm"
         android:textColor="@color/white"
-        android:textSize="30dp" />
+        android:textSize="20dp" />
 
     <LinearLayout
         android:id="@+id/llUpdatet"

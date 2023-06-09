@@ -30,6 +30,9 @@
                     android:text=" Danh sách lô sản phẩm"
                     android:textColor="@color/main"
                     android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="20dp"
-                    android:text="Trần Nhung"
+                    android:text=""
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_back"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -49,26 +52,26 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="12dp"
-                    android:src="@drawable/img_avatar"
+                    android:src="@drawable/img_profile"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_tenUser"
                     app:layout_constraintRight_toLeftOf="@+id/tv_tenUser"
                     app:layout_constraintTop_toTopOf="@+id/tv_tenUser" />
 
                 <ImageView
                     android:id="@+id/icon_noti"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="28dp"
-                    android:src="@drawable/icon_noti"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/img_notify"
                     app:layout_constraintBottom_toBottomOf="@+id/img_avatar"
                     app:layout_constraintRight_toLeftOf="@+id/img_avatar"
                     app:layout_constraintTop_toTopOf="@+id/img_avatar" />
 
                 <ImageView
                     android:id="@+id/icon_kobiet"
-                    android:layout_width="20dp"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="20dp"
                     android:src="@drawable/icon_kobiet"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_noti"
                     app:layout_constraintRight_toLeftOf="@+id/icon_noti"
@@ -224,7 +227,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/gray_img"
+                android:background="#CEEDE9EB"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_marginHorizontal="52dp"

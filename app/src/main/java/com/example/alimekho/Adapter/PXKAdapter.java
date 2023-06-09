@@ -87,7 +87,6 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         phieuXuatKho pxk = listPXK.get(position);
-        if(position % 2 == 0) holder.linearLayout.setBackgroundColor(Color.WHITE);
         holder.linearLayout.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, CTPXKActivity.class);
             HashMap<String, String> pxkMap = new HashMap<>();
