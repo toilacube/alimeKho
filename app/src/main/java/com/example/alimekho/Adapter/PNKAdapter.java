@@ -110,6 +110,7 @@ public class PNKAdapter extends RecyclerView.Adapter<PNKAdapter.ViewHolder> {
                 String delete = "UPDATE input_form\n" +
                         "SET is_deleted = 1 \n" +
                         "WHERE id = ?";
+                delete = "exec pro_xoa_pnk @maPNK = ?";
                 PreparedStatement stm = conn.prepareStatement(delete);
                 stm.setInt(1, Integer.parseInt(pnk.getMaPhieu()));
                 int rs = stm.executeUpdate();

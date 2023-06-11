@@ -105,6 +105,7 @@ public class PNK1Adapter extends RecyclerView.Adapter<PNK1Adapter.PNK1ViewHolder
                             String delete = "UPDATE batch\n" +
                                     "SET is_deleted = 1\n" +
                                     " WHERE id = ?";
+                            delete = "exec pro_xoa_lo_san_pham @maLo = ?";
                             PreparedStatement stm = conn.prepareStatement(delete);
                             stm.setInt(1, Integer.parseInt(loSanPham.getMaLo()));
                             int rs = stm.executeUpdate();

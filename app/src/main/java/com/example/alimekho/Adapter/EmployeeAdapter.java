@@ -92,7 +92,10 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
                         try {
                             Statement stm = db.getConnection().createStatement();
                             String deleteQuery = "update employee set is_deleted = 1 where id = " + id;
-                            stm.executeQuery(deleteQuery);
+                            deleteQuery = "exec pro_xoa_nhan_vien @ID = " + id;
+                            stm.executeUpdate(deleteQuery);
+                            employeeList.remove(employee);
+                            notifyDataSetChanged();
                             dialog.dismiss();
                         } catch (SQLException e) {
                             e.printStackTrace();

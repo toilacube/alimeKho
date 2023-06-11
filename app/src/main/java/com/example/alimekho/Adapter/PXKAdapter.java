@@ -124,9 +124,7 @@ public class PXKAdapter extends RecyclerView.Adapter<PXKAdapter.ViewHolder> {
             Connection conn = db.getConnection();
             try {
                 Statement stm = conn.createStatement();
-                stm.executeUpdate("update output_form\n" +
-                        "set is_deleted = 1\n" +
-                        "where id = " + pxk.getMaPhieu());
+                stm.executeUpdate("exec pro_xoa_pxk @formId = " + pxk.getMaPhieu());
                 stm.close();
                 conn.close();
             } catch (SQLException e) {

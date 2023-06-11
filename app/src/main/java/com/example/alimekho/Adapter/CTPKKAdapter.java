@@ -104,8 +104,8 @@ public class CTPKKAdapter extends RecyclerView.Adapter<CTPKKAdapter.ViewHolder>{
             Connection conn = db.getConnection();
             try {
                 Statement stm = conn.createStatement();
-                stm.executeUpdate( "delete from detail_check where batch_id = " + ctpkk.getLo().getMaLo() +
-                        "and form_id = " + ctpkk.getMaPhieu());
+                stm.executeUpdate( "exec pro_xoa_chi_tiet_pkk @batchId = " + ctpkk.getLo().getMaLo() +
+                        "and @formId = " + ctpkk.getMaPhieu());
 
                 stm.close();
                 conn.close();

@@ -78,6 +78,7 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.BatchViewHol
                             String delete = "UPDATE batch\n" +
                                     "SET is_deleted = 1\n" +
                                     " WHERE id = ?";
+                            delete = "exec pro_xoa_lo @maLo = ?";
                             PreparedStatement stm = conn.prepareStatement(delete);
                             stm.setInt(1, Integer.parseInt(loSanPham.getMaLo()));
                             int rs = stm.executeUpdate();
@@ -147,6 +148,7 @@ public class BatchAdapter extends RecyclerView.Adapter<BatchAdapter.BatchViewHol
                 String delete = "UPDATE batch\n" +
                         "SET is_deleted = 1\n" +
                         " WHERE id = ?";
+                delete = "exec pro_xoa_lo @maLo = ?";
                 PreparedStatement stm = conn.prepareStatement(delete);
                 stm.setInt(1, Integer.parseInt(loSanPham.getMaLo()));
                 int rs = stm.executeUpdate();

@@ -56,9 +56,7 @@ public class PKKAdapter extends RecyclerView.Adapter<PKKAdapter.ViewHolder>{
             Connection conn = db.getConnection();
             try {
                 Statement stm = conn.createStatement();
-                stm.executeUpdate("update [check_form]\n" +
-                        "set is_deleted = 1\n" +
-                        "where id = " + pkk.getMaPhieu());
+                stm.executeUpdate("exec pro_xoa_pkk @formId = " + pkk.getMaPhieu());
                 stm.close();
                 conn.close();
             } catch (SQLException e) {

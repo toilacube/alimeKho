@@ -75,6 +75,7 @@ public class PXK2Adapter extends RecyclerView.Adapter<PXK2Adapter.PXK2ViewHolder
                         Connection conn = db.getConnection();
                         try {
                             String delete = "DELETE FROM store WHERE id = ?";
+                            delete = "exec pro_xoa_dia_diem_xuat @SupermarketId = ?";
                             PreparedStatement stm = conn.prepareStatement(delete);
                             stm.setInt(1, Integer.parseInt(cuaHangXuat.getMaCHX()));
                             int rs = stm.executeUpdate();

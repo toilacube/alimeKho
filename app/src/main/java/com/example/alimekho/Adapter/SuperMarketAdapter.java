@@ -55,9 +55,7 @@ public class SuperMarketAdapter extends RecyclerView.Adapter<SuperMarketAdapter.
             Connection conn = db.getConnection();
             try {
                 Statement stm = conn.createStatement();
-                stm.executeUpdate("update supermarket\n" +
-                        "set is_deleted = 1\n" +
-                        "where id = " + chx.getMaCHX());
+                stm.executeUpdate("exec pro_xoa_dia_diem_xuat @SupermarketId = " + chx.getMaCHX());
                 stm.close();
                 conn.close();
             } catch (SQLException e) {

@@ -65,7 +65,7 @@ public class PNK2Adapter extends Adapter<PNK2Adapter.PNK2ViewHolder>{
             @Override
             public boolean onLongClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Xóa sản phẩm");
+                builder.setTitle("Xóa nhà cung cấp");
                 builder.setMessage("Bạn có đồng ý xóa không?");
                 builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                     @Override
@@ -79,6 +79,7 @@ public class PNK2Adapter extends Adapter<PNK2Adapter.PNK2ViewHolder>{
                             String delete = "UPDATE supplier\n" +
                                     "SET is_deleted = 1\n" +
                                     " WHERE id = ?";
+                            delete = "exec pro_xoa_nha_cung_cap @maNCC = ?";
                             PreparedStatement stm = conn.prepareStatement(delete);
                             stm.setInt(1, Integer.parseInt(nhaCungCap.getMaNCC()));
                             int rs = stm.executeUpdate();

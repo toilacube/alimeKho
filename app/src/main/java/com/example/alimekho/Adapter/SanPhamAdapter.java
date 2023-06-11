@@ -242,9 +242,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                         String id = sanPham.getMaSP();
                         try {
                             String deleteQuery = "update product set is_deleted = 1 where id = ?";
+                            deleteQuery = "exec pro_xoa_san_pham @id = ?";
                             PreparedStatement stm = db.getConnection().prepareStatement(deleteQuery);
                             stm.setString(1, id);
-                            stm.executeQuery();
+                            stm.executeUpdate();
                             dialog.dismiss();
                             notifyDataSetChanged();
                         } catch (SQLException e) {

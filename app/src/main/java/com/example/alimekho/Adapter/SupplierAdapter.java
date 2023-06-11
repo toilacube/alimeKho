@@ -76,6 +76,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.Suppli
                             String delete = "UPDATE supplier\n" +
                                     "SET is_deleted = 1\n" +
                                     " WHERE id = ?";
+                            delete = "exec pro_xoa_nha_cung_cap @maNCC = ?";
                             PreparedStatement stm = conn.prepareStatement(delete);
                             stm.setInt(1, Integer.parseInt(nhaCungCap.getMaNCC()));
                             int rs = stm.executeUpdate();
@@ -135,6 +136,7 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.Suppli
                 String delete = "UPDATE supplier\n" +
                         "SET is_deleted = 1\n" +
                         " WHERE id = ?";
+                delete = "exec pro_xoa_nha_cung_cap @maNCC = ?";
                 PreparedStatement stm = conn.prepareStatement(delete);
                 stm.setInt(1, Integer.parseInt(nhaCungCap.getMaNCC()));
                 int rs = stm.executeUpdate();

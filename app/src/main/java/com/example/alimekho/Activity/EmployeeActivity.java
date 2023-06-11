@@ -74,7 +74,7 @@ public class EmployeeActivity extends AppCompatActivity {
         SQLServerConnection db = new SQLServerConnection();
         try {
             Statement stm = db.getConnection().createStatement();
-            String query = "select * from employee";
+            String query = "select * from employee where is_deleted < 1";
             ResultSet rs = stm.executeQuery(query);
             while(rs.next()){
                 Employee emp = new Employee();
