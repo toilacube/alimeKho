@@ -180,6 +180,9 @@ public class QLPNKActivity extends AppCompatActivity {
                                     "\nset emp_id = " + npt +
                                     ", input_day = " + "'" + ngaynhapkho.getText() + "'" +
                                     "\n where id = " + pcs;
+                            Query = "exec pro_sua_pnk @maPNK = " + pcs
+                                    + ", @maNVPT = " + npt +
+                                    ", @input_day = " + ngaynhapkho.getText();
                             stm.executeUpdate(Query);
                             Toast.makeText(QLPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();

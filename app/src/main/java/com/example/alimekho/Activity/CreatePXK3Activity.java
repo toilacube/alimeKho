@@ -72,6 +72,8 @@ public class CreatePXK3Activity extends AppCompatActivity {
                                     " , " + sharedPref.getString("id", "") +
                                     " , "+ getIntent().getExtras().getString("maCHX") +
                                     " , 0)";
+                    Query = "exec pro_them_pxk @empId = " + sharedPref.getString("id", "") +
+                            ", @supermarketId = " + getIntent().getExtras().getString("maCHX");
                     stm.executeUpdate(Query);
 
                     for (CTPXK ct : ctpxks){

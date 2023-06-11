@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:columnCount="3"
+            android:layout_gravity="center"
             app:rowCount="4">
 
             <androidx.cardview.widget.CardView
@@ -110,8 +111,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_nhap_kho"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="20dp"
                 app:layout_column="1"
@@ -120,8 +121,8 @@
                 app:layout_rowWeight="1">
 
                 <LinearLayout
-                    android:layout_width="198dp"
-                    android:layout_height="86dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="horizontal">
@@ -145,7 +146,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_xuat_kho"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="20dp"
@@ -316,8 +317,8 @@
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_nhan_vien"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="20dp"
                 app:layout_column="0"
@@ -345,14 +346,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="Nhân viên" />
+                        android:text="Nhân viên kho" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_khu_vuc_kho"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="20dp"
                 app:layout_column="0"

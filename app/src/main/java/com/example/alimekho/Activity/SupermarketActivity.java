@@ -133,6 +133,10 @@ public class SupermarketActivity extends AppCompatActivity {
                         "name = N'" + txtTenCHX.getText().toString().trim() + "', " +
                         "phone = '" + txtSDT.getText().toString().trim() + "'\n"
                         + "where id = " + spnMa.getSelectedItem().toString();
+                Query = "exec pro_sua_dia_diem_xuat @id = " + spnMa.getSelectedItem().toString() +
+                        ", @name = N'" + txtTenCHX.getText().toString().trim() + "', " +
+                        "@address = N'" + txtdiaChi.getText().toString().trim() +"', " +
+                        "@phone = '" + txtSDT.getText().toString().trim() + "'";
                 stm.executeUpdate(Query);
 
                 Toast.makeText(SupermarketActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
@@ -177,6 +181,9 @@ public class SupermarketActivity extends AppCompatActivity {
                         "N'" + cuaHangXuat.getTenCHX() + "', " +
                         "'" + cuaHangXuat.getSDT() + "'," +
                         "0)";
+                Query = "exec pro_them_dia_diem_xuat @name = N'" + cuaHangXuat.getTenCHX() + "', " +
+                        "@address = N'" + cuaHangXuat.getDiaChi() +"', " +
+                        "@phone = '" + cuaHangXuat.getSDT() + "',";
                 stm.executeUpdate(Query);
                 try {
                     ResultSet rs = stm.executeQuery(" SELECT IDENT_CURRENT('[supermarket]')");

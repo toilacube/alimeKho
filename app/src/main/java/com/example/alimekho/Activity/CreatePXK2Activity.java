@@ -173,6 +173,9 @@ public class CreatePXK2Activity extends AppCompatActivity implements PXK2Adapter
                             "N'" + cuaHangXuat.getTenCHX() + "', " +
                             "'" + cuaHangXuat.getSDT() + "'," +
                             "0)";
+                    Query = "exec pro_them_dia_diem_xuat @name = " + cuaHangXuat.getTenCHX() +
+                            ", @address = " + cuaHangXuat.getSDT() +
+                            ", @phone = " + cuaHangXuat.getSDT();
                     stm.executeUpdate(Query);
                     try {
                         ResultSet rs = stm.executeQuery(" SELECT IDENT_CURRENT('[supermarket]')");

@@ -67,6 +67,7 @@ public class CreatePKKActivity extends AppCompatActivity {
                             "(GETDATE(), " +
                             sharedPref.getString("id", "") +
                             ", 0, 0)";
+                    Query = "exec pro_them_pkk @emp_id = " + sharedPref.getString("id", "");
                     stm.executeUpdate(Query);
                     for (CTPXK ct : sanPhamDuocChon) {
                         String insertQuery = "DECLARE @formID int;\n" +
@@ -77,6 +78,9 @@ public class CreatePKKActivity extends AppCompatActivity {
                                 "@formID, " +
                                 ct.getSoLuong() +
                                 ")";
+                        insertQuery = "DECLARE @formID int;\n" +
+                                "SELECT @formID = IDENT_CURRENT('[check_form]');\n" +
+                                "exec pro_them_chi_tiet_pkk @formId = @formID, @batchId = " +  ct.getLo().getMaLo();
                         stm.executeUpdate(insertQuery);
                     }
                 } catch (SQLException e) {

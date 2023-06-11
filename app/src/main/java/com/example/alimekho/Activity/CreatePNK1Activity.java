@@ -300,12 +300,13 @@ public class CreatePNK1Activity extends AppCompatActivity {
                 loSanPham loSanPham = new loSanPham("",txtNSX.getText().toString().trim(), txtHSD.getText().toString().trim(), sanPham, Double.parseDouble(txtdonGia.getText().toString().trim()));
                 try {
                     String insert = "INSERT INTO batch(NSX, HSD, product_id, unit_price, quantity, not_stored, is_deleted) VALUES(?,?,?,?,?,0,0)";
+                    insert = "exec pro_them_lo @nsx = ?, @hsd = ?, @product_id = ?, @unit_price = ?";
                     PreparedStatement stm = conn.prepareStatement(insert);
                     stm.setString(1, loSanPham.getNSX());
                     stm.setString(2, loSanPham.getHSD());
                     stm.setInt(3, Integer.parseInt(loSanPham.getSanPham().getMaSP()));
                     stm.setDouble(4, loSanPham.getDonGia());
-                    stm.setInt(5, 0);
+                   // stm.setInt(5, 0);
                     int rs = stm.executeUpdate();
                     } catch (SQLException ex) {
                     ex.printStackTrace();

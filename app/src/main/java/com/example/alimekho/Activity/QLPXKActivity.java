@@ -152,6 +152,10 @@ public class QLPXKActivity extends AppCompatActivity {
                                 ", supermarket_id = " + spnCHX.getSelectedItem().toString().split(" - ")[0] +
                                 ", output_day = " + "'" + et.getText() + "'" +
                                 "\n where id = " + spnMaPhieu.getSelectedItem();
+                        Query = "exec pro_sua_pxk @formId = "  + spnMaPhieu.getSelectedItem() +
+                                ", @empId = " +  spnNPT.getSelectedItem().toString().split(" - ")[0] +
+                                ", @outputDay = " + "'" + et.getText() + "'" +
+                                ", @supermarketId = " + spnCHX.getSelectedItem().toString().split(" - ")[0];
                         stm.executeUpdate(Query);
                         stm.close();
                         conn.close();

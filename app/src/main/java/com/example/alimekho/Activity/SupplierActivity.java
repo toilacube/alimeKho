@@ -128,6 +128,7 @@ public class SupplierActivity extends AppCompatActivity {
                             String Update = "UPDATE supplier\n" +
                                     "SET name = ?, phone = ?, address = ?\n" +
                                     "WHERE id = ?";
+                            Update = "exec pro_sua_nha_cung_cap @name = ?, @phone = ?, @address = ?, @maNCC = ?";
                             PreparedStatement stm = conn.prepareStatement(Update);
                             stm.setString(1, txttenNCC.getText().toString().trim());
                             stm.setString(2, txtSDT.getText().toString().trim());
@@ -185,6 +186,7 @@ public class SupplierActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     String insert = "INSERT INTO [supplier] ([name], [address], [phone], [is_deleted]) VALUES(?,?,?,0)";
+                    insert = "exec pro_them_nha_cung_cap @name = ?,@address = ?, @phone = ? ";
                     PreparedStatement stm = conn.prepareStatement(insert);
                     stm.setString(1, txttenNCC.getText().toString().trim());
                     stm.setString(2, txtdiaChi.getText().toString().trim());

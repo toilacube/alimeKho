@@ -20,7 +20,7 @@
             android:layout_marginLeft="10dp"
             android:textSize="20dp"
             android:drawableLeft="@drawable/baseline_arrow_back_ios_24"
-            android:text="Chi tiết phiếu xuất kho"
+            android:text="Chi tiết phiếu kiểm kho"
             android:textColor="@color/main"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:padding="10dp"
-                        android:text="Thông tin phiếu xuất kho"
+                        android:text="Thông tin phiếu kiểm kho"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 

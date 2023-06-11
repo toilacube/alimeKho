@@ -149,16 +149,15 @@ public class AreaActivity extends AppCompatActivity {
                     edtShelve.setError("Vui lòng nhập thông tin");
                 else{
                     try {
-                        String insertQuery = "insert into location (id, zone, shelve, type_id, is_deleted)" +
-                                "values (?, ?, ?, ?, ?)";
+                        String insertQuery = "exec pro_them_vi_tri @id = ?, @zone = ?, @shelve = ?, @type_id = ?;";
                         SQLServerConnection db = new SQLServerConnection();
                         PreparedStatement stm = db.getConnection().prepareStatement(insertQuery);
                         stm.setString(1, edtZone.getText().toString().trim().toUpperCase()
                         + edtShelve.getText().toString().trim().toUpperCase());
                         stm.setString(2, edtZone.getText().toString().trim().toUpperCase());
                         stm.setString(3, edtShelve.getText().toString().trim().toUpperCase());
-                        stm.setString(5, sanPham.getPhanLoai());
-                        stm.setString(7, "0");
+                        stm.setString(4, sanPham.getPhanLoai());
+                        //stm.setString(7, "0");
                         stm.executeUpdate();
                         dialog.dismiss();
                     } catch (SQLException e) {

@@ -138,6 +138,7 @@ public class SanPhamActivity extends AppCompatActivity {
 
                 try {
                     String query = "INSERT INTO product ([name], [unit], [type_id], [supplier_id]) VALUES (?, ?, ?, ?)";
+                    query = "exec pro_them_san_pham @name = ?, @unit = ?, @type_id = ?, @supplier_id = ?";
                     PreparedStatement stm = db.getConnection().prepareStatement(query);
                     stm.setString(1, sanPham.getTenSP());
                     stm.setString(2, sanPham.getDonViTinh());

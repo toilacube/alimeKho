@@ -1,6 +1,9 @@
 package com.example.alimekho.Activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,7 +22,6 @@ import com.example.alimekho.Model.loSanPham;
 import com.example.alimekho.Model.sanPham;
 import com.example.alimekho.R;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,8 +72,7 @@ public class AddBatchToLocatonActivity extends AppCompatActivity {
                 ArrayList <loSanPham> loSanPhams = batchAdapter.getSelectedLo();
                 ArrayList <loSanPham> templist = loSanPhams;
                 for(loSanPham lo: loSanPhams){
-                    String query = "insert into distribute (location_id, batch_id) " +
-                            "values (?, ?)";
+                    String query = "exec pro_them_distribute @location_id = ?, @batch_id = ?;";
                     try {
                         PreparedStatement stm = db.getConnection().prepareStatement(query);
                         stm.setString(1, area.getId());
@@ -79,9 +80,11 @@ public class AddBatchToLocatonActivity extends AppCompatActivity {
                         stm.executeUpdate();
                         Toast.makeText(AddBatchToLocatonActivity.this, "Them thanh cong", Toast.LENGTH_SHORT).show();
                         templist.remove(lo);
+                        batchAdapter.setList(templist);
                         batchAdapter.notifyDataSetChanged();
                     } catch (SQLException e) {
-                        Toast.makeText(AddBatchToLocatonActivity.this, "Xoa khong thanh cong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddBatchToLocatonActivity.this, "Them khong thanh cong", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, e.toString());
                     }
                 }
 

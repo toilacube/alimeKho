@@ -146,6 +146,9 @@ public class CTPKKActivity extends AppCompatActivity {
                                     "\nset actual_quantity = " + sl.getText()
                                     +"\nwhere form_id = " + maPhieu
                                     +"and batch_id = " + maLo;
+                            Query = "exec pro_sua_ctpkk @formId = " + maPhieu +
+                                    ", @batchId = " + maLo +
+                                    ", @actualQuantity = " + sl.getText().toString();
                             stm.executeUpdate(Query);
                             stm.close();
                             conn.close();
@@ -182,6 +185,8 @@ public class CTPKKActivity extends AppCompatActivity {
                         Connection conn = db.getConnection();
                         Statement stm = conn.createStatement();
                         String Query = "update [check_form] set [is_solved] = 0 where [id] = " + maPhieu;
+                        Query = "exec pro_sua_tinh_trang_pkk @form_id = " + maPhieu +
+                                ", @is_solved = " + 0;
                         stm.executeUpdate(Query);
                         Toast.makeText(CTPKKActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         tvTingTrang.setText("Tình trạng: " + "Chưa xử lý");
@@ -200,6 +205,8 @@ public class CTPKKActivity extends AppCompatActivity {
                         Connection conn = db.getConnection();
                         Statement stm = conn.createStatement();
                         String Query = "update [check_form] set [is_solved] = 1 where [id] = " + maPhieu;
+                        Query = "exec pro_sua_tinh_trang_pkk @form_id = " + maPhieu +
+                                ", @is_solved = " + 1;
                         stm.executeUpdate(Query);
                         Toast.makeText(CTPKKActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                         tvTingTrang.setText("Tình trạng: " + "Đã xử lý");
