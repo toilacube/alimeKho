@@ -1,13 +1,7 @@
-`docker run -d -p 6080:6080 -e EMULATOR_DEVICE="Nexus 7" -e WEB_VNC=true --device /dev/kvm --name android-container budtmo/docker-android:emulator_11.0`
 
 # Setup the enviroment for Windows
 
 ## Requirements
-- **OS**	64-bit Microsoft Windows 8
-- **RAM**	8 GB RAM
-- **CPU**	x86_64 CPU architecture; 2nd generation Intel Core or newer, or AMD CPU with support for a Windows
-- **Disk space**	8 GB (IDE and Android SDK and Emulator)
-- **Screen resolution**	1280 x 800
 
 <table>
   <tbody><tr><th>Requirement</th>
