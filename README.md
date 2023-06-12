@@ -9,6 +9,39 @@
 - **Disk space**	8 GB (IDE and Android SDK and Emulator)
 - **Screen resolution**	1280 x 800
 
+<table>
+  <tbody><tr><th>Requirement</th>
+  <th>Minimum</th>
+  <th>Recommended</th>
+  </tr><tr>
+    <td>OS</td>
+    <td>64-bit Microsoft Windows 8</td>
+    <td>Latest 64-bit version of Windows</td>
+  </tr>
+  <tr>
+    <td>RAM</td>
+    <td>8 GB RAM</td>
+    <td>16 GB RAM or more</td>
+  </tr>
+  <tr>
+    <td>CPU</td>
+    <td>x86_64 CPU architecture; 2nd generation Intel Core or newer, or AMD CPU
+    with support for a Windows
+    <a href="/studio/run/emulator-acceleration#vm-windows">Hypervisor Framework</a>.</td>
+    <td>Latest Intel Core processor</td>
+  </tr>
+  <tr>
+    <td>Disk space</td>
+    <td>8 GB (IDE and Android SDK and Emulator)</td>
+    <td>Solid state drive with 16 GB or more</td>
+  </tr>
+  <tr>
+    <td>Screen resolution</td>
+    <td>1280 x 800</td>
+    <td>1920 x 1080</td>
+  </tr>
+</tbody></table>
+
 ## 1. Install Android Studio 
 1. For Windows users, go to [Android Studio Download page](https://developer.android.com/studio) 
 
