@@ -27,13 +27,13 @@ git clone https://github.com/toilacube/alimeKho.git
 
 3. In the **System image** window, choose to download the Release name **R** (Android 11.0) 
 
-<img src="https://github.com/toilacube/alimeKho/assets/95525386/46d90c08-80c7-450e-9e63-b7833ae05aab" width="800" height="600">
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/e42dcb00-afeb-4c47-9e81-deeb25653f66" width="800" height="600">
 
-4. Wait for **R** image being downloaded, then choose **Next > Finish**
+4. Wait for **R** image being downloaded, then choose **Finish > Next > Finish**
 
 5. Select the device you have downloaded 
 
-<img src="https://github.com/toilacube/alimeKho/assets/95525386/f6326add-eb62-4a6f-8342-18d52340d9af" width="800" height="600">
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/418bf51c-4baa-4344-95c0-437efc8fbeea" width="800" height="600">
 
 6. Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
 
