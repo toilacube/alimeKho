@@ -36,7 +36,7 @@
   </tr>
 </tbody></table>
 
-## 1. Install Android Studio 
+## Install Android Studio 
 1. For Windows users, go to [Android Studio Download page](https://developer.android.com/studio) 
 
 2. Extract the `.exe` file and install all the requirements:
@@ -48,7 +48,7 @@ git clone https://github.com/toilacube/alimeKho.git
 ```
 4. Open Android Studio, From the Android Studio Welcome screen, select **Open** and choose the project folder
 
-## 2. Run the project on the emulator
+## Run the project on the emulator
 ### 1. Create virtual devices
 
 1. After opening a project, select **View > Tool Windows > Device Manager** from the main menu bar, and then click **Create device.**
