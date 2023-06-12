@@ -2,10 +2,17 @@
 
 # Setup the enviroment for Windows
 
+## Requirements
+- **OS**	64-bit Microsoft Windows 8
+- **RAM**	8 GB RAM
+- **CPU**	x86_64 CPU architecture; 2nd generation Intel Core or newer, or AMD CPU with support for a Windows
+- **Disk space**	8 GB (IDE and Android SDK and Emulator)
+- **Screen resolution**	1280 x 800
+
 ## 1. Install Android Studio 
 1. For Windows users, go to [Android Studio Download page](https://developer.android.com/studio) 
 
-2. Extract the .exe file and install all the requirements:
+2. Extract the `.exe` file and install all the requirements:
   - Android SDK
   - Virutal device
 3. Clone the project 
