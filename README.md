@@ -22,18 +22,21 @@ git clone https://github.com/toilacube/alimeKho.git
 <img src="https://github.com/toilacube/alimeKho/assets/95525386/c2cf9e66-2a70-4a2c-8e07-18e1867c7bf0" width="800" height="600">
 
 2. In the **Select Hardware window**, find Goole Naxus 9 in the **Tablet** and select **Next** 
-![image](https://github.com/toilacube/alimeKho/assets/95525386/bac84c05-24dc-46b0-aa6e-7a9b0a71ca69)
+
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/bac84c05-24dc-46b0-aa6e-7a9b0a71ca69" width="800" height="600">
 
 3. In the **System image** window, choose to download the Release name **R** (Android 11.0) 
-![image](https://github.com/toilacube/alimeKho/assets/95525386/46d90c08-80c7-450e-9e63-b7833ae05aab)
+
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/46d90c08-80c7-450e-9e63-b7833ae05aab" width="800" height="600">
 
 4. Wait for **R** image beign downloaded, then choose **Next > Finish**
 
 5. Select the device has just been downloaded 
 
-![image](https://github.com/toilacube/alimeKho/assets/95525386/f6326add-eb62-4a6f-8342-18d52340d9af)
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/f6326add-eb62-4a6f-8342-18d52340d9af" width="800" height="600">
 
-Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
+6. Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
+
 
 
 
