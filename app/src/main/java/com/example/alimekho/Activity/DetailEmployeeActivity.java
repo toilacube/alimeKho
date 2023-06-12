@@ -3,12 +3,14 @@ package com.example.alimekho.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alimekho.Model.Employee;
 import com.example.alimekho.R;
@@ -42,6 +44,25 @@ public class DetailEmployeeActivity extends AppCompatActivity {
         identify.setText(employee.getIdentify());
         phone.setText(employee.getPhoneNumber());
 
+        if (getSharedPreferences("user info", Context.MODE_PRIVATE).getInt("role", -1) == 2){
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    View dialogView= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
+                    builder.setView(dialogView);
+                    builder.show();
+                }
+            });
+        } else {
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(DetailEmployeeActivity.this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
         btnBackDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,15 +71,7 @@ public class DetailEmployeeActivity extends AppCompatActivity {
                 finish();
             }
         });
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
-                builder.setView(dialogView);
-                builder.show();
-            }
-        });
+
 
     }
 }

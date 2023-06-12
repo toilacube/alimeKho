@@ -105,77 +105,86 @@ public class CTPNKActivity extends AppCompatActivity {
             }
         });
 
-        //del btn
+        //them, sua
         Button delbtn = findViewById(R.id.btn_xoa);
-        delbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                adapter.deleteCheckedItems();
-            }
-        });
-
-        //edit btn
         Button editbtn = findViewById(R.id.btn_sua);
-        editbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog dialog = new Dialog(CTPNKActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.edit_ctpnk);
-                Window window = dialog.getWindow();
-                if (window == null) return;
-                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                Spinner spinner = dialog.findViewById(R.id.spinnersp);
-                EditText sl = dialog.findViewById(R.id.sl);
-                ArrayList<String> products = getListSP(phieuNhapKho);
-                ArrayList<String> productss = getmaSP(phieuNhapKho);
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        product = productss.get(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(CTPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, products);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adapter);
-                CardView cancel = dialog.findViewById(R.id.huy);
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-                CardView confirm = dialog.findViewById(R.id.xacnhan);
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try {
-                            Statement stm = conn.createStatement();
-                            String Query = "update detail_input" +
-                                    "\nset quantity = " + sl.getText()
-                                    +"\nwhere form_id = " + phieuNhapKho.getMaPhieu()
-                                    +"and batch_id = " + product;
-                            stm.executeUpdate(Query);
-                            Toast.makeText(CTPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            recreate();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            Toast.makeText(CTPNKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", -1) == 1) {
+            delbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    adapter.deleteCheckedItems();
+                }
+            });
+            editbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Dialog dialog = new Dialog(CTPNKActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.edit_ctpnk);
+                    Window window = dialog.getWindow();
+                    if (window == null) return;
+                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    Spinner spinner = dialog.findViewById(R.id.spinnersp);
+                    EditText sl = dialog.findViewById(R.id.sl);
+                    ArrayList<String> products = getListSP(phieuNhapKho);
+                    ArrayList<String> productss = getmaSP(phieuNhapKho);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            product = productss.get(position);
                         }
-                    }
-                });
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(CTPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, products);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    CardView cancel = dialog.findViewById(R.id.huy);
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    CardView confirm = dialog.findViewById(R.id.xacnhan);
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                Statement stm = conn.createStatement();
+                                String Query = "update detail_input" +
+                                        "\nset quantity = " + sl.getText()
+                                        +"\nwhere form_id = " + phieuNhapKho.getMaPhieu()
+                                        +"and batch_id = " + product;
+                                stm.executeUpdate(Query);
+                                Toast.makeText(CTPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                recreate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                Toast.makeText(CTPNKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
 
 
-                dialog.show();
-            }
-        });
+                    dialog.show();
+                }
+            });
+        } else {
+            delbtn.setOnClickListener(view -> {
+                Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+            });
+            editbtn.setOnClickListener(view -> {
+                Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+            });
+        }
+
     }
     public ArrayList<String> getListSP(phieuNhapKho phieuNhapKho){
         ArrayList<String> l = new ArrayList<>();

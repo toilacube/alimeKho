@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -47,17 +48,23 @@ public class EmployeeActivity extends AppCompatActivity {
         employeeAdapter.setData(getListEmployee());
         recyclerView.setAdapter(employeeAdapter);
 
-        btnAddEmp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView= LayoutInflater.from(view.getRootView().getContext())
-                        .inflate(R.layout.dialog_them_nhanvien,null);
-                AlertDialog dialog = builder.create();
-                dialog.setView(dialogView);
-                dialog.show();
-            }
-        });
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", -1) == 2) {
+            btnAddEmp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                            .inflate(R.layout.dialog_them_nhanvien,null);
+                    AlertDialog dialog = builder.create();
+                    dialog.setView(dialogView);
+                    dialog.show();
+                }
+            });
+        } else {
+            btnAddEmp.setOnClickListener(view -> Toast.makeText(EmployeeActivity.this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            btnAddEmp.setOnClickListener(view -> Toast.makeText(EmployeeActivity.this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            btnAddEmp.setOnClickListener(view -> Toast.makeText(EmployeeActivity.this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
 
         btnBackEmployee.setOnClickListener(new View.OnClickListener() {
             @Override

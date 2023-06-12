@@ -60,7 +60,8 @@
         android:background="#CEEDE9EB"
         android:layout_below="@id/gdcreatePXK1_ln3"
         android:orientation="horizontal"
-        android:weightSum="16.5">
+        android:weightSum="16.5"
+        android:paddingVertical="12dp">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"

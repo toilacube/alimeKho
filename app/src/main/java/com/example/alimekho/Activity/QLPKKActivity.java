@@ -85,9 +85,16 @@ public class QLPKKActivity extends AppCompatActivity {
         });
 
         backBtn.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
-        addBtn.setOnClickListener(view -> startActivity(new Intent(this, CreatePKKActivity.class)));
-        delBtn.setOnClickListener(view -> adapter.deleteCheckedItems());
-        editBtn.setOnClickListener(view -> showEditDialog());
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", -1) == 2) {
+            addBtn.setOnClickListener(view -> startActivity(new Intent(this, CreatePKKActivity.class)));
+            delBtn.setOnClickListener(view -> adapter.deleteCheckedItems());
+            editBtn.setOnClickListener(view -> showEditDialog());
+        } else {
+            addBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            delBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            editBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
+
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

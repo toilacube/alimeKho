@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -67,57 +68,74 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
                 goToDetailEmployee(employee);
             }
         });
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                AlertDialog dialog = builder.create();
-                View dialogDelete= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
-                dialog.setView(dialogDelete);
+        if (context.getSharedPreferences("user info", Context.MODE_PRIVATE).getInt("role", -1) == 2) {
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    AlertDialog dialog = builder.create();
+                    View dialogDelete= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
+                    dialog.setView(dialogDelete);
 
-                Button btnHuy = dialogDelete.findViewById(R.id.btn_huy),
-                        btnDelete = dialogDelete.findViewById(R.id.btn_delete);
+                    Button btnHuy = dialogDelete.findViewById(R.id.btn_huy),
+                            btnDelete = dialogDelete.findViewById(R.id.btn_delete);
 
-                btnHuy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                btnDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String id = employee.getId();
-                        try {
-                            Statement stm = db.getConnection().createStatement();
-                            String deleteQuery = "update employee set is_deleted = 1 where id = " + id;
-                            deleteQuery = "exec pro_xoa_nhan_vien @ID = " + id;
-                            stm.executeUpdate(deleteQuery);
-                            employeeList.remove(employee);
-                            notifyDataSetChanged();
+                    btnHuy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             dialog.dismiss();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
 
-                dialog.show();
-            }
-        });
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String id = employee.getId();
+                            try {
+                                Statement stm = db.getConnection().createStatement();
+                                String deleteQuery = "update employee set is_deleted = 1 where id = " + id;
+                                deleteQuery = "exec pro_xoa_nhan_vien @ID = " + id;
+                                stm.executeUpdate(deleteQuery);
+                                employeeList.remove(employee);
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
-        holder.update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView= LayoutInflater.from(view.getRootView().getContext())
-                        .inflate(R.layout.dialog_sua_nhanvien,null);
-                AlertDialog dialog = builder.create();
-                dialog.setView(dialogView);
-                dialog.show();
-            }
-        });
+                    dialog.show();
+                }
+            });
+            holder.update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                            .inflate(R.layout.dialog_sua_nhanvien,null);
+                    AlertDialog dialog = builder.create();
+                    dialog.setView(dialogView);
+                    dialog.show();
+                }
+            });
+        } else {
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+                }
+            });
+            holder.update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+
     }
     private void goToDetailEmployee(Employee employee) {
         Intent intent = new Intent(context, DetailEmployeeActivity.class);

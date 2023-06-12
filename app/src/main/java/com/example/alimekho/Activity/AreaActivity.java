@@ -35,7 +35,8 @@ import java.util.Map;
 
 public class AreaActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;AreaAdapter areaAdapter;
+    RecyclerView recyclerView;
+    AreaAdapter areaAdapter;
     SQLServerConnection db = new SQLServerConnection();;
     Button btnBackArea, btnViTriSP, btnThemViTri, btnThemLoVaoViTri;
     SearchView searchView;
@@ -78,18 +79,24 @@ public class AreaActivity extends AppCompatActivity {
     }
 
     private void onClickButton() {
-        btnThemLoVaoViTri.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), AddBatchToLocatonActivity.class));
-            }
-        });
-        btnThemViTri.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogThemViTri(view);
-            }
-        });
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", 0) == 2) {
+            btnThemViTri.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showDialogThemViTri(view);
+                }
+            });
+            btnThemLoVaoViTri.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getApplicationContext(), AddBatchToLocatonActivity.class));
+                }
+            });
+        } else {
+            btnThemViTri.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            btnThemLoVaoViTri.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
+
         btnBackArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

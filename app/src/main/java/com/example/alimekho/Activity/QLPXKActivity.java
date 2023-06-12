@@ -67,9 +67,90 @@ public class QLPXKActivity extends AppCompatActivity {
         //back btn
         Button backBtn = findViewById(R.id.btn_back);
         backBtn.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
+
         //add btn
         CardView addBtn = findViewById(R.id.add_button);
-        addBtn.setOnClickListener(view -> startActivity(new Intent(this, CreatePXK1Activity.class)));
+        //xoa
+        ImageView delBtn = findViewById(R.id.icon_delete);
+        //sua
+        ImageView editBtn = findViewById(R.id.icon_edit);
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", -1) == 1) {
+            addBtn.setOnClickListener(view -> startActivity(new Intent(this, CreatePXK1Activity.class)));
+            delBtn.setOnClickListener(view -> adapter.deleteCheckedItems());
+            editBtn.setOnClickListener(view -> {
+                Dialog dialog = new Dialog(QLPXKActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.edit_pxk);
+                Window window = dialog.getWindow();
+                if (window == null) return;
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                Spinner spnMaPhieu = dialog.findViewById(R.id.maPhieu);
+                Spinner spnCHX = dialog.findViewById(R.id.CHX);
+                Spinner spnNPT = dialog.findViewById(R.id.NPT);
+
+                List<String> maPhieus = listPXK.stream().map(phieuXuatKho::getMaPhieu).collect(Collectors.toList());
+                spnMaPhieu.setAdapter(new ArrayAdapter<>(QLPXKActivity.this, R.layout.style_spinner_form, maPhieus));
+                spnCHX.setAdapter(new ArrayAdapter<>(QLPXKActivity.this, R.layout.style_spinner_form, listCHX));
+                spnNPT.setAdapter(new ArrayAdapter<>(QLPXKActivity.this, R.layout.style_spinner_form, listNPT));
+
+                EditText et = dialog.findViewById(R.id.day);
+                DatePickerDialog.OnDateSetListener date = (view1, year, month, day) -> {
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, month);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, day);
+                    et.setText(new SimpleDateFormat("dd/MM/yyyy").format(myCalendar.getTime()));
+                };
+                et.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new DatePickerDialog(QLPXKActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                    }
+                });
+
+                CardView cancel = dialog.findViewById(R.id.huy);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                CardView confirm = dialog.findViewById(R.id.xacnhan);
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SQLServerConnection db = new SQLServerConnection();
+                        Connection conn = db.getConnection();
+                        try {
+                            Statement stm = conn.createStatement();
+                            String Query = "set dateformat dmy\nupdate [output_form]" +
+                                    "\nset emp_id = " + spnNPT.getSelectedItem().toString().split(" - ")[0] +
+                                    ", supermarket_id = " + spnCHX.getSelectedItem().toString().split(" - ")[0] +
+                                    ", output_day = " + "'" + et.getText() + "'" +
+                                    "\n where id = " + spnMaPhieu.getSelectedItem();
+                            Query = "exec pro_sua_pxk @formId = " + spnMaPhieu.getSelectedItem() +
+                                    ", @empId = " + spnNPT.getSelectedItem().toString().split(" - ")[0] +
+                                    ", @outputDay = " + "'" + et.getText() + "'" +
+                                    ", @supermarketId = " + spnCHX.getSelectedItem().toString().split(" - ")[0];
+                            stm.executeUpdate(Query);
+                            stm.close();
+                            conn.close();
+                            Toast.makeText(QLPXKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            Toast.makeText(QLPXKActivity.this, "That bai: " + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                        recreate();
+                    }
+                });
+                dialog.show();
+            });
+        } else {
+            addBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            delBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            editBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
 
         //show
         rcv = findViewById(R.id.rcv);
@@ -78,9 +159,7 @@ public class QLPXKActivity extends AppCompatActivity {
         rcv.setAdapter(adapter);
         rcv.setLayoutManager(new LinearLayoutManager(this));
 
-        //xoa
-        ImageView delBtn = findViewById(R.id.icon_delete);
-        delBtn.setOnClickListener(view -> adapter.deleteCheckedItems());
+
 
         //search
         SearchView searchView = findViewById(R.id.search_bar);
@@ -96,78 +175,6 @@ public class QLPXKActivity extends AppCompatActivity {
                 filterList(newText);
                 return true;
             }
-        });
-
-        //sua
-        ImageView editBtn = findViewById(R.id.icon_edit);
-        editBtn.setOnClickListener(view -> {
-            Dialog dialog = new Dialog(QLPXKActivity.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.edit_pxk);
-            Window window = dialog.getWindow();
-            if (window == null) return;
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-            Spinner spnMaPhieu = dialog.findViewById(R.id.maPhieu);
-            Spinner spnCHX = dialog.findViewById(R.id.CHX);
-            Spinner spnNPT = dialog.findViewById(R.id.NPT);
-
-            List<String> maPhieus = listPXK.stream().map(phieuXuatKho::getMaPhieu).collect(Collectors.toList());
-            spnMaPhieu.setAdapter(new ArrayAdapter<>(QLPXKActivity.this, R.layout.style_spinner_form, maPhieus));
-            spnCHX.setAdapter(new ArrayAdapter<>(QLPXKActivity.this, R.layout.style_spinner_form, listCHX));
-            spnNPT.setAdapter(new ArrayAdapter<>(QLPXKActivity.this, R.layout.style_spinner_form, listNPT));
-
-            EditText et = dialog.findViewById(R.id.day);
-            DatePickerDialog.OnDateSetListener date = (view1, year, month, day) -> {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH,month);
-                myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                et.setText(new SimpleDateFormat("dd/MM/yyyy").format(myCalendar.getTime()));
-            };
-            et.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new DatePickerDialog(QLPXKActivity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            });
-
-            CardView cancel = dialog.findViewById(R.id.huy);
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-            CardView confirm = dialog.findViewById(R.id.xacnhan);
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    SQLServerConnection db = new SQLServerConnection();
-                    Connection conn = db.getConnection();
-                    try {
-                        Statement stm = conn.createStatement();
-                        String Query = "set dateformat dmy\nupdate [output_form]" +
-                                "\nset emp_id = " + spnNPT.getSelectedItem().toString().split(" - ")[0] +
-                                ", supermarket_id = " + spnCHX.getSelectedItem().toString().split(" - ")[0] +
-                                ", output_day = " + "'" + et.getText() + "'" +
-                                "\n where id = " + spnMaPhieu.getSelectedItem();
-                        Query = "exec pro_sua_pxk @formId = "  + spnMaPhieu.getSelectedItem() +
-                                ", @empId = " +  spnNPT.getSelectedItem().toString().split(" - ")[0] +
-                                ", @outputDay = " + "'" + et.getText() + "'" +
-                                ", @supermarketId = " + spnCHX.getSelectedItem().toString().split(" - ")[0];
-                        stm.executeUpdate(Query);
-                        stm.close();
-                        conn.close();
-                        Toast.makeText(QLPXKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        Toast.makeText(QLPXKActivity.this, "That bai: " + e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                    recreate();
-                }
-            });
-            dialog.show();
         });
 
     }
