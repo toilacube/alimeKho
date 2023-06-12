@@ -12,7 +12,7 @@
 ```
 git clone https://github.com/toilacube/alimeKho.git
 ```
-4. Open Android Studio, select Import existing project and choose the project folder
+4. Open Android Studio, From the Android Studio Welcome screen, select **Open** and choose the project folder
 
 ## 2. Run the project on the emulator
 ### 1. Create virtual devices
