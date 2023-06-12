@@ -67,7 +67,7 @@ Then open Android Studio, From the Android Studio Welcome screen, select **Open*
 
 5. Select the device you have downloaded 
 
-<img src="https://github.com/toilacube/alimeKho/assets/95525386/418bf51c-4baa-4344-95c0-437efc8fbeea" width="1000" height="600">
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/418bf51c-4baa-4344-95c0-437efc8fbeea" width="500" height="250">
 
 6. Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
 
