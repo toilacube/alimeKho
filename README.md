@@ -37,7 +37,9 @@ git clone https://github.com/toilacube/alimeKho.git
 
 6. Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
 
-
+7. Username and password for Login screen:
+  Username: `nguyenvan1`
+  Password: `123456`
 
 
 
