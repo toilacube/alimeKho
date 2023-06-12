@@ -42,11 +42,11 @@
 2. Extract the `.exe` file and install all the requirements:
   - Android SDK
   - Virutal device
-3. Clone the project 
+## Clone and open the project 
 ```
 git clone https://github.com/toilacube/alimeKho.git
 ```
-4. Open Android Studio, From the Android Studio Welcome screen, select **Open** and choose the project folder
+Then open Android Studio, From the Android Studio Welcome screen, select **Open** and choose the project folder
 
 ## Run the project on the emulator
 ### 1. Create virtual devices
@@ -67,7 +67,7 @@ git clone https://github.com/toilacube/alimeKho.git
 
 5. Select the device you have downloaded 
 
-<img src="https://github.com/toilacube/alimeKho/assets/95525386/418bf51c-4baa-4344-95c0-437efc8fbeea" width="800" height="600">
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/418bf51c-4baa-4344-95c0-437efc8fbeea" width="1000" height="600">
 
 6. Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
 
