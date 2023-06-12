@@ -29,9 +29,9 @@ git clone https://github.com/toilacube/alimeKho.git
 
 <img src="https://github.com/toilacube/alimeKho/assets/95525386/46d90c08-80c7-450e-9e63-b7833ae05aab" width="800" height="600">
 
-4. Wait for **R** image beign downloaded, then choose **Next > Finish**
+4. Wait for **R** image being downloaded, then choose **Next > Finish**
 
-5. Select the device has just been downloaded 
+5. Select the device you have downloaded 
 
 <img src="https://github.com/toilacube/alimeKho/assets/95525386/f6326add-eb62-4a6f-8342-18d52340d9af" width="800" height="600">
 
