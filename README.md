@@ -61,7 +61,7 @@ Then open Android Studio, From the Android Studio Welcome screen, select **Open*
 
 3. In the **System image** window, choose to download the Release name **R** (Android 11.0) 
 
-<img src="https://github.com/toilacube/alimeKho/assets/95525386/e42dcb00-afeb-4c47-9e81-deeb25653f66" width="800" height="600">
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/e42dcb00-afeb-4c47-9e81-deeb25653f66" width="400" height="300">
 
 4. Wait for **R** image being downloaded, then choose **Finish > Next > Finish**
 
