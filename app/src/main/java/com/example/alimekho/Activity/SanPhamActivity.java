@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,12 +58,18 @@ public class SanPhamActivity extends AppCompatActivity {
         rcvSanPham.setAdapter(sanPhamAdapter);
 
         List<sanPham> finalList = list;
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogThemSP(view);
-            }
-        });
+
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", 0) != 0) {
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showDialogThemSP(view);
+                }
+            });
+        } else {
+            btnAdd.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

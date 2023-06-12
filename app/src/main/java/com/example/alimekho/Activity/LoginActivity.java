@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginActivity extends AppCompatActivity {
-
+    SharedPreferences sharedPref;
     TextInputEditText edtPass, edtUserName;
     Button btnLogin;
     @Override
@@ -57,13 +57,14 @@ public class LoginActivity extends AppCompatActivity {
                             stm.setString(2, pass);
                             ResultSet rs = stm.executeQuery();
                             if (rs.next()) {
-                                SharedPreferences sharedPref = getSharedPreferences("user info", MODE_PRIVATE);
+                                sharedPref = getSharedPreferences("user info", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPref.edit();
                                 editor.putString("id", rs.getString("emp_id"));
                                 editor.putString("name", rs.getString("name"));
+                                editor.putInt("role", rs.getInt("role"));
+
                                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 
-                                ///more...
                                 editor.apply();
                                 startActivity(intent);
                             } else {

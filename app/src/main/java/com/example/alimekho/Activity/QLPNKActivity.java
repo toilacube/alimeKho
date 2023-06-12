@@ -75,22 +75,131 @@ public class QLPNKActivity extends AppCompatActivity {
                 startActivity(new Intent(QLPNKActivity.this, HomeActivity.class));
             }
         });
-        //them
-        CardView addPNK = findViewById(R.id.add_button);
-        addPNK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(QLPNKActivity.this, CreatePNK2Activity.class));
-            }
-        });
-        //xoa
+        //them, xoa, sua
         ImageView delBtn = findViewById(R.id.icon_delete);
-        delBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pnkAdapter.deleteCheckedItems();
-            }
-        });
+        CardView addPNK = findViewById(R.id.add_button);
+        ImageView editBtn = findViewById(R.id.icon_edit);
+
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", -1) == 1) {
+            addPNK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(QLPNKActivity.this, CreatePNK2Activity.class));
+                }
+            });
+
+            delBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pnkAdapter.deleteCheckedItems();
+                }
+            });
+
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Dialog dialog = new Dialog(QLPNKActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.edit_pnk);
+                    Window window = dialog.getWindow();
+                    if (window == null) return;
+                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    Spinner spinner = dialog.findViewById(R.id.spinnerpcs);
+                    ArrayList<String> pcss = getmaPNK();
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            pcs = pcss.get(position);
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(QLPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, pcss);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+
+                    Spinner spinner2 = dialog.findViewById(R.id.spinnernpt);
+                    ArrayList<String> npts = getNPT();
+                    ArrayList<String> nptss = getmaNPT();
+                    spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            npt = nptss.get(position);
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(QLPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, npts);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner2.setAdapter(adapter2);
+                    CardView cancel = dialog.findViewById(R.id.huy);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    EditText ngaynhapkho = dialog.findViewById(R.id.ngaynhapkho);
+                    DatePickerDialog.OnDateSetListener date = (view1, year, month, day) -> {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH,month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                        ngaynhapkho.setText(new SimpleDateFormat("dd/MM/yyyy").format(myCalendar.getTime()));
+                    };
+                    ngaynhapkho.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            new DatePickerDialog(QLPNKActivity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                        }
+                    });
+                    CardView confirm = dialog.findViewById(R.id.xacnhan);
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                Statement stm = conn.createStatement();
+                                String Query = "set dateformat dmy\nupdate [input_form]" +
+                                        "\nset emp_id = " + npt +
+                                        ", input_day = " + "'" + ngaynhapkho.getText() + "'" +
+                                        "\n where id = " + pcs;
+                                Query = "exec pro_sua_pnk @maPNK = " + pcs
+                                        + ", @maNVPT = " + npt +
+                                        ", @input_day = " + ngaynhapkho.getText();
+                                stm.executeUpdate(Query);
+                                Toast.makeText(QLPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                recreate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                Toast.makeText(QLPNKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    dialog.show();
+                }
+
+
+            });
+
+        } else {
+            addPNK.setOnClickListener(view -> {
+                Toast.makeText(QLPNKActivity.this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+            });
+            delBtn.setOnClickListener(view -> {
+                Toast.makeText(QLPNKActivity.this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+            });
+            editBtn.setOnClickListener(view -> {
+                Toast.makeText(QLPNKActivity.this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+
         SearchView searchView = findViewById(R.id.search_bar);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -105,99 +214,7 @@ public class QLPNKActivity extends AppCompatActivity {
                 return true;
             }
         });
-        //sua
-        ImageView editBtn = findViewById(R.id.icon_edit);
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog dialog = new Dialog(QLPNKActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.edit_pnk);
-                Window window = dialog.getWindow();
-                if (window == null) return;
-                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                Spinner spinner = dialog.findViewById(R.id.spinnerpcs);
-                ArrayList<String> pcss = getmaPNK();
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        pcs = pcss.get(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(QLPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, pcss);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adapter);
-
-                Spinner spinner2 = dialog.findViewById(R.id.spinnernpt);
-                ArrayList<String> npts = getNPT();
-                ArrayList<String> nptss = getmaNPT();
-                spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        npt = nptss.get(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-                ArrayAdapter<String> adapter2 = new ArrayAdapter<>(QLPNKActivity.this, android.R.layout.simple_spinner_dropdown_item, npts);
-                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner2.setAdapter(adapter2);
-                CardView cancel = dialog.findViewById(R.id.huy);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-                EditText ngaynhapkho = dialog.findViewById(R.id.ngaynhapkho);
-                DatePickerDialog.OnDateSetListener date = (view1, year, month, day) -> {
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH,month);
-                    myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                    ngaynhapkho.setText(new SimpleDateFormat("dd/MM/yyyy").format(myCalendar.getTime()));
-                };
-                ngaynhapkho.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        new DatePickerDialog(QLPNKActivity.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                    }
-                });
-                CardView confirm = dialog.findViewById(R.id.xacnhan);
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try {
-                            Statement stm = conn.createStatement();
-                            String Query = "set dateformat dmy\nupdate [input_form]" +
-                                    "\nset emp_id = " + npt +
-                                    ", input_day = " + "'" + ngaynhapkho.getText() + "'" +
-                                    "\n where id = " + pcs;
-                            Query = "exec pro_sua_pnk @maPNK = " + pcs
-                                    + ", @maNVPT = " + npt +
-                                    ", @input_day = " + ngaynhapkho.getText();
-                            stm.executeUpdate(Query);
-                            Toast.makeText(QLPNKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            recreate();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            Toast.makeText(QLPNKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-                dialog.show();
-            }
-
-
-        });
     }
     private void filterList(String newText) {
         ArrayList<phieuNhapKho> filteredList = new ArrayList<>();

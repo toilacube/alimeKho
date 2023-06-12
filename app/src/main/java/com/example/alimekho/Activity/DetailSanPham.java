@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -117,17 +118,21 @@ public class DetailSanPham extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-
-        btnAddImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ImagePicker.with(DetailSanPham.this)
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", 0) != 0) {
+            btnAddImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ImagePicker.with(DetailSanPham.this)
 //                        .crop()	    			//Crop image(Optional), Check Customization for more option
 //                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
 //                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-                        .start();
-            }
-        });
+                            .start();
+                }
+            });
+        } else {
+            btnAddImage.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

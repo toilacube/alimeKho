@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -73,55 +74,60 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.AreaViewHolder
                 goToDetailArea(area);
             }
         });
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView=LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
-                builder.setView(dialogView);
-                builder.show();
-            }
-        });
 
-        holder.update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView= LayoutInflater.from(view.getRootView().getContext())
-                        .inflate(R.layout.dialog_them_vi_tri,null);
-                AlertDialog dialog = builder.create();
-                dialog.setView(dialogView);
+        if (context.getSharedPreferences("user info", Context.MODE_PRIVATE).getInt("role", 0) == 2){
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    View dialogView=LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
+                    builder.setView(dialogView);
+                    builder.show();
+                }
+            });
+            holder.update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                            .inflate(R.layout.dialog_them_vi_tri,null);
+                    AlertDialog dialog = builder.create();
+                    dialog.setView(dialogView);
 
-                TextView txvTitle = dialogView.findViewById(R.id.txvSua);
-                EditText edtZone = dialogView.findViewById(R.id.edtZone),
-                        edtShelve = dialogView.findViewById(R.id.edtShelve);
-                Button btnAdd = dialogView.findViewById(R.id.btnAdd),
-                        btnCancel = dialogView.findViewById(R.id.btnCancel);
-                Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP);
+                    TextView txvTitle = dialogView.findViewById(R.id.txvSua);
+                    EditText edtZone = dialogView.findViewById(R.id.edtZone),
+                            edtShelve = dialogView.findViewById(R.id.edtShelve);
+                    Button btnAdd = dialogView.findViewById(R.id.btnAdd),
+                            btnCancel = dialogView.findViewById(R.id.btnCancel);
+                    Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP);
 
-                ArrayList<String> listLoaiSP = new ArrayList<>();
-                listLoaiSP = getLoaiSP();
-                ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
-                adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spLoaiSP.setAdapter(adapterLoaiSP);
-                spLoaiSP.setSelection(adapterLoaiSP.getPosition(area.getType_id()));
+                    ArrayList<String> listLoaiSP = new ArrayList<>();
+                    listLoaiSP = getLoaiSP();
+                    ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
+                    adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spLoaiSP.setAdapter(adapterLoaiSP);
+                    spLoaiSP.setSelection(adapterLoaiSP.getPosition(area.getType_id()));
 
-                sanPham sanPham = new sanPham();
+                    sanPham sanPham = new sanPham();
 
-                spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        sanPham.setPhanLoai(getIDLoaiSP().get(i));
-                    }
+                    spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            sanPham.setPhanLoai(getIDLoaiSP().get(i));
+                        }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
 
-                    }
-                });
-                dialog.show();
-            }
-        });
+                        }
+                    });
+                    dialog.show();
+                }
+            });
+        } else {
+            holder.delete.setOnClickListener(view -> Toast.makeText(context, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            holder.update.setOnClickListener(view -> Toast.makeText(context, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
     }
 
     private ArrayList<String> getIDLoaiSP() {

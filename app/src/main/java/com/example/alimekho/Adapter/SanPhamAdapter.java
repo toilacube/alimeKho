@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -111,153 +112,157 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             }
         });
 
-        holder.update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (context.getSharedPreferences("user info", Context.MODE_PRIVATE).getInt("role", 0) != 0) {
+            holder.update.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                View dialogView= LayoutInflater.from(view.getRootView().getContext())
-                        .inflate(R.layout.dialog_update_san_pham,null);
-                AlertDialog dialog = builder.create();
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    View dialogView= LayoutInflater.from(view.getRootView().getContext())
+                            .inflate(R.layout.dialog_update_san_pham,null);
+                    AlertDialog dialog = builder.create();
 
-                EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
-                         edtDonGia = dialogView.findViewById(R.id.edtDonGia),
-                         edtDonViTinh = dialogView.findViewById(R.id.edtDonVi);
-                Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP),
-                        spNhaCC = dialogView.findViewById(R.id.spNhaCC);
+                    EditText edtTenSP = dialogView.findViewById(R.id.edtTenSP),
+                            edtDonGia = dialogView.findViewById(R.id.edtDonGia),
+                            edtDonViTinh = dialogView.findViewById(R.id.edtDonVi);
+                    Spinner spLoaiSP = dialogView.findViewById(R.id.spLoaiSP),
+                            spNhaCC = dialogView.findViewById(R.id.spNhaCC);
 
-                ArrayList<String> listLoaiSP = getLoaiSP();
-                ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
-                adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spLoaiSP.setAdapter(adapterLoaiSP);
-                spLoaiSP.setSelection(adapterLoaiSP.getPosition(sanPham.getMaSP()));
+                    ArrayList<String> listLoaiSP = getLoaiSP();
+                    ArrayAdapter<String> adapterLoaiSP = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listLoaiSP);
+                    adapterLoaiSP.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spLoaiSP.setAdapter(adapterLoaiSP);
+                    spLoaiSP.setSelection(adapterLoaiSP.getPosition(sanPham.getMaSP()));
 
-                ArrayList<String> listNhaCC = new ArrayList<>();
-                listNhaCC = getNhaCC();
-                ArrayAdapter<String> adapterNhaCC = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listNhaCC);
-                adapterNhaCC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spNhaCC.setAdapter(adapterNhaCC);
-                spNhaCC.setSelection(adapterNhaCC.getPosition(sanPham.getSupplier_id()));
+                    ArrayList<String> listNhaCC = new ArrayList<>();
+                    listNhaCC = getNhaCC();
+                    ArrayAdapter<String> adapterNhaCC = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, listNhaCC);
+                    adapterNhaCC.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spNhaCC.setAdapter(adapterNhaCC);
+                    spNhaCC.setSelection(adapterNhaCC.getPosition(sanPham.getSupplier_id()));
 
-                spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        sanPham.setPhanLoai(getIDLoaiSP().get(i));
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
-                spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        sanPham.setSupplier_id(getIDNhaCC().get(i));
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
-
-                edtTenSP.setText(sanPham.getTenSP());
-                //edtDonGia.setText(Double.toString(sanPham.getDonGia()));
-                edtDonViTinh.setText(sanPham.getDonViTinh());
-                Button btnUpdate = dialogView.findViewById(R.id.btnUpdate),
-                        btnCancel = dialogView.findViewById(R.id.btnCancel);
-
-                // Thay doi thong tin san pham
-                btnUpdate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        sanPham.setTenSP(edtTenSP.getText().toString().trim());
-                       // sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
-                        sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
-
-                        try {
-                            Statement stm = db.getConnection().createStatement();
-                            String updateSP = "UPDATE PRODUCT " +
-                                    "SET NAME = '" +  edtTenSP.getText().toString().trim() +
-                                    "', UNIT = '" + edtDonViTinh.getText().toString().trim() +
-                                    "', UNIT_PRICE  = " + Double.valueOf(edtDonGia.getText().toString().trim()) +
-                                    ", type_id = " + sanPham.getPhanLoai() +
-                                    ", supplier_id = " + sanPham.getSupplier_id() +
-                                    " WHERE ID = " + sanPham.getMaSP();
-
-                            stm.executeUpdate(updateSP);
-                        } catch (SQLException e) {
-                            Log.e(TAG, e.toString());
+                    spLoaiSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            sanPham.setPhanLoai(getIDLoaiSP().get(i));
                         }
 
-                        sanPhamList.set(holder.getAdapterPosition(), sanPham);
-                        setList(sanPhamList);
-                        notifyDataSetChanged();
-                        dialog.dismiss();
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
 
-                    }
-                });
+                        }
+                    });
+                    spNhaCC.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            sanPham.setSupplier_id(getIDNhaCC().get(i));
+                        }
 
-                btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
 
+                        }
+                    });
 
-                int width = (int)(context.getResources().getDisplayMetrics().widthPixels*0.90);
-                int height = (int)(context.getResources().getDisplayMetrics().heightPixels*0.90);
+                    edtTenSP.setText(sanPham.getTenSP());
+                    //edtDonGia.setText(Double.toString(sanPham.getDonGia()));
+                    edtDonViTinh.setText(sanPham.getDonViTinh());
+                    Button btnUpdate = dialogView.findViewById(R.id.btnUpdate),
+                            btnCancel = dialogView.findViewById(R.id.btnCancel);
 
-                dialog.setView(dialogView);
-                dialog.getWindow().setLayout(width, height);
-                dialog.show();
-            }
+                    // Thay doi thong tin san pham
+                    btnUpdate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            sanPham.setTenSP(edtTenSP.getText().toString().trim());
+                            // sanPham.setDonGia(Double.valueOf(edtDonGia.getText().toString().trim()));
+                            sanPham.setDonViTinh(edtDonViTinh.getText().toString().trim());
 
-        });
+                            try {
+                                Statement stm = db.getConnection().createStatement();
+                                String updateSP = "UPDATE PRODUCT " +
+                                        "SET NAME = '" +  edtTenSP.getText().toString().trim() +
+                                        "', UNIT = '" + edtDonViTinh.getText().toString().trim() +
+                                        "', UNIT_PRICE  = " + Double.valueOf(edtDonGia.getText().toString().trim()) +
+                                        ", type_id = " + sanPham.getPhanLoai() +
+                                        ", supplier_id = " + sanPham.getSupplier_id() +
+                                        " WHERE ID = " + sanPham.getMaSP();
 
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                                stm.executeUpdate(updateSP);
+                            } catch (SQLException e) {
+                                Log.e(TAG, e.toString());
+                            }
 
-                AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
-                AlertDialog dialog = builder.create();
-                View dialogDelete= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
-                dialog.setView(dialogDelete);
-
-                Button btnHuy = dialogDelete.findViewById(R.id.btn_huy),
-                        btnDelete = dialogDelete.findViewById(R.id.btn_delete);
-
-                btnHuy.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                btnDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String id = sanPham.getMaSP();
-                        try {
-                            String deleteQuery = "update product set is_deleted = 1 where id = ?";
-                            deleteQuery = "exec pro_xoa_san_pham @id = ?";
-                            PreparedStatement stm = db.getConnection().prepareStatement(deleteQuery);
-                            stm.setString(1, id);
-                            stm.executeUpdate();
-                            dialog.dismiss();
+                            sanPhamList.set(holder.getAdapterPosition(), sanPham);
+                            setList(sanPhamList);
                             notifyDataSetChanged();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                            dialog.dismiss();
+
                         }
-                    }
-                });
+                    });
+
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
 
 
-                dialog.show();
-            }
-        });
+                    int width = (int)(context.getResources().getDisplayMetrics().widthPixels*0.90);
+                    int height = (int)(context.getResources().getDisplayMetrics().heightPixels*0.90);
+
+                    dialog.setView(dialogView);
+                    dialog.getWindow().setLayout(width, height);
+                    dialog.show();
+                }
+
+            });
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    AlertDialog.Builder builder=new AlertDialog.Builder(view.getRootView().getContext());
+                    AlertDialog dialog = builder.create();
+                    View dialogDelete= LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.confirm_delete,null);
+                    dialog.setView(dialogDelete);
+
+                    Button btnHuy = dialogDelete.findViewById(R.id.btn_huy),
+                            btnDelete = dialogDelete.findViewById(R.id.btn_delete);
+
+                    btnHuy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String id = sanPham.getMaSP();
+                            try {
+                                String deleteQuery = "update product set is_deleted = 1 where id = ?";
+                                deleteQuery = "exec pro_xoa_san_pham @id = ?";
+                                PreparedStatement stm = db.getConnection().prepareStatement(deleteQuery);
+                                stm.setString(1, id);
+                                stm.executeUpdate();
+                                dialog.dismiss();
+                                notifyDataSetChanged();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+
+                    dialog.show();
+                }
+            });
+        } else {
+            holder.update.setOnClickListener(view -> Toast.makeText(context, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            holder.delete.setOnClickListener(view -> Toast.makeText(context, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
     }
 
     private ArrayList<String> getLoaiSP() {

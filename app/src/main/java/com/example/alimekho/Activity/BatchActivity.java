@@ -70,18 +70,24 @@ public class BatchActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                batchAdapter.deleteCheckedItems();
-            }
-        });
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", 0) != 0) {
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDialog();
+                }
+            });
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    batchAdapter.deleteCheckedItems();
+                }
+            });
+        } else {
+            btnAdd.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            btnDelete.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
+
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

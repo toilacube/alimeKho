@@ -81,10 +81,16 @@ public class SupermarketActivity extends AppCompatActivity {
             else adapter.unSelectAll();
         });
 
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", 0) != 0) {
+            addBtn.setOnClickListener(view -> showAddDialog());
+            delBtn.setOnClickListener(view -> adapter.deleteCheckedItems());
+            editBtn.setOnClickListener(view -> showEditDialog());
+        } else {
+            addBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            delBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            editBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
         backBtn.setOnClickListener(view -> startActivity(new Intent(this, HomeActivity.class)));
-        addBtn.setOnClickListener(view -> showAddDialog());
-        delBtn.setOnClickListener(view -> adapter.deleteCheckedItems());
-        editBtn.setOnClickListener(view -> showEditDialog());
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

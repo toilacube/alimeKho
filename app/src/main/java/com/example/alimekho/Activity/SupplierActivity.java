@@ -64,12 +64,6 @@ public class SupplierActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -83,76 +77,89 @@ public class SupplierActivity extends AppCompatActivity {
                 return true;
             }
         });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog dialog = new Dialog(SupplierActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.edit_ncc);
-                Window window = dialog.getWindow();
-                if (window == null) return;
-                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                Spinner spinner = dialog.findViewById(R.id.spinnerncc);
-                TextView txttenNCC = dialog.findViewById(R.id.tenNCC);
-                TextView txtdiaChi = dialog.findViewById(R.id.diaChi);
-                TextView txtSDT = dialog.findViewById(R.id.SDT);
-                ArrayList<String> suppliers = getListNCC();
-                ArrayList<String> supplierss = getmaNCC();
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        temp = supplierss.get(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(SupplierActivity.this, android.R.layout.simple_spinner_dropdown_item, suppliers);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adapter);
-                CardView cancel = dialog.findViewById(R.id.huy);
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-                CardView confirm = dialog.findViewById(R.id.xacnhan);
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        try {
-                            String Update = "UPDATE supplier\n" +
-                                    "SET name = ?, phone = ?, address = ?\n" +
-                                    "WHERE id = ?";
-                            Update = "exec pro_sua_nha_cung_cap @name = ?, @phone = ?, @address = ?, @maNCC = ?";
-                            PreparedStatement stm = conn.prepareStatement(Update);
-                            stm.setString(1, txttenNCC.getText().toString().trim());
-                            stm.setString(2, txtSDT.getText().toString().trim());
-                            stm.setString(3, txtdiaChi.getText().toString().trim());
-                            stm.setString(4, temp);
-                            stm.executeUpdate();
-                            Toast.makeText(SupplierActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                            recreate();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            Toast.makeText(SupplierActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", 0) != 0) {
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDialog();
+                }
+            });
+            btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dialog = new Dialog(SupplierActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.edit_ncc);
+                    Window window = dialog.getWindow();
+                    if (window == null) return;
+                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    Spinner spinner = dialog.findViewById(R.id.spinnerncc);
+                    TextView txttenNCC = dialog.findViewById(R.id.tenNCC);
+                    TextView txtdiaChi = dialog.findViewById(R.id.diaChi);
+                    TextView txtSDT = dialog.findViewById(R.id.SDT);
+                    ArrayList<String> suppliers = getListNCC();
+                    ArrayList<String> supplierss = getmaNCC();
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            temp = supplierss.get(position);
                         }
-                    }
-                });
-                dialog.show();
-            }
-        });
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(SupplierActivity.this, android.R.layout.simple_spinner_dropdown_item, suppliers);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    CardView cancel = dialog.findViewById(R.id.huy);
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+                    CardView confirm = dialog.findViewById(R.id.xacnhan);
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                String Update = "UPDATE supplier\n" +
+                                        "SET name = ?, phone = ?, address = ?\n" +
+                                        "WHERE id = ?";
+                                Update = "exec pro_sua_nha_cung_cap @name = ?, @phone = ?, @address = ?, @maNCC = ?";
+                                PreparedStatement stm = conn.prepareStatement(Update);
+                                stm.setString(1, txttenNCC.getText().toString().trim());
+                                stm.setString(2, txtSDT.getText().toString().trim());
+                                stm.setString(3, txtdiaChi.getText().toString().trim());
+                                stm.setString(4, temp);
+                                stm.executeUpdate();
+                                Toast.makeText(SupplierActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                recreate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                Toast.makeText(SupplierActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    dialog.show();
+                }
+            });
+            btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 supplierAdapter.deleteCheckedItems();
             }
         });
+        } else {
+            btnAdd.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            btnEdit.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            btnDelete.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

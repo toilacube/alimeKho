@@ -100,127 +100,133 @@ public class CTPKKActivity extends AppCompatActivity {
 
         //del btn
         Button delbtn = findViewById(R.id.btn_xoa);
-        delbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                adapter.deleteCheckedItems();
-                recreate();
-            }
-        });
         //edit btn
         Button editbtn = findViewById(R.id.btn_sua);
-        editbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Dialog dialog = new Dialog(CTPKKActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.edit_ctpkk);
-                Window window = dialog.getWindow();
-                if (window == null) return;
-                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                Spinner spnMaSP = dialog.findViewById(R.id.spinnersp);
-                spnMaSP.setAdapter(new ArrayAdapter<>(CTPKKActivity.this, R.layout.style_spinner_form, listLo));
-                EditText sl = dialog.findViewById(R.id.sl);
-
-                CardView cancel = dialog.findViewById(R.id.huy);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                CardView confirm = dialog.findViewById(R.id.xacnhan);
-                confirm.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SQLServerConnection db = new SQLServerConnection();
-                        Connection conn = db.getConnection();
-                        try {
-                            String spnText = spnMaSP.getSelectedItem().toString();
-                            String maLo = spnText.split(": ", 2)[1].split(",")[0];
-                            Statement stm = conn.createStatement();
-                            String Query = "update [detail_check]" +
-                                    "\nset actual_quantity = " + sl.getText()
-                                    +"\nwhere form_id = " + maPhieu
-                                    +"and batch_id = " + maLo;
-                            Query = "exec pro_sua_ctpkk @formId = " + maPhieu +
-                                    ", @batchId = " + maLo +
-                                    ", @actualQuantity = " + sl.getText().toString();
-                            stm.executeUpdate(Query);
-                            stm.close();
-                            conn.close();
-                            Toast.makeText(CTPKKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            Toast.makeText(CTPKKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
-                        }
-                        recreate();
-                    }
-                });
-                dialog.show();
-            }
-        });
-
-        //export btn
-        Button exportBtn = findViewById(R.id.btn_xuat);
-        exportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                export();
-            }
-        });
-
         //update is_solve
         Button xlBtn = findViewById(R.id.btn_solve);
-        xlBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (PKK.getTinhTrang() == 1) {
-                    xlBtn.setText("Đánh dấu chưa xử lý");
-                    try {
-                        SQLServerConnection db = new SQLServerConnection();
-                        Connection conn = db.getConnection();
-                        Statement stm = conn.createStatement();
-                        String Query = "update [check_form] set [is_solved] = 0 where [id] = " + maPhieu;
-                        Query = "exec pro_sua_tinh_trang_pkk @form_id = " + maPhieu +
-                                ", @is_solved = " + 0;
-                        stm.executeUpdate(Query);
-                        Toast.makeText(CTPKKActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        tvTingTrang.setText("Tình trạng: " + "Chưa xử lý");
-                        xlBtn.setText("Đánh dấu đã xử lý");
-                        PKK.setTinhTrang(0);
-                        stm.close();
-                        conn.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        Toast.makeText(CTPKKActivity.this, "Lỗi: " + e.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    xlBtn.setText("Đánh dấu đã xử lý");
-                    try {
-                        SQLServerConnection db = new SQLServerConnection();
-                        Connection conn = db.getConnection();
-                        Statement stm = conn.createStatement();
-                        String Query = "update [check_form] set [is_solved] = 1 where [id] = " + maPhieu;
-                        Query = "exec pro_sua_tinh_trang_pkk @form_id = " + maPhieu +
-                                ", @is_solved = " + 1;
-                        stm.executeUpdate(Query);
-                        Toast.makeText(CTPKKActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        tvTingTrang.setText("Tình trạng: " + "Đã xử lý");
+        //export btn
+        Button exportBtn = findViewById(R.id.btn_xuat);
+
+        if (getSharedPreferences("user info", MODE_PRIVATE).getInt("role", -1) == 2) {
+            delbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    adapter.deleteCheckedItems();
+                    recreate();
+                }
+            });
+            editbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Dialog dialog = new Dialog(CTPKKActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.edit_ctpkk);
+                    Window window = dialog.getWindow();
+                    if (window == null) return;
+                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    Spinner spnMaSP = dialog.findViewById(R.id.spinnersp);
+                    spnMaSP.setAdapter(new ArrayAdapter<>(CTPKKActivity.this, R.layout.style_spinner_form, listLo));
+                    EditText sl = dialog.findViewById(R.id.sl);
+
+                    CardView cancel = dialog.findViewById(R.id.huy);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    CardView confirm = dialog.findViewById(R.id.xacnhan);
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            SQLServerConnection db = new SQLServerConnection();
+                            Connection conn = db.getConnection();
+                            try {
+                                String spnText = spnMaSP.getSelectedItem().toString();
+                                String maLo = spnText.split(": ", 2)[1].split(",")[0];
+                                Statement stm = conn.createStatement();
+                                String Query = "update [detail_check]" +
+                                        "\nset actual_quantity = " + sl.getText()
+                                        +"\nwhere form_id = " + maPhieu
+                                        +"and batch_id = " + maLo;
+                                Query = "exec pro_sua_ctpkk @formId = " + maPhieu +
+                                        ", @batchId = " + maLo +
+                                        ", @actualQuantity = " + sl.getText().toString();
+                                stm.executeUpdate(Query);
+                                stm.close();
+                                conn.close();
+                                Toast.makeText(CTPKKActivity.this, "Thanh cong", Toast.LENGTH_SHORT).show();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                                Toast.makeText(CTPKKActivity.this, "That bai", Toast.LENGTH_SHORT).show();
+                            }
+                            recreate();
+                        }
+                    });
+                    dialog.show();
+                }
+            });
+            xlBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (PKK.getTinhTrang() == 1) {
                         xlBtn.setText("Đánh dấu chưa xử lý");
-                        PKK.setTinhTrang(1);
-                        stm.close();
-                        conn.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        Toast.makeText(CTPKKActivity.this, "Lỗi: " + e.toString(), Toast.LENGTH_SHORT).show();
+                        try {
+                            SQLServerConnection db = new SQLServerConnection();
+                            Connection conn = db.getConnection();
+                            Statement stm = conn.createStatement();
+                            String Query = "update [check_form] set [is_solved] = 0 where [id] = " + maPhieu;
+                            Query = "exec pro_sua_tinh_trang_pkk @form_id = " + maPhieu +
+                                    ", @is_solved = " + 0;
+                            stm.executeUpdate(Query);
+                            Toast.makeText(CTPKKActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                            tvTingTrang.setText("Tình trạng: " + "Chưa xử lý");
+                            xlBtn.setText("Đánh dấu đã xử lý");
+                            PKK.setTinhTrang(0);
+                            stm.close();
+                            conn.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            Toast.makeText(CTPKKActivity.this, "Lỗi: " + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        xlBtn.setText("Đánh dấu đã xử lý");
+                        try {
+                            SQLServerConnection db = new SQLServerConnection();
+                            Connection conn = db.getConnection();
+                            Statement stm = conn.createStatement();
+                            String Query = "update [check_form] set [is_solved] = 1 where [id] = " + maPhieu;
+                            Query = "exec pro_sua_tinh_trang_pkk @form_id = " + maPhieu +
+                                    ", @is_solved = " + 1;
+                            stm.executeUpdate(Query);
+                            Toast.makeText(CTPKKActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                            tvTingTrang.setText("Tình trạng: " + "Đã xử lý");
+                            xlBtn.setText("Đánh dấu chưa xử lý");
+                            PKK.setTinhTrang(1);
+                            stm.close();
+                            conn.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            Toast.makeText(CTPKKActivity.this, "Lỗi: " + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
-            }
-        });
+            });
+            exportBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    export();
+                }
+            });
+        } else {
+            delbtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            editbtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            xlBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+            exportBtn.setOnClickListener(view -> Toast.makeText(this, "Bạn không có quyền thực hiện thao tác này", Toast.LENGTH_SHORT).show());
+        }
     }
     private void getListCTPKK() {
         try {
