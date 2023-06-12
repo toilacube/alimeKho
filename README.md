@@ -19,7 +19,7 @@ git clone https://github.com/toilacube/alimeKho.git
 
 1. After opening a project, select **View > Tool Windows > Device Manager** from the main menu bar, and then click **Create device.**
 
-<img src="https://github.com/toilacube/alimeKho/assets/95525386/c2cf9e66-2a70-4a2c-8e07-18e1867c7bf0" width="100" height="100">
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/c2cf9e66-2a70-4a2c-8e07-18e1867c7bf0" width="500" height="500">
 
 2. In the **Select Hardware window**, find Goole Naxus 9 in the **Tablet** and select **Next** 
 ![image](https://github.com/toilacube/alimeKho/assets/95525386/bac84c05-24dc-46b0-aa6e-7a9b0a71ca69)
