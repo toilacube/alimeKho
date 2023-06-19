@@ -128,13 +128,13 @@ Open Android Studio, from the Android Studio Welcome screen, select **Open** and
 
 7. Username and password for Login screen:
 
-  Username1: `nguyenvan1`
+  Username1: `nguyenvan1`        Password1: `123456` 
   
-  Password1: `123456`
+  Username2: `lethithu2`         Password2: `abcdef`
 
-  Username2: `lethithu2`
   
-  Password2: `abcdef`
+  
+
 
 
 
