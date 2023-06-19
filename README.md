@@ -1,5 +1,7 @@
 
-## Simple Warehouse Inventory Management System 
+## Simple Warehouse Inventory Management Project
+
+
 
 # Installation for normal Android User
 
@@ -8,7 +10,7 @@ Download and open apk file using a tablet device
 ```
 https://drive.google.com/file/d/1WM-0--e5payuGTS3tgHc5Fl4CuefL9pi/view?usp=sharing
 ```
-
+This app is not available for IOS users
 
 
 # Setup the enviroment for Windows, MacOS and Linux User
