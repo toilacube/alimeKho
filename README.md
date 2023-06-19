@@ -85,16 +85,16 @@ This app is not available for IOS users
 </tbody></table>
 
 ## Install Android Studio 
-1. For Windows and MacOS, go to [Android Studio Download page](https://developer.android.com/studio) 
+1. For Windows, MacOS and Linux users, go to [Android Studio Download page](https://developer.android.com/studio) 
 
-2. Extract the `.exe` file and install all the requirements:
+2. Extract the `.exe`,  `.tar.gz` or `.dmg`  file and install all the requirements:
   - Android SDK
   - Virutal device
 ## Clone and open the project 
 ```
 git clone https://github.com/toilacube/alimeKho.git
 ```
-Then open Android Studio, From the Android Studio Welcome screen, select **Open** and choose the project folder
+Open Android Studio, from the Android Studio Welcome screen, select **Open** and choose the project folder
 
 ## Run the project on the emulator
 ### 1. Create virtual devices
