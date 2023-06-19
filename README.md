@@ -10,7 +10,7 @@
 This app is not available for IOS users
 
 
-# Setup the enviroment for Windows, MacOS and Linux User
+# Setting up the enviroment for Windows, MacOS and Linux developer
 
 ## Requirements
 
@@ -164,7 +164,9 @@ Open Android Studio, from the Android Studio Welcome screen, select **Open** and
   Username2: `lethithu2`         Password2: `abcdef`
 
   
-  
+ **For Emulator installation, download a Android emulator,
+ [download the apk file](https://drive.google.com/file/d/1WM-0--e5payuGTS3tgHc5Fl4CuefL9pi/view?usp=sharing)
+  and drag the apk file into the emulator, it will begin install to your emulator**
 
 
 
