@@ -12,6 +12,7 @@ https://drive.google.com/file/d/1WM-0--e5payuGTS3tgHc5Fl4CuefL9pi/view?usp=shari
 
 ## Requirements
 
+### Windows
 <table>
   <tbody><tr><th>Requirement</th>
   <th>Minimum</th>
@@ -45,6 +46,7 @@ https://drive.google.com/file/d/1WM-0--e5payuGTS3tgHc5Fl4CuefL9pi/view?usp=shari
   </tr>
 </tbody></table>
 
+### MacOS
 <table>
   <tbody><tr><th>Requirement</th>
   <th>Minimum</th>
