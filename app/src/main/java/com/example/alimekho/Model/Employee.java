@@ -9,6 +9,33 @@ public class Employee implements Serializable {
     private String dayOfBirth;
     private String identify;
     private String phoneNumber;
+    private String ngayVaoLam;
+    private String address;
+    private String img;
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setNgayVaoLam(String ngayVaoLam) {
+        this.ngayVaoLam = ngayVaoLam;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNgayVaoLam() {
+        return ngayVaoLam;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 
     public Employee() {
     }

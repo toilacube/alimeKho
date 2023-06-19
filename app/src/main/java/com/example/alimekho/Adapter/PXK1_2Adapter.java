@@ -18,6 +18,7 @@ import com.example.alimekho.Model.CTPXK;
 import com.example.alimekho.R;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class PXK1_2Adapter extends RecyclerView.Adapter<PXK1_2Adapter.PXK12ViewHolder>{
     private Context context;

@@ -72,8 +72,8 @@ public class CreatePXK3Activity extends AppCompatActivity {
                                     " , " + sharedPref.getString("id", "") +
                                     " , "+ getIntent().getExtras().getString("maCHX") +
                                     " , 0)";
-                    Query = "exec pro_them_pxk @empId = " + sharedPref.getString("id", "") +
-                            ", @supermarketId = " + getIntent().getExtras().getString("maCHX");
+//                    Query = "exec pro_them_pxk @empId = " + sharedPref.getString("id", "") +
+//                            ", @supermarketId = " + getIntent().getExtras().getString("maCHX");
                     stm.executeUpdate(Query);
 
                     for (CTPXK ct : ctpxks){
@@ -95,7 +95,7 @@ public class CreatePXK3Activity extends AppCompatActivity {
                     startActivity(intent);
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    Toast.makeText(CreatePXK3Activity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePXK3Activity.this, "Số lượng không phù hợp", Toast.LENGTH_SHORT).show();
                 }
             }
         });

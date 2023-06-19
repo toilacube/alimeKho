@@ -8,13 +8,12 @@
         android:id="@+id/txvSua"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="Sửa thông tin nhân viên"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:textAllCaps="true"
+        android:text="SỬA THÔNG TIN NHÂN VIÊN"
         android:textStyle="bold"
+        android:textSize="20dp"
         android:background="@color/main_color"
         android:textColor="@color/white"
+        android:gravity="center"
         android:padding="15dp"
         />
     <LinearLayout
@@ -42,7 +41,20 @@
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:layout_margin="5dp"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Ngày sinh: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:text="Ngày vào làm: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
@@ -83,38 +95,52 @@
             android:layout_weight="6"
             >
             <EditText
-                android:id="@+id/edtTenSP"
+                android:id="@+id/edtTenNhanVien"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
             <EditText
-                android:id="@+id/edtDonGia"
+                android:id="@+id/edtNgaySinh"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
+                android:drawableEnd="@drawable/baseline_edit_calendar_24"
+                android:layout_margin="5dp" />
+            <EditText
+                android:id="@+id/edtNgayVaoLam"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:drawableEnd="@drawable/baseline_edit_calendar_24"
                 android:layout_margin="5dp" />
 
             <EditText
-                android:id="@+id/spLoaiSP"
+                android:id="@+id/edtCCCD"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
             <EditText
-                android:id="@+id/edtDonVi"
+                android:id="@+id/edtSDT"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
 
             <Spinner
-                android:id="@+id/spNhaCC"
+                android:id="@+id/spChucVu"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
 
+            <EditText
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:layout_margin="5dp"/>
 
         </LinearLayout>
 
@@ -133,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Sửa"
+            android:text="SỬA"
             android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:layout_gravity="center"

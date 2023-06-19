@@ -248,6 +248,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
                                 stm.setString(1, id);
                                 stm.executeUpdate();
                                 dialog.dismiss();
+                                sanPhamList.remove(sanPham);
                                 notifyDataSetChanged();
                             } catch (SQLException e) {
                                 e.printStackTrace();

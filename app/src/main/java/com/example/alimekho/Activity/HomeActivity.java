@@ -1,24 +1,25 @@
 package com.example.alimekho.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
-import com.example.alimekho.Model.Employee;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.example.alimekho.R;
 
 public class HomeActivity extends AppCompatActivity {
     CardView cvSanPham, cvNhapKho, cvXuatKho, cvNhanVien,cvBatch, cvOutLocation, cvKiemKho, cvNhaCC
             , cvViTri, cvThongKe;
+    ImageView DangXuat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        DangXuat = findViewById(R.id.btnDangXuat);
         cvNhaCC = findViewById(R.id.cvSupplier);
         cvKiemKho = findViewById(R.id.cvKiemKho);
         cvOutLocation = findViewById(R.id.cvDiaDiemXuat);
@@ -29,6 +30,13 @@ public class HomeActivity extends AppCompatActivity {
         cvXuatKho = findViewById(R.id.cv_xuat_kho);
         cvViTri = findViewById(R.id.cv_khu_vuc_kho);
         cvThongKe = findViewById(R.id.cv_thong_ke);
+
+        DangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
         toActivity();
     }
 

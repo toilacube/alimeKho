@@ -1,17 +1,19 @@
 package com.example.alimekho.Activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.alimekho.DataBase.PasswordHasher;
 import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -20,7 +22,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedPref;
@@ -37,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String userName = edtUserName.getText().toString().trim();
                 String pass = edtPass.getText().toString().trim();
                 if(userName.isEmpty()){
@@ -47,6 +47,10 @@ public class LoginActivity extends AppCompatActivity {
                     edtPass.setError("Vui lòng nhập mật khẩu!");
                 }
                 else {
+                        userName = edtUserName.getText().toString().trim();
+                        pass = edtPass.getText().toString().trim();
+                        PasswordHasher passwordHasher = new PasswordHasher();
+                        //pass = passwordHasher.hashPassword(pass);
                         SQLServerConnection db = new SQLServerConnection();
                         Connection conn = db.getConnection();
                         try {

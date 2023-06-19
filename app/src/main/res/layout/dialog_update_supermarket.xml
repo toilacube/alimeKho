@@ -65,7 +65,7 @@
                     <Spinner
                         android:id="@+id/ma"
                         android:layout_width="290dp"
-                        android:layout_height="35dp"
+                        android:layout_height="match_parent"
                         android:background="@drawable/spinnerform"
                         android:paddingLeft="10dp"
                         android:text="xxxxxxxxx "
@@ -152,6 +152,7 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="20dp"
                         android:textColor="@color/black"
+                        android:inputType="phone|number"
                         android:textSize="13dp" />
 
                 </LinearLayout>

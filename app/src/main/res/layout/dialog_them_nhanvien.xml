@@ -51,6 +51,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
+                android:text="Ngày vào làm: "
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
                 android:text="CCCD/CMND: "
                 android:textSize="14dp"
                 android:textColor="@color/black"
@@ -88,40 +95,50 @@
             android:layout_weight="6"
             >
             <EditText
-                android:id="@+id/edtTenSP"
+                android:id="@+id/edtTenNhanVien"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
             <EditText
-                android:id="@+id/edtDonGia"
+                android:id="@+id/edtNgaySinh"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
+                android:drawableEnd="@drawable/baseline_edit_calendar_24"
+                android:layout_margin="5dp" />
+            <EditText
+                android:id="@+id/edtNgayVaoLam"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/gray_img"
+                android:drawableEnd="@drawable/baseline_edit_calendar_24"
                 android:layout_margin="5dp" />
 
             <EditText
-                android:id="@+id/spLoaiSP"
+                android:id="@+id/edtCCCD"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
+                android:inputType="number"
                 android:layout_margin="5dp"/>
             <EditText
-                android:id="@+id/edtDonVi"
+                android:id="@+id/edtSDT"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
+                android:inputType="phone"
                 android:layout_margin="5dp"/>
 
             <Spinner
-                android:id="@+id/spNhaCC"
+                android:id="@+id/spChucVu"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
                 android:layout_margin="5dp"/>
 
             <EditText
-                android:id="@+id/edtAddr"
+                android:id="@+id/edtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:background="@color/gray_img"
