@@ -91,6 +91,8 @@ This app is not available for IOS users
   - Android SDK
   - Virutal device
 ## Clone and open the project 
+
+Clone the project
 ```
 git clone https://github.com/toilacube/alimeKho.git
 ```
