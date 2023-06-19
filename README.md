@@ -84,6 +84,40 @@ This app is not available for IOS users
   </tr>
 </tbody></table>
 
+### Linux
+<table>
+  <tbody><tr><th>Requirement</th>
+  <th>Minimum</th>
+  <th>Recommended</th>
+  </tr><tr>
+    <td>OS</td>
+    <td>Any 64-bit Linux distribution that supports Gnome, KDE, or Unity DE;
+    GNU C Library (glibc) 2.31 or later.</td>
+    <td>Latest 64-bit version of Linux</td>
+  </tr>
+  <tr>
+    <td>RAM</td>
+    <td>8 GB RAM</td>
+    <td>16 GB RAM or more</td>
+  </tr>
+  <tr>
+    <td>CPU</td>
+    <td>x86_64 CPU architecture; 2nd generation Intel Core or newer, or AMD
+    processor with support for AMD Virtualization (AMD-V) and SSSE3.</td>
+    <td>Latest Intel Core processor</td>
+  </tr>
+  <tr>
+    <td>Disk space</td>
+    <td>8 GB (IDE and Android SDK and Emulator)</td>
+    <td>Solid state drive with 16 GB or more</td>
+  </tr>
+  <tr>
+    <td>Screen resolution</td>
+    <td>1280 x 800</td>
+    <td>1920 x 1080</td>
+  </tr>
+</tbody></table>
+
 ## Install Android Studio 
 1. For Windows, MacOS and Linux users, go to [Android Studio Download page](https://developer.android.com/studio) 
 
