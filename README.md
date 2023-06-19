@@ -117,15 +117,18 @@ Open Android Studio, from the Android Studio Welcome screen, select **Open** and
 
 5. Select the device you have downloaded 
 
-<img src="https://github.com/toilacube/alimeKho/assets/95525386/418bf51c-4baa-4344-95c0-437efc8fbeea" width="500" height="250">
+<img src="https://github.com/toilacube/alimeKho/assets/95525386/418bf51c-4baa-4344-95c0-437efc8fbeea" width="400" height="220">
 
 6. Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
 
 7. Username and password for Login screen:
 
-  Username: `nguyenvan1`
+  Username1: `nguyenvan1`
   
-  Password: `123456`
+  Password1: `123456`
+  
+  Username2: `lethithu2`
+  Password2: `abcdef`
 
 
 
