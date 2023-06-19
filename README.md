@@ -5,11 +5,8 @@
 
 # Installation for normal Android User
 
-Download and open apk file using a tablet device
+[Download and open apk](https://drive.google.com/file/d/1WM-0--e5payuGTS3tgHc5Fl4CuefL9pi/view?usp=sharing) file using a tablet device
 
-```
-https://drive.google.com/file/d/1WM-0--e5payuGTS3tgHc5Fl4CuefL9pi/view?usp=sharing
-```
 This app is not available for IOS users
 
 
