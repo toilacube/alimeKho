@@ -122,16 +122,15 @@ Open Android Studio, from the Android Studio Welcome screen, select **Open** and
 6. Click **Run** ![image](https://github.com/toilacube/alimeKho/assets/95525386/dc3e8580-6866-48bd-a744-1d12ec564974) 
 
 7. Username and password for Login screen:
-```
+
   Username1: `nguyenvan1`
   
   Password1: `123456`
-```
-```
+
   Username2: `lethithu2`
   
   Password2: `abcdef`
-```
+
 
 
 
