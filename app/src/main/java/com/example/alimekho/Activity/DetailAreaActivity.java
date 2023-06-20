@@ -1,6 +1,9 @@
 package com.example.alimekho.Activity;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +19,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.alimekho.Adapter.DetailAreaAdapter;
+import com.example.alimekho.DataBase.SQLServerConnection;
 import com.example.alimekho.Model.Area;
+import com.example.alimekho.Model.loSanPham;
 import com.example.alimekho.R;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailAreaActivity extends AppCompatActivity {
     Area area = new Area();
@@ -30,6 +37,7 @@ public class DetailAreaActivity extends AppCompatActivity {
     DetailAreaAdapter adapter;
     CheckBox checkBox;
     ImageView imvDelete;
+    SQLServerConnection db = new SQLServerConnection();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +95,25 @@ public class DetailAreaActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                List<loSanPham> list =  adapter.getSelectedLo();
+                for(loSanPham i: list){
+                    String query = "delete distribute where batch_id = ?";
+                    PreparedStatement stm = null;
+                    try {
+                        stm = db.getConnection().prepareStatement(query);
+                        stm.setString(1, i.getMaLo());
+                        stm.executeUpdate();
+                        ArrayList<loSanPham> temp = area.getListLoSP();
+                        temp.remove(i);
+                        area.setListLoSP(temp);
+                        adapter.setListLoSP(temp);
+                    } catch (SQLException e) {
+                        Log.e(TAG, e.toString());
+                    }
+
+                }
+
                 dialog.dismiss();
             }
         });

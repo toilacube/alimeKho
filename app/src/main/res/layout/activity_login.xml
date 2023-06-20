@@ -41,12 +41,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="80dp"
                 app:cardCornerRadius="15dp"
+                android:elevation="0dp"
                 >
                 <ImageView
-                    android:layout_width="130dp"
+                    android:layout_width="160dp"
                     android:layout_height="130dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/cubealime1" />
+                    android:src="@drawable/img_logo" />
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textfield.TextInputLayout

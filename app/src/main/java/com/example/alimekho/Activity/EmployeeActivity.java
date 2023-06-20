@@ -212,6 +212,8 @@ SQLServerConnection db = new SQLServerConnection();
                 String pattern = "dd/MM/yyyy";
                 DateFormat df = new SimpleDateFormat(pattern);
                 emp.setDayOfBirth(df.format(rs.getDate("birthday")));
+                emp.setNgayVaoLam(df.format(rs.getDate("start_day")));
+                emp.setAddress((rs.getString("address")));
                 emp.setIdentify(rs.getString("indentify"));
                 emp.setPhoneNumber(rs.getString("phone"));
                 emp.setTitle(Integer.toString(rs.getInt("role")));

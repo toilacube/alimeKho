@@ -133,7 +133,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:paddingHorizontal="10dp"
-            android:text="Mã địa điểm"
+            android:text="Mã phiếu kiểm"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/black"/>

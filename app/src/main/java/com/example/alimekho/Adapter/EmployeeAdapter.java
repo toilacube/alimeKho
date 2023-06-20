@@ -150,6 +150,14 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinner.setAdapter(adapter);
 
+                    edtTen.setText(employee.getName());
+                    edtNgayVaoLam.setText(employee.getNgayVaoLam());
+                    edtNgaySinh.setText(employee.getDayOfBirth());
+                    edtCCCD.setText(employee.getIdentify());
+                    edtSDT.setText(employee.getPhoneNumber());
+                    edtAddress.setText(employee.getAddress());
+                    spinner.setSelection(Integer.parseInt(employee.getTitle()));
+
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

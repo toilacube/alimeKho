@@ -156,6 +156,7 @@
                     android:layout_gravity="center"
                     android:background="#CEEDE9EB"
                     android:orientation="horizontal"
+                    android:gravity="center"
                     android:padding="5dp"
                     android:weightSum="22">
 
@@ -164,6 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:text="Mã lô sản phẩm"
+                        android:gravity="center"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -183,6 +185,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="4"
                         android:text="Nhà cung cấp"
+                        android:gravity="center"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -192,6 +195,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="4"
                         android:text="Số lượng "
+                        android:gravity="center"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                     <LinearLayout

@@ -24,6 +24,11 @@ public class DetailAreaAdapter extends RecyclerView.Adapter<DetailAreaAdapter.De
     boolean isSelectedAll = false;
     ArrayList<loSanPham> listChecked = new ArrayList<>();
 
+    public void setListLoSP(ArrayList<loSanPham> listLoSP) {
+        this.listLoSP = listLoSP;
+        notifyDataSetChanged();
+    }
+
     public DetailAreaAdapter(Context context, ArrayList<loSanPham> listLoSP) {
         this.context = context;
         this.listLoSP = listLoSP;

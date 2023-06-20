@@ -2,6 +2,7 @@ package com.example.alimekho.Activity;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -61,7 +62,7 @@ public class AddBatchToLocatonActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(getApplicationContext(), AreaActivity.class));
             }
         });
 
@@ -70,7 +71,7 @@ public class AddBatchToLocatonActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Area area = areaAdapter.getSelectedArea();
                 ArrayList <loSanPham> loSanPhams = batchAdapter.getSelectedLo();
-                ArrayList <loSanPham> templist = loSanPhams;
+                ArrayList <loSanPham> templist = new ArrayList<>(loSanPhams);
                 for(loSanPham lo: loSanPhams){
                     String query = "exec pro_them_distribute @location_id = ?, @batch_id = ?;";
                     try {
